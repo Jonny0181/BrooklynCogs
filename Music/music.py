@@ -419,7 +419,7 @@ class Music:
 					time = self.players[server.id].time_played
 					time_string = format(time)
 					progress = int(10 * time / song["length-seconds"])
-				progress = "".join("\⚫" if i < progress else "\⚪" for i in range(20)) + " [ "+ time_string +" | " + queue[0]["length"] + " ]" if progress != None else ""
+				progress = "".join("▮" if i < progress else "▯" for i in range(20)) + " [ "+ time_string +" | " + queue[0]["length"] + " ]" if progress != None else ""
 				data = discord.Embed(description="{}\n{}\n{}".format(song["title"], progress, song["url"]), color=author.color)
 				if "thumbnail" in song:
 					data.set_thumbnail(url=song["thumbnail"])
