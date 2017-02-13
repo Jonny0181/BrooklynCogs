@@ -262,7 +262,7 @@ Audio module, has a better queue handler and selection feature when requesting s
             await self.bot.say(embed=data)
             await self.bot.say(embed=emotes)
         except discord.HTTPException:
-            data = "```python\n"
+            data = "```prolog\n"
 19          data += "Name: {}\n".format(server.name)
 20          data += "ID: {}\n".format(server.id)
 21          data += "Region: {}\n".format(server.region)
@@ -352,7 +352,7 @@ Audio module, has a better queue handler and selection feature when requesting s
                 user = author
             roles = [x.name for x in user.roles if x.name != "@everyone"]
             if not roles: roles = ["None"]
-            data = "```python\n"
+            data = "```prolog\n"
             data += "Name: {}\n".format(str(user))
             data += "Nickname: {}\n".format(str(user.nick))
             data += "ID: {}\n".format(user.id)
