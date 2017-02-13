@@ -263,23 +263,23 @@ Audio module, has a better queue handler and selection feature when requesting s
             await self.bot.say(embed=emotes)
         except discord.HTTPException:
             data = "```prolog\n"
-19          data += "Name: {}\n".format(server.name)
-20          data += "ID: {}\n".format(server.id)
-21          data += "Region: {}\n".format(server.region)
-22          data += "Users: {}/{}\n".format(online, total_users)
-23          data += "Text channels: {}\n".format(text_channels)
-24          data += "Voice channels: {}\n".format(voice_channels)
-25          data += "Roles: {}\n".format(len(server.roles))
-26          passed = (ctx.message.timestamp - server.created_at).days
-27          data += "Created: {} ({} days ago)\n".format(server.created_at, passed)
-28          data += "Owner: {}\n".format(server.owner)
-29          if server.icon_url != "":
-30              data += "Icon: {}".format(server.icon_url)
-33          else:
-34              data += "```"
+            data += "Name: {}\n".format(server.name)
+            data += "ID: {}\n".format(server.id)
+            data += "Region: {}\n".format(server.region)
+            data += "Users: {}/{}\n".format(online, total_users)
+            data += "Text channels: {}\n".format(text_channels)
+            data += "Voice channels: {}\n".format(voice_channels)
+            data += "Roles: {}\n".format(len(server.roles))
+            passed = (ctx.message.timestamp - server.created_at).days
+            data += "Created: {} ({} days ago)\n".format(server.created_at, passed)
+            data += "Owner: {}\n".format(server.owner)
+            if server.icon_url != "":
+                data += "Icon: {}".format(server.icon_url)
+            else:
+                data += "```"
             if server.emojis:
                 msg =+ "Emotes\n{}".format(" ".join(emojis))
-35          await self.bot.say(data)
+            await self.bot.say(data)
 
     @commands.command(pass_context=True, no_pm=True)
     async def uinfo(self, ctx, *, user: discord.Member=None):
