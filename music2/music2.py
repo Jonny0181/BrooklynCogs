@@ -8,6 +8,7 @@ import threading
 import asyncio
 import random
 import aiohttp
+import copy
 import json
 import re
 import os
