@@ -339,17 +339,18 @@ class Music:
 		
 		self.queue[server.id].insert(position, song)
 		
-        def _player_count(self):
-            count = 0
-            queue = copy.deepcopy(self.queue)
-            for sid in queue:
-                server = self.bot.get_server(sid)
-                try:
-                    vc = self.voice_client(server)
-                    if vc.audio_player.is_playing():
-                        count += 1
-                except:
-                    pass
+	def _player_count(self):
+		count = 0
+		queue = copy.deepcopy(self.queue)
+		for sid in queue:
+			server = self.bot.get_server(sid)
+			try:
+				vc = self.voice_client(server)
+				if vc.audio_player.is_playing():
+					count += 1
+			except:
+				pass
+		return count
 		
         @commands.command(name="mstats")
         async def audiostat_servers(self):
