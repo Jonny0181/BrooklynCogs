@@ -351,13 +351,13 @@ class Music:
                 except:
                     pass
 		
-        @audiostat.command(name="servers")
+        @commands.command(name="mstats")
         async def audiostat_servers(self):
             """Number of servers currently playing."""
 
             count = self._player_count()
 
-            await self.bot.say("Currently playing music in {} servers.".format(
+            await self.bot.say("Playing music in {} servers.".format(
             count))
 	
 	@commands.command(pass_context=True)
