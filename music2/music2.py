@@ -353,9 +353,8 @@ class Music:
 		return count
 		
 	@commands.command(name="mstats")
- 	async def audiostat_servers(self):
+	async def audiostat_servers(self):
 		"""Number of servers currently playing."""
-
 		count = self._player_count()
 		await self.bot.say("Playing music in {} servers.".format(
             count))
