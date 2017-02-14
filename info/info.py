@@ -56,7 +56,8 @@ b!discr | Search for other users that have a certain discriminator.
 b!feed | Allows you to enable or disable announcement updates from Brooklyn.
 
 **Updated:**
-Audio module, has a better queue handler and selection feature when requesting songs.""")
+`1)` Audio module.
+Changed tha audio module from the reaction player. That one seems to have been crashing on you guys a lot lately. So I have updated the audio to the one we had before but I have changed the queue handler and we shuold be good to go! If you have any problems with the audio module please come by the support server and let me know!""")
         e.set_thumbnail(url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
         await self.bot.say(embed=e)
 
