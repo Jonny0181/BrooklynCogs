@@ -280,6 +280,7 @@ Audio module, has a better queue handler and selection feature when requesting s
             data += "Owner: {}\n".format(server.owner)
             if server.icon_url != "":
                 data += "Icon: {}".format(server.icon_url)
+                data += "```"
             else:
                 data += "```"
             if server.emojis:
