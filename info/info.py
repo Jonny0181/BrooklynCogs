@@ -262,7 +262,7 @@ Audio module, has a better queue handler and selection feature when requesting s
             await self.bot.say(embed=data)
             await self.bot.say(embed=emotes)
         except discord.HTTPException:
-	    online = str(len([m.status for m in server.members if str(m.status) == "online" or str(m.status) == "idle"]))
+            online = str(len([m.status for m in server.members if str(m.status) == "online" or str(m.status) == "idle"]))
 	    server = ctx.message.server
             total_users = str(len(server.members))
             text_channels = len([x for x in server.channels if str(x.type) == "text"])
