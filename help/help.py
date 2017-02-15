@@ -5,16 +5,16 @@ a=discord.Embed(title="About Brooklyn", description="""Brooklyn - A fun multipur
 a.set_thumbnail(url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
 
 au=discord.Embed(title="Audio Commands:", description="""
-  **np  :**            Info about the current song.
-  **pause  :**         Pauses the current song, `[p]resume` to continue.
-  **play  :**          Plays a link / searches and play
-  **mixtape  :**       Mixtape management/control.
-  **playlist  :**      Shows the current playlist.
-  **resume  :**        Resumes a paused song or playlist
-  **skip  :**          Skips a song, using the set threshold if the requester isn't
-  **np  :**            Info about the current song.
-  **stop  :**          Stops a currently playing music and disconnects from v
-  **volume  :**        Sets the volume (0 - 100)""", colour=discord.Colour.red())
+  **np  :**           Info about the current song.
+  **pause  :**        Pauses the current song, `[p]resume` to continue.
+  **play  :**         Plays a link / searches and play
+  **playlist  :**     Playlist management/control.
+  **queue  :**        Shows the current queue.
+  **resume  :**       Resumes a paused song or playlist
+  **skip  :**         Skips a song, using the set threshold if the requester isn't
+  **np  :**           Info about the current song.
+  **stop  :**         Stops a currently playing music and disconnects from v
+  **volume  :**       Sets the volume (0 - 100)""", colour=discord.Colour.red())
 au.set_thumbnail(url="https://images-ext-2.discordapp.net/eyJ1cmwiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vZFVzZm5EUUpadDJ2OWQxbjJ0V3NQWmlZTExtT1FranYzUjRyYnNUdzgzbFlHbzJjUWU4dTJ6LTBZUVB4bW1jZ2tMOGQ9dzMwMCJ9.vpoypHNhN9RNUM_NgLm89xQvjB0?width=80&height=80")
 
 mod=discord.Embed(title="Moderation Commands:", description="""
