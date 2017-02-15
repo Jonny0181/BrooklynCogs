@@ -286,7 +286,11 @@ class Info:
             else:
                 data += "```"
             if server.emojis:
-                msg =+ "Emotes\n{}".format(" ".join(emojis))
+                emojis =  []
+                while x < len([r for r in ctx.message.server.emojis]) -1:
+                    x = x + 1
+                    emojis.append("<:{}:{}>".format([r.name for r in ctx.message.server.emojis][x], [r.id for r in ctx.message.server.emojis][x]))
+                msg += "Emotes\n{}".format(" ".join(emojis))
             await self.bot.say(data)
 
     @commands.command(pass_context=True, no_pm=True)
