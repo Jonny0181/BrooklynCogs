@@ -360,7 +360,7 @@ class Music:
 		await self.bot.say("Playing music in {} servers.".format(
             count))
 	
-	@commands.command(pass_context=True)
+	@commands.command(pass_context=True, aliases=["play","queue"])
 	async def q(self, ctx, *, search=None):
 		"""Queue a song or playlist, defaults to queue."""
 		server = ctx.message.server
