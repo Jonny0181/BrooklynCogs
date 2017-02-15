@@ -90,10 +90,20 @@ class Help:
     @commands.command(pass_context=True)
     async def help(self, ctx):
         """Channel help message."""
-        e=discord.Embed(title="Brooklyn Help", description="Here is a little bit of help with Brooklyn!\n\n**1)** To get all of Brooklyn's commands you may type `b!commands`.\n**2)** For Brooklyn's support server you may join [here.](https://discord.gg/fmuvSX9)\n**3)** For updates on Brooklyn you may join [here.](https://discord.gg/weDWNJm)\n**4)** For changelog and more type `b!info`.\n**5)** You may type the module as a command and all the commands in that module will be pasted out in a message. Example: `b!mod`\n**6)** And for any comments or concerns please use the `b!contact` commands.\n\nThank you for reading this and have a great day!", colour=discord.Colour.blue())
-        e.set_thumbnail(url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
-        await self.bot.say(embed=e)
-
+        try:
+            e=discord.Embed(title="Brooklyn Help", description="Here is a little bit of help with Brooklyn!\n\n**1)** To get all of Brooklyn's commands you may type `b!commands`.\n**2)** For Brooklyn's support server you may join [here.](https://discord.gg/fmuvSX9)\n**3)** For updates on Brooklyn you may join [here.](https://discord.gg/weDWNJm)\n**4)** For changelog and more type `b!info`.\n**5)** You may type the module as a command and all the commands in that module will be pasted out in a message. Example: `b!mod`\n**6)** And for any comments or concerns please use the `b!contact` commands.\n\nThank you for reading this and have a great day!", colour=discord.Colour.blue())
+            e.set_thumbnail(url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
+            await self.bot.say(embed=e)
+        except:
+            msg = "__**Brooklyn Help**__\n\n"
+            msg += "**1)** To get all of Brooklyn's commands you may type `b!commands`.\n"
+            msg += "**2)** For changelog and more type `b!info`.\n"
+            msg += "**3)** You may type the module as a command. Example: `b!mod`\n"
+            msg += "**4)** And for any comments or concerns please use the b!contact commands.\n\n"
+            msg += "__**Thank you for reading this and have a great day!**__\n\n"
+            msg += "`Disclaimer:` This is the old embed, you're only seeing this because I do not have embed perms. If you want to see the new help message please give me embed perms."
+            await self.bot.say(msg)
+            
     @commands.command(pass_context=True, no_pm=True)
     async def help2(self, ctx):
         await self.bot.say(":warning: | Some menu items may not work for certain users due to permission requirements.")
