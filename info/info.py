@@ -268,7 +268,7 @@ class Info:
             server = ctx.message.server
             total_users = str(len(server.members))
             text_channels = len([x for x in server.channels if str(x.type) == "text"])
-            voice_channels = len(server.channels) - text_channel
+            voice_channels = len(server.channels) - text_channels
             list = [e for e in server.emojis if not e.managed]
             emoji = ''
             for emote in list:
