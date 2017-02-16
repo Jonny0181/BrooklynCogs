@@ -33,7 +33,7 @@ class Info:
                         if not member.name in dis:
                             dis.append(member.name)
             em = discord.Embed(title="Scraped Discriminators\n", description="\n".join(dis),color=0xff5555, inline=True)
-            await self.bot.send_message(ctx.message.channel, embed=em)
+            await self.bot.say(embed=em)
         except Exception as e:
             await self.bot.say(wrap.format(type(e).__name__ + ': ' + str(e)))
     
@@ -44,7 +44,7 @@ class Info:
         owner = "Yσυηg Sιηαтяα™#5484"
         servers = len(self.bot.servers)
         members = len([e.name for e in self.bot.get_all_members()])
-        e = discord.Embed(description="Brooklyn - A multi funtion Discord bot with music, moderation, and utility features.", colour=discord.Colour.blue())
+        e = discord.Embed(description="Brooklyn - A multi function Discord bot with music, moderation, and utility features.", colour=discord.Colour.blue())
         e.add_field(name="Live Information:", value="Owner: {}\nPrefix: {}\nServers: {}\nTotal Users: {}\nTotal Commands: {}\nTotal Modules: {}\nApi Version: {}".format(owner, prefix, servers, members, len(self.bot.commands), len(self.bot.cogs), discord.__version__))
         e.add_field(name="Links:", value="[Support Server.](https://discord.gg/ETqpvsa)\n[Invite url.](https://discordapp.com/oauth2/authorize?client_id=226132382846156800&permissions=-1&scope=bot)")
         e.set_author(name="Brooklyn#6591", icon_url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
@@ -60,7 +60,18 @@ class Info:
 
 `2)` Server Hosting. | I have moved Brooklyn to a faster and better server so we should not have very many problems anymore. If you experience any really bad lag or anything please let me know!""")
         e.set_thumbnail(url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
-        await self.bot.say(embed=e)
+        try:
+            await self.bot.say(embed=e)
+        except:
+            prefix = ctx.prefix
+	    owner = "Yσυηg Sιηαтяα™#5484"
+            servers = len(self.bot.servers)
+            members = len([e.name for e in bot.get_all_members()])
+            channels = len([e.name for e in bot.get_all_channels()])
+            commands = len(self.bot.commands)
+            modules = len(self.bot.cogs)
+            data = """**Brooklyn - A multi function Discord bot with music, moderation, and utility features.**\n\n**Live Information:**\nOwner: {}\nPrefix: {}\nServers: {}\nTotal Users: {}\nTotal Channels: {}\nTotal Commands: {}\nTotal Modules: {}\n\n**Links:**\nOfficial Server: https://discord.gg/ETqpvsa\nInvite Url: https://discordapp.com/oauth2/authorize?client_id=226132382846156800&permissions=-1&scope=bot\n**Changelog:**\n**Added:**\n`1)` b!hackban | Allows you to ban a user that's not in the server.\n`2)` b!unban | Lets you unban a user from your server.\n`3)` b!pin | Allows you to pin a message\n`4)` b!discr | Search for other users that have a certain discriminator.\n`5)` b!feed | Allows you to enable or disable announcement updates from Brooklyn.\n**Updated:**\n`1)` Audio module. | So I have updated the audio to the one we had before but I have changed the queue handler and we should be good to go! Just if you have any problems with the audio module please come by the support server and let me know!\n`2)` Server Hosting. | I have moved Brooklyn to a faster and better server so we should not have very many problems anymore. If you experience any really bad lag or anything please let me know!""".format(owner, prefix, servers, users, channels, commands, modules)
+            self.bot.say(data)
 
     @commands.command(pass_context=True)
     async def ping(self, ctx):
