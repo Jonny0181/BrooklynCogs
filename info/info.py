@@ -268,7 +268,11 @@ class Info:
             server = ctx.message.server
             total_users = str(len(server.members))
             text_channels = len([x for x in server.channels if str(x.type) == "text"])
-            voice_channels = len(server.channels) - text_channels
+            voice_channels = len(server.channels) - text_channel
+            list = [e for e in server.emojis if not e.managed]
+            emoji = ''
+            for emote in list:
+                emoji += "<:{0.name}:{0.id}> ".format(emote)
             data = "```prolog\n"
             data += "Name: {}\n".format(server.name)
             data += "ID: {}\n".format(server.id)
@@ -290,7 +294,7 @@ class Info:
                 while x < len([r for r in ctx.message.server.emojis]) -1:
                     x = x + 1
                     emojis.append("<:{}:{}>".format([r.name for r in ctx.message.server.emojis][x], [r.id for r in ctx.message.server.emojis][x]))
-                data += "Emotes\n{}".format(" ".join(emojis))
+                data += "Emotes\n{}".format(emoji)
             await self.bot.say(data)
 
     @commands.command(pass_context=True, no_pm=True)
