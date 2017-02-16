@@ -62,7 +62,7 @@ class Info:
         e.set_thumbnail(url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
         try:
             await self.bot.say(embed=e)
-        except:
+        except discord.HTTPException:
             prefix = ctx.prefix
             owner = "Yσυηg Sιηαтяα™#5484"
             servers = len(self.bot.servers)
