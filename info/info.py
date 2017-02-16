@@ -64,7 +64,7 @@ class Info:
             await self.bot.say(embed=e)
         except:
             prefix = ctx.prefix
-	    owner = "Yσυηg Sιηαтяα™#5484"
+            owner = "Yσυηg Sιηαтяα™#5484"
             servers = len(self.bot.servers)
             members = len([e.name for e in bot.get_all_members()])
             channels = len([e.name for e in bot.get_all_channels()])
