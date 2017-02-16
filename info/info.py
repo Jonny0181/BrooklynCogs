@@ -61,7 +61,7 @@ class Info:
 `2)` Server Hosting. | I have moved Brooklyn to a faster and better server so we should not have very many problems anymore. If you experience any really bad lag or anything please let me know!""")
         e.set_thumbnail(url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
         try:
-            await self.bot.say(embed=e)
+            await self.bot.whisper(embed=e)
         except discord.HTTPException:
             prefix = ctx.prefix
             owner = "Yσυηg Sιηαтяα™#5484"
@@ -90,7 +90,7 @@ class Info:
             data += "**Updated:**\n"
             data += "`1)` Audio module. | So I have updated the audio to the one we had before but I have changed the queue handler and we should be good to go! Just if you have any problems with the audio module please come by the support server and let me know!\n"
             data += "`2)` Server Hosting. | I have moved Brooklyn to a faster and better server so we should not have very many problems anymore. If you experience any really bad lag or anything please let me know!"
-            await self.bot.say(data)
+            await self.bot.whisper(data)
 
     @commands.command(pass_context=True)
     async def ping(self, ctx):
