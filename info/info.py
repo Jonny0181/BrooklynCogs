@@ -66,7 +66,7 @@ class Info:
             prefix = ctx.prefix
             owner = "Yσυηg Sιηαтяα™#5484"
             servers = len(self.bot.servers)
-            members = len([e.name for e in self.bot.get_all_members()])
+            users = len([e.name for e in self.bot.get_all_members()])
             channels = len([e.name for e in self.bot.get_all_channels()])
             commands = len(self.bot.commands)
             modules = len(self.bot.cogs)
