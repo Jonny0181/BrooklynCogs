@@ -68,8 +68,6 @@ class Info:
             servers = len(self.bot.servers)
             users = len([e.name for e in self.bot.get_all_members()])
             channels = len([e.name for e in self.bot.get_all_channels()])
-            commands = len(self.bot.commands)
-            modules = len(self.bot.cogs)
             data = "**Brooklyn - A multi function Discord bot with music, moderation, and utility features.**\n\n"
             data += "**Live Information:**\n"
             data += "Owner: {}\n".format(owner)
@@ -77,8 +75,8 @@ class Info:
             data += "Servers: {}\n".format(servers)
             data += "Total Users: {}\n".format(users)
             data += "Total Channels: {}\n".format(channels)
-            data += "Total Commands: {}\n".format(len(bot.commands))
-            data += "Total Modules: {}\n\n".format(len(bot.cogs))
+            data += "Total Commands: {}\n".format(len(self.bot.commands))
+            data += "Total Modules: {}\n\n".format(len(self.bot.cogs))
             data += "**Links:**\n"
             data += "Official Server: https://discord.gg/ETqpvsa\n"
             data += "Invite Url: https://discordapp.com/oauth2/authorize?client_id=226132382846156800&permissions=-1&scope=bot\n\n"
