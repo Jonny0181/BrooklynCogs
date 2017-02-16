@@ -70,7 +70,29 @@ class Info:
             channels = len([e.name for e in self.bot.get_all_channels()])
             commands = len(self.bot.commands)
             modules = len(self.bot.cogs)
-            self.bot.say("**Brooklyn - A multi function Discord bot with music, moderation, and utility features.**\n\n**Live Information:**\nOwner: {}\nPrefix: {}\nServers: {}\nTotal Users: {}\nTotal Channels: {}\nTotal Commands: {}\nTotal Modules: {}\n\n**Links:**\nOfficial Server: https://discord.gg/ETqpvsa\nInvite Url: https://discordapp.com/oauth2/authorize?client_id=226132382846156800&permissions=-1&scope=bot\n**Changelog:**\n**Added:**\n`1)` b!hackban | Allows you to ban a user that's not in the server.\n`2)` b!unban | Lets you unban a user from your server.\n`3)` b!pin | Allows you to pin a message\n`4)` b!discr | Search for other users that have a certain discriminator.\n`5)` b!feed | Allows you to enable or disable announcement updates from Brooklyn.\n**Updated:**\n`1)` Audio module. | So I have updated the audio to the one we had before but I have changed the queue handler and we should be good to go! Just if you have any problems with the audio module please come by the support server and let me know!\n`2)` Server Hosting. | I have moved Brooklyn to a faster and better server so we should not have very many problems anymore. If you experience any really bad lag or anything please let me know!".format(owner, prefix, servers, users, channels, commands, modules))
+            data = "**Brooklyn - A multi function Discord bot with music, moderation, and utility features.**\n\n"
+            data += "**Live Information:**\n"
+            data += "Owner: {}\n".format(owner)
+            data += "Prefix: {}\n".format(prefix)
+            data += "Servers: {}\n".format(servers)
+            data += "Total Users: {}\n".format(users)
+            data += "Total Channels: {}\n".format(channels)
+            data += "Total Commands: {}\n".format(len(bot.commands))
+            data += "Total Modules: {}\n\n".format(len(bot.cogs))
+            data += "**Links:**\n"
+            data += "Official Server: https://discord.gg/ETqpvsa\n"
+            data += "Invite Url: https://discordapp.com/oauth2/authorize?client_id=226132382846156800&permissions=-1&scope=bot\n\n"
+            data += "**Changelog:**\n\n"
+            data += "**Added:**\n"
+            data += "`1)` b!hackban | Allows you to ban a user that's not in the server.\n"
+            data += "`2)` b!unban | Lets you unban a user from your server.\n"
+            data += "`3)` b!pin | Allows you to pin a message\n"
+            data += "`4)` b!discr | Search for other users that have a certain discriminator.\n"
+            data += "`5)` b!feed | Allows you to enable or disable announcement updates from Brooklyn.\n\n"
+            data += "**Updated:**\n"
+            data += "`1)` Audio module. | So I have updated the audio to the one we had before but I have changed the queue handler and we should be good to go! Just if you have any problems with the audio module please come by the support server and let me know!\n"
+            data += "`2)` Server Hosting. | I have moved Brooklyn to a faster and better server so we should not have very many problems anymore. If you experience any really bad lag or anything please let me know!"
+            await self.bot.say(data)
 
     @commands.command(pass_context=True)
     async def ping(self, ctx):
