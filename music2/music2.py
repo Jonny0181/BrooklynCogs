@@ -566,7 +566,6 @@ class Music:
 			await send_cmd_help(ctx)
 	
 	@commands.command(pass_context=True, name="volume")
-	@checks.mod_or_permissions()
 	async def audioset_volume(self, ctx, volume: int=None):
 		"""Sets the volume (0 - 100)
 		Note: volume may be set up to 200 but you may experience clipping."""
