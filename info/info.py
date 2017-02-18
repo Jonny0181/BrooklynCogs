@@ -121,7 +121,7 @@ class Info:
     async def announce(self, ctx, message : str):
         """Does what it says on the tin"""
         failedservers = []
-        blockedservers = ['110373943822540800', '133049272517001216', '267855028914618369', '209814152288403457']
+        blockedservers = ['110373943822540800', '133049272517001216', '267855028914618369', '209814152288403457', '234361176157323265', '246666725448351746']
         for s in self.bot.servers:
             if s.id in blockedservers:
                 continue
@@ -145,7 +145,7 @@ class Info:
         """Disables announcement feed for your server!"""
         server = ctx.message.server
         owner = discord.utils.get(self.bot.get_all_members(), id="146040787891781632")
-        message = "{} wants to enable announcement feed in their server! Here is the id to the server! Id: `{}`."
+        message = "{} wants to disable announcement feed in their server! Here is the id to the server! Id: `{}`."
         await self.bot.send_message(owner, message.format(server.name, server.id))
         await self.bot.say("Disabled announcement feed for this server, sorry for the previous announcements!")
 
