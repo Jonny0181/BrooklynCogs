@@ -121,7 +121,7 @@ class Info:
     async def announce(self, ctx, message : str):
         """Does what it says on the tin"""
         failedservers = []
-        blockedservers = ['110373943822540800', '133049272517001216', '267855028914618369', '209814152288403457', '234361176157323265', '246666725448351746']
+        blockedservers = ['110373943822540800', '133049272517001216', '267855028914618369', '209814152288403457', '234361176157323265', '246666725448351746', '277303282827788289']
         for s in self.bot.servers:
             if s.id in blockedservers:
                 continue
