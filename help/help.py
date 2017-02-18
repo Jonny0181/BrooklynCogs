@@ -63,13 +63,13 @@ class Help:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command(pass_context=True)
-    async def audio(self, ctx):
-        """Sends Audio help message."""
-        channel = ctx.message.channel
-        author = ctx.message.author
-        destination = channel
-        await self.bot.send_message(destination, embed=au)
+    #@commands.command(pass_context=True)
+    #async def audio(self, ctx):
+        #"""Sends Audio help message."""
+        #channel = ctx.message.channel
+        #author = ctx.message.author
+        #destination = channel
+        #await self.bot.send_message(destination, embed=au)
                 
     @commands.command(pass_context=True)
     async def mod(self, ctx):
@@ -145,7 +145,7 @@ class Help:
         author = ctx.message.author
         destination = author
         await self.bot.send_message(destination, embed=a)
-        await self.bot.send_message(destination, embed=au)
+        #await self.bot.send_message(destination, embed=au)
         await self.bot.send_message(destination, embed=mod)
         await self.bot.send_message(destination, embed=info)
 
