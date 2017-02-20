@@ -37,6 +37,21 @@ class Info:
         except Exception as e:
             await self.bot.say(wrap.format(type(e).__name__ + ': ' + str(e)))
 	
+    @commands.command(pass_context=True)
+    async def banlist(self, ctx):
+        """Displays the server's banlist"""
+        try:
+            banlist = await self.bot.get_bans(ctx.message.server)
+        except discord.errors.Forbidden:
+            await self.bot.say("I do not have the `Ban Members` permission")
+            return
+        bancount = len(banlist)
+        if bancount == 0:
+            banlist = "No users are banned from this server"
+        else:
+            banlist = ", ".join(map(str, banlist))
+        await self.bot.say("Total bans: `{}`\n```{}```".format(bancount, banlist))
+	
     @commands.command()
     async def musicbot(self):
         """Invite to Discord Radio."""
