@@ -13,13 +13,13 @@ class VoiceEntry:
         self.player = player
 
     def __str__(self):
-        string = "**{}** requested by `{}`".format(self.player.title, self.requester.display_name)
+        string = "**{}** requested by **{}**".format(self.player.title, self.requester.display_name)
         duration = self.player.duration
         if duration:
             m, s = divmod(duration, 60)
             h, m = divmod(m, 60)
             length = "%02d:%02d:%02d" % (h, m, s)
-            string = "{} [`{}`]".format(string, length)
+            string = "{} [{}]".format(string, length)
         return string
 
 
@@ -179,38 +179,7 @@ class Music:
         if not state.is_playing():
             await self.bot.say("Nothing is playing!")
             return
-        voter = ctx.message.author
-        mod_role_name = read_data_entry(ctx.message.server.id, "mod-role")
-        mod = discord.utils.get(voter.roles, name=mod_role_name)
-        if voter == state.current.requester:
-            await self.bot.say("Requester requested to skip the song, skipping song...")
-            state.skip()
-        elif mod:
-            await self.bot.say("Server moderator requested to skip the song, skipping song...")
-            state.skip()
-        elif voter == ctx.message.server.owner:
-            await self.bot.say("Server owner requested to skip the song, skipping song...")
-            state.skip()
-        elif checks.is_dev_check(ctx.message.author):
-            await self.bot.say("Bot developer requested to skip the song, skipping song...")
-            state.skip()
-        elif voter.id not in state.skip_votes:
-            votes_needed = 3
-            members = []
-            for member in state.voice.channel.voice_members:
-                if not member.bot:
-                    members.append(member)
-            if len(members) < 3:
-                votes_needed = len(members)
-            state.skip_votes.add(voter.id)
-            total_votes = len(state.skip_votes)
-            if total_votes >= votes_needed:
-                await self.bot.say("Skip vote passed, skipping song...")
-                state.skip()
-            else:
-                await self.bot.say("Skip vote added, currently at `{}/{}`".format(total_votes, votes_needed))
-        else:
-            await self.bot.say("You have already voted to skip this song.")
+        state.skip()
 
     @commands.command(pass_context=True)
     async def pause(self, ctx):
