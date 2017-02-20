@@ -2,10 +2,6 @@ import asyncio
 import traceback
 
 from discord.ext import commands
-from utils.tools import *
-from utils.mysql import *
-from utils.logger import log
-from utils import checks
 
 
 ytdl_format_options = {"outtmpl": "data/music/%(extractor)s-%(id)s-%(title)s.%(ext)s", "format": "bestaudio/best", "noplaylist": True, "nocheckcertificate": True, "extractaudio": True, 'audioformat': 'mp3', "ignoreerrors": True, "logtostderr": False, "quiet": True, "no_warnings": True, "default_search": "auto", "source_address": "0.0.0.0"}
