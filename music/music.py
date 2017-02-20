@@ -258,18 +258,5 @@ class Music:
         current_song = "Now playing: {}".format(state.current)
         await self.bot.say(current_song)
 
-    @commands.command(hidden=True, pass_context=True)
-    @checks.is_owner()
-    async def musicdebug(self, ctx, *, shit:str):
-        """This is the part where I make 20,000 typos before I get it right"""
-        # "what the fuck is with your variable naming" - EJH2
-        try:
-            rebug = eval(shit)
-            if asyncio.iscoroutine(rebug):
-                rebug = await rebug
-            await self.bot.say(py.format(rebug))
-        except Exception as damnit:
-            await self.bot.say(py.format("{}: {}".format(type(damnit).__name__, damnit)))
-
 def setup(bot):
     bot.add_cog(Music(bot))
