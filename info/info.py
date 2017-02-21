@@ -133,7 +133,7 @@ class Info:
         await asyncio.sleep(0.9)
         await self.bot.say("Editing a message....")
         msg = await self.bot.say("........")
-        time = (msg.timestamp - ctx.message.timestamp).total_seconds() * 100
+        time = (msg.timestamp - ctx.message.timestamp).total_seconds() * 10
         await self.bot.edit_message(msg, 'Acording to my calculations it took {}ms to ping to the server.'.format(round(time)))
 
     @commands.command(pass_context=True)
