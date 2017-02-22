@@ -1905,7 +1905,7 @@ class Audio:
             embed.add_field(name="Views", value=str(song.view_count))
             embed.add_field(name="Ratings", value="{}\👍 | {}\👎".format(str(song.like_count), str(song.dislike_count)))
             embed.add_field(name="Duartion", value=dur)
-            embed.add_field(name"Link", value=song.webpage_url, inline=False)
+            embed.add_field(name="Link", value=song.webpage_url, inline=False)
             embed.set_thumbnail(url=song.thumbnail)
             await self.bot.send_message(channel, embed=embed)
 
