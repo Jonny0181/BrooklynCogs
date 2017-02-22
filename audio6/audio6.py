@@ -1300,7 +1300,7 @@ class Audio:
         else:
             await self.bot.say("Nothing playing, nothing to pause.")
 
-    @commands.command(pass_context=True, no_pm=True, name="playlist")
+    @commands.command(pass_context=True, no_pm=True, name="playlist, queue")
     async def _playlist(self, ctx):
         await self._queue_list(ctx)
 
@@ -1371,7 +1371,7 @@ class Audio:
             #playlist = self._make_playlist(author, url, songlist)
             #print("playlist {} \nsonglist {}".format(playlist.playlist, songlist))
 
-            await self.bot.say("Tracks: {}. :writing_hand::skin-tone-3:".format(len(songlist)))
+            await self.bot.say("{}, **Enqueued {} songs to the playlist.**".format(author.mention, len(songlist)))
             self._extend_to_queue(server, songlist, author=author)
         else:
             if not "." in url:
@@ -1905,7 +1905,7 @@ class Audio:
             embed.add_field(name="Views", value=str(song.view_count))
             embed.add_field(name="Ratings", value="{}\👍 | {}\👎".format(str(song.like_count), str(song.dislike_count)))
             embed.add_field(name="Duartion", value=dur)
-            embed.add_field(name="Link", value=song.webpage_url, inline=False)
+            embed.add_field(name"Link", value=song.webpage_url, inline=False)
             embed.set_thumbnail(url=song.thumbnail)
             await self.bot.send_message(channel, embed=embed)
 
