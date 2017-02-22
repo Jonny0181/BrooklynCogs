@@ -1166,6 +1166,8 @@ class Audio:
         if ctx.invoked_subcommand is None:
             server = ctx.message.server
             await self._stop_and_disconnect(server)
+            embed=discord.Embed(description="**Disconnected from voice channel.**", colour=discord.Colour(value=colour))
+            await self.bot.say(embed=embed)
 
     @disconnect.command(name="all", hidden=True, no_pm=True)
     @checks.is_owner()
@@ -1175,6 +1177,41 @@ class Audio:
             vc = list(self.bot.voice_clients)[0]
             await self._stop_and_disconnect(vc.server)
         await self.bot.say("done.")
+
+    @commands.command(hidden=True, pass_context=True, no_pm=True)
+    async def joinvoice(self, ctx):
+        """Joins your voice channel"""
+        colour = ''.join([random.choice('0123456789ABCDEF') for x in range(6)])
+        colour = int(colour, 16)
+        author = ctx.message.author
+        server = ctx.message.server
+        voice_channel = author.voice_channel
+
+        #state = self.voice_states.get(server.id)
+
+        if not self.voice_connected(server):
+            try:
+                self.has_connect_perm(author, server)
+            except AuthorNotConnected:
+                await self.bot.say("You must join a voice channel before I can"
+                                   " play anything.")
+                return
+            except UnauthorizedConnect:
+                await self.bot.say("I don't have permissions to join your"
+                                   " voice channel.")
+                return
+            except UnauthorizedSpeak:
+                await self.bot.say("I don't have permissions to speak in your"
+                                   " voice channel.")
+                return
+            else:
+                await self._join_voice_channel(voice_channel)
+        else:
+            #await self.bot.move_member(self.bot.user, voice_channel)#
+            await self.voice_client(server).move_to(voice_channel)
+
+        embed = discord.Embed(description="**Connected to voice channel.**", colour=discord.Colour(value=colour))
+        await self.bot.say(embed=embed)
 
     @commands.group(pass_context=True, no_pm=True, hidden=True)
     async def local(self, ctx):
@@ -1263,8 +1300,8 @@ class Audio:
         else:
             await self.bot.say("Nothing playing, nothing to pause.")
 
-    @commands.command(pass_context=True, no_pm=True)
-    async def queue(self, ctx):
+    @commands.command(pass_context=True, no_pm=True, name="queue")
+    async def _queue(self, ctx):
         await self._queue_list(ctx)
 
     @commands.command(pass_context=True, no_pm=True)
