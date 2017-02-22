@@ -1300,7 +1300,7 @@ class Audio:
         else:
             await self.bot.say("Nothing playing, nothing to pause.")
 
-    @commands.command(pass_context=True, no_pm=True, name="playlist, queue")
+    @commands.command(pass_context=True, no_pm=True, aliases=["playlist, queue"])
     async def _playlist(self, ctx):
         await self._queue_list(ctx)
 
