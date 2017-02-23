@@ -7,14 +7,12 @@ a.set_thumbnail(url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU
 au=discord.Embed(title="Audio Commands:", description="""
   **np  :**           Info about the current song.
   **pause  :**        Pauses the current song, `[p]resume` to continue.
-  **play  :**         Plays a link / searches and play
-  **playlist  :**     Playlist management/control.
+  **play  :**         Plays a link / searches and play.
   **queue  :**        Shows the current queue.
-  **resume  :**       Resumes a paused song or playlist
-  **skip  :**         Skips a song, using the set threshold if the requester isn't
-  **np  :**           Info about the current song.
-  **stop  :**         Stops a currently playing music and disconnects from v
-  **volume  :**       Sets the volume (0 - 100)""", colour=discord.Colour.red())
+  **resume  :**       Resumes a paused song or playlist.
+  **skip  :**         Skips a song, using the set threshold if the requester isn't.
+  **stop  :**         Stops a currently playing song or playlist. 
+  **volume  :**       Sets the volume (0 - 100).""", colour=discord.Colour.red())
 au.set_thumbnail(url="https://images-ext-2.discordapp.net/eyJ1cmwiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vZFVzZm5EUUpadDJ2OWQxbjJ0V3NQWmlZTExtT1FranYzUjRyYnNUdzgzbFlHbzJjUWU4dTJ6LTBZUVB4bW1jZ2tMOGQ9dzMwMCJ9.vpoypHNhN9RNUM_NgLm89xQvjB0?width=80&height=80")
 
 mod=discord.Embed(title="Moderation Commands:", description="""
@@ -23,12 +21,12 @@ mod=discord.Embed(title="Moderation Commands:", description="""
   **botclean  :**     Removes all bot messages.
   **crole  :**        Creates a role.
   **drole  :**        Deletes an existing role.
-  **erole  :**        Edits roles settings
+  **erole  :**        Edits roles settings.
   **hackban  :**      Bans user by id, user doesn't have to be in server.
   **unban  :**        Unbans a user from the server. Uses user id.
   **kick  :**         Kicks user.
   **massmove  :**     Massmove users to another voice channel.
-  **mute  :**         Mutes user in the channel/server
+  **mute  :**         Mutes user in the channel/server.
   **prune  :**        Deletes messages.
   **removerole  :**   Removes a role from user.
   **softban  :**      Kicks user, deleting 1 day of messages.
@@ -36,26 +34,27 @@ mod=discord.Embed(title="Moderation Commands:", description="""
   **autorole  :**     Change settings for autorole.
   **antilink  :**     Antilink settings for your server.
   **pin  :**          Pin a recent message, useful on mobile.
-  **modlogset  :**    Change modlog settings
-  **modlogtoggle  :** toggle which server activity to log
-  **welcomer  :**     Welcome and leave message, with invite link.""", colour=discord.Colour.green())
+  **modlogset  :**    Change modlog settings.
+  **modlogtoggle  :** toggle which server activity to log.
+  **welcomer  :**     Welcome and leave message, with invite link.
+  **serverprefix  :** Set your own prefix for your server.""", colour=discord.Colour.green())
 mod.set_thumbnail(url="https://images-ext-2.discordapp.net/.eJwNwcEOwiAMANB_4V5oJ5ixm4l3P4E0sUOSSRpkclj27_reYfa2mcW8etfFuTGG1X37SoPeuNRSs32Ku6mmO3dOD5XqypuzfJz3M2LgCShcEPwcCSIxwSohMCNSvK5pCpgI_6zWbM4fD7EiMg.E9FwPjfhw-pCKaEMXTvoZ2-ZY-M?width=80&height=80")
 
 info=discord.Embed(title="Infomation Commands: ", description="""
   **names  :**        Show previous names/nicknames of a user
   **admins  :**       Shows mods in the server.
   **avatar  :**       Retrieves a users avatar.
-  **discr  :**        gives you farmed discrms
+  **discr  :**        Gives you farmed discrms.
   **inrole  :**       Check members in the role specified.
   **mods  :**         Shows mods in the server.
   **ping  :**         Pong.
   **roleid  :**       Gives the id of a role, must use quotes.
   **roleinfo  :**     Gives you information about a role.
-  **semotes  :**      ServerEmote List
-  **sinfo  :**        Shows servers informations
+  **semotes  :**      ServerEmote List.
+  **sinfo  :**        Shows servers informations.
   **stats  :**        Shows stats.
-  **uinfo  :**        Shows userss informations
-  **utime  :**        Shows how long the bot has been online
+  **uinfo  :**        Shows users informations
+  **utime  :**        Shows how long the bot has been online.
   **feed  :**         Enables or disables announcement feed for your server.
   **musicbot  :**     Invite link for the temp MusicBot.""", colour=discord.Colour.blue())
 info.set_thumbnail(url="https://images-ext-1.discordapp.net/eyJ1cmwiOiJodHRwczovL3VwbG9hZC53aWtpbWVkaWEub3JnL3dpa2lwZWRpYS9lbi81LzU0L0luZm9ybWF0aW9uLnBuZyJ9.xi-2ZzV_czvJDaudMrqeqOgNZ8E?width=80&height=80")
@@ -64,13 +63,13 @@ class Help:
     def __init__(self, bot):
         self.bot = bot
 
-    #@commands.command(pass_context=True)
-    #async def audio(self, ctx):
-        #"""Sends Audio help message."""
-        #channel = ctx.message.channel
-        #author = ctx.message.author
-        #destination = channel
-        #await self.bot.send_message(destination, embed=au)
+    @commands.command(pass_context=True)
+    async def audio(self, ctx):
+        """Sends Audio help message."""
+        channel = ctx.message.channel
+        author = ctx.message.author
+        destination = channel
+        await self.bot.send_message(destination, embed=au)
                 
     @commands.command(pass_context=True)
     async def mod(self, ctx):
@@ -146,7 +145,7 @@ class Help:
         author = ctx.message.author
         destination = author
         await self.bot.send_message(destination, embed=a)
-        #await self.bot.send_message(destination, embed=au)
+        await self.bot.send_message(destination, embed=au)
         await self.bot.send_message(destination, embed=mod)
         await self.bot.send_message(destination, embed=info)
 
