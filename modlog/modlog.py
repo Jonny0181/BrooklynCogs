@@ -22,12 +22,12 @@ class invitemirror:
     async def modlogtoggles(self, ctx):
         """toggle which server activity to log"""
         if ctx.invoked_subcommand is None:
-            await send_cmd_help(ctx)
+            db = fileIO(self.direct, "load")
+            await self.bot.send_cmd_help(ctx)
             try:
-                embed2 = discord.Embed(title="Current settings:", description="Edit: {}\nDelete: {}\nUser: {}\nRoles: {}\nVoice: {}\nBan: {}".format(str(db[ctx.message.server.id]['toggleedit']), str(db[ctx.message.server.id]['toggledelete']), str(db[ctx.message.server.id]['toggleuser']), str(db[ctx.message.server.id]['toggleroles']), str(db[ctx.message.server.id]['togglevoice']), str(db[ctx.message.server.id]['toggleban'])), colour=discord.Colour.blue())
-        await self.bot.say(embed=embed2)
+                await self.bot.say(embed=discord.Embed(title="Current settings:", description="Edit: {}\nDelete: {}\nUser: {}\nRoles: {}\nVoice: {}\nBan: {}".format(str(db[ctx.message.server.id]['toggleedit']), str(db[ctx.message.server.id]['toggledelete']), str(db[ctx.message.server.id]['toggleuser']), str(db[ctx.message.server.id]['toggleroles']), str(db[ctx.message.server.id]['togglevoice']), str(db[ctx.message.server.id]['toggleban']))))
             except KeyError:
-                pass
+                return
 
     @checks.admin_or_permissions(administrator=True)
     @commands.group(pass_context=True, name='modlogset', no_pm=True)
