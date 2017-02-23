@@ -12,7 +12,8 @@ au=discord.Embed(title="Audio Commands:", description="""
   **resume  :**       Resumes a paused song or playlist.
   **skip  :**         Skips a song, using the set threshold if the requester isn't.
   **stop  :**         Stops a currently playing song or playlist. 
-  **volume  :**       Sets the volume (0 - 100).""", colour=discord.Colour.red())
+  **volume  :**       Sets the volume (0 - 100).
+  **disconnect  :**   Disconnects Brooklyn from the voice channel.""", colour=discord.Colour.red())
 au.set_thumbnail(url="https://images-ext-2.discordapp.net/eyJ1cmwiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vZFVzZm5EUUpadDJ2OWQxbjJ0V3NQWmlZTExtT1FranYzUjRyYnNUdzgzbFlHbzJjUWU4dTJ6LTBZUVB4bW1jZ2tMOGQ9dzMwMCJ9.vpoypHNhN9RNUM_NgLm89xQvjB0?width=80&height=80")
 
 mod=discord.Embed(title="Moderation Commands:", description="""
