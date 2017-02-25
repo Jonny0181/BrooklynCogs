@@ -199,7 +199,7 @@ class invitemirror:
         fmt = '%H:%M:%S'
         msg = ":person_with_pouting_face::skin-tone-3: `{}` **{}'s** voice status has updated. **Channel**: {} Status: **Local**: Mute = `{}` Deaf = `{}` **Server**: Mute = `{}` Deaf = `{}`".format(time.strftime(fmt), after.name, after.voice_channel, after.self_mute, after.self_deaf, after.mute, after.deaf)
         await self.bot.send_message(server.get_channel(channel),
-                                    embed=voice)
+                                    msg)
 
     async def on_member_update(self, before, after):
         server = before.server
