@@ -181,8 +181,8 @@ class invitemirror:
         await self.bot.send_message(server.get_channel(channel),
                                     msg)
         
-    async def on_member_join(self, message, member):
-        server = message.server
+    async def on_member_join(self, member):
+        server = member.server
         db = fileIO(self.direct, 'load')
         if not server.id in db:
             return
