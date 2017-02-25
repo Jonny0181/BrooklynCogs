@@ -186,6 +186,7 @@ class invitemirror:
         channel = db[server.id]["Channel"]
         time = datetime.datetime.now()
         fmt = '%H:%M:%S'
+        msg = "`{}` **Channel**: {} **{}'s** message has been edited.\nBefore: {}\nAfter: {}".format(time.strftime(fmt), before.channel.mention, before.author, before.content, after.content)
         edit = discord.Embed(colour=discord.Colour.blue())
         edit.set_author(name="A message by {} has been edited!".format(before.author), icon_url=before.author.avatar_url)
         edit.add_field(name="Channel", value=before.channel.mention)
@@ -194,7 +195,7 @@ class invitemirror:
         edit.add_field(name="Message After", value=after.content, inline=False)
         edit.set_footer(text="User ID: {}.".format(before.author.id))
         await self.bot.send_message(server.get_channel(channel),
-                                    embed=edit)
+                                    msg)
 
     async def on_voice_state_update(self, before, after):
         server = before.server
