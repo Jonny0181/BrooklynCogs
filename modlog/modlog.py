@@ -25,7 +25,7 @@ class invitemirror:
             db = fileIO(self.direct, "load")
             await self.bot.send_cmd_help(ctx)
             try:
-                await self.bot.say(embed=discord.Embed(title="Current settings:", description="Edit: {}\nDelete: {}\nUser: {}\nRoles: {}\nVoice: {}\nBan: {}".format(str(db[ctx.message.server.id]['toggleedit']), str(db[ctx.message.server.id]['toggledelete']), str(db[ctx.message.server.id]['toggleuser']), str(db[ctx.message.server.id]['toggleroles']), str(db[ctx.message.server.id]['togglevoice']), str(db[ctx.message.server.id]['toggleban']))))
+                await self.bot.say(embed=discord.Embed(title="Current settings:", description="Edit: {}\nDelete: {}\nUser: {}\nRoles: {}\nVoice: {}\nBan: {}\nJoin: {}".format(str(db[ctx.message.server.id]['toggleedit']), str(db[ctx.message.server.id]['toggledelete']), str(db[ctx.message.server.id]['toggleuser']), str(db[ctx.message.server.id]['toggleroles']), str(db[ctx.message.server.id]['togglevoice']), str(db[ctx.message.server.id]['toggleban']), str(db[ctx.message.server.id]['join']))))
             except KeyError:
                 return
 
