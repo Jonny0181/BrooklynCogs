@@ -86,12 +86,12 @@ class invitemirror:
         """toggles notofications when a member joins the server."""
         server = ctx.message.server
         db = fileIO(self.direct, "load")
-        if db[server.id]["join"] == False:
-            db[server.id]["join"] = True
+        if db[server.id]["togglejoin"] == False:
+            db[server.id]["togglejoin"] = True
             fileIO(self.direct, "save", db)
             await self.bot.say("Enabled join logs.")
-        elif db[server.id]['join'] == True:
-            db[server.id]['join'] = False
+        elif db[server.id]['togglejoin'] == True:
+            db[server.id]['togglejoin'] = False
             fileIO(self.direct, 'save', db)
             await self.bot.say("Disabled join logs.")
 
