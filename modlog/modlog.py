@@ -9,7 +9,7 @@ from random import choice, randint
 
 inv_settings = {"Channel": None, "toggleedit": False, "toggledelete": False, "toggleuser": False, "toggleroles": False,
                 "togglevoice": False,
-                "toggleban": False}
+                "toggleban": False, "join": False, "leave": False}
 
 
 class invitemirror:
@@ -80,6 +80,20 @@ class invitemirror:
             db[server.id]["toggleedit"] = False
             fileIO(self.direct, "save", db)
             await self.bot.say("Edit messages disabled")
+            
+    @modlogtoggles.command(name='join', pass_context=True, no_pm=True)
+    async def join(self, ctx):
+        """toggles notofications when a member joins the server."""
+        server = ctx.message.server
+        db = fileIO(self.direct, "load")
+        if db[server.id]["join"] == False:
+            db[server.id]["join"] = True
+            fileIO(self.direct, "save", db)
+            await self.bot.say("Enabled join logs.")
+        elif db[server.id]['join'] == True:
+            db[server.id]['join'] = False
+            fileIO(self.direct, 'save', db)
+            await self.bot.say("Disabled join logs.")
 
     @modlogtoggles.command(name='delete', pass_context=True, no_pm=True)
     async def delete(self, ctx):
@@ -166,6 +180,20 @@ class invitemirror:
         msg = ":pencil: `{}` **Channel**: {} **{}'s** message has been deleted. Content: {}".format(time.strftime(fmt), message.channel.mention, message.author, message.content)
         await self.bot.send_message(server.get_channel(channel),
                                     msg)
+        
+    async def on_member_join(self, message, member):
+        server = message.server
+        db = fileIO(self.direct, 'load')
+        if not server.id in db:
+            return
+        if db[server.id]['join'] == False:
+            return
+        channel = db[server.id]["Channel"]
+        time = dateime.datetime.now()
+        fmt = '%H:%M:%S'
+        users = len([e.name for e in server.members])
+        msg = ":white_check_mark: `{}` **{}** join the server. Total users: {}.".format(time.strftime(fmt), member.name, users)
+        await self.bot.send_message(server.get_channel(channel), msg)
 
     async def on_message_edit(self, before, after):
         server = before.server
@@ -212,14 +240,9 @@ class invitemirror:
         time = datetime.datetime.now()
         fmt = '%H:%M:%S'
         if not before.nick == after.nick:
-            nickname=discord.Embed(colour=discord.Colour.blue())
-            nickname.set_author(name="{}'s nickname has changed!".format(before.name), icon_url=before.avatar_url)
-            nickname.add_field(name="Time", value=time.strftime(fmt))
-            nickname.add_field(name="User ID", value="{}".format(before.id))
-            nickname.add_field(name="Nick Before", value=before.nici, inline=False)
-            nickname.add_field(name="Nick After", value=after.nick, inline=False)
+            msg = ":person_with_pouting_face::skin-tone-3: `{}` **{}** changed their nickname from **{}** to **{}**".format(time.strftime(fmt), before.name, before.kick, after.nick)
             await self.bot.send_message(server.get_channel(channel),
-                                        embed=nickname)
+                                        msg)
 
     async def on_member_update(self, before, after):
         server = before.server
@@ -232,14 +255,9 @@ class invitemirror:
         time = datetime.datetime.now()
         fmt = '%H:%M:%S'
         if not before.roles == after.roles:
-            roles=discord.Embed(colour=discord.Colour.blue())
-            roles.set_author(name="{}'s roles have changed!".format(before.name), icon_url=before.avatar_url)
-            roles.add_field(name="Time", value=time.strftime(fmt))
-            roles.add_field(name="User ID", value="{}".format(before.id))
-            roles.add_field(name="Roles Before", value=", ".join([r.name for r in before.roles if r.name != "@everyone"]), inline=False)
-            roles.add_field(name="Roles After", value=", ".join([r.name for r in after.roles if r.name != "@everyone"]), inline=False)
+            msg = ":person_with_pouting_face::skin-tone-3: `{}` **{}'s** roles have changed. Old: `{}` New: `{}`".format(time.strftime(fmt), before.name, ", ".join([r.name for r in before.roles]), ", ".join([r.name for r in after.roles]))
             await self.bot.send_message(server.get_channel(channel),
-                                        embed=roles)
+                                        msg)
 
     async def on_member_ban(self, member, before):
         server = before.server
