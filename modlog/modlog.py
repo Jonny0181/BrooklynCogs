@@ -189,7 +189,7 @@ class invitemirror:
         if db[server.id]['togglejoin'] == False:
             return
         channel = db[server.id]["Channel"]
-        time = dateime.datetime.now()
+        time = datetime.datetime.now()
         fmt = '%H:%M:%S'
         users = len([e.name for e in server.members])
         msg = ":white_check_mark: `{}` **{}** join the server. Total users: {}.".format(time.strftime(fmt), member.name, users)
