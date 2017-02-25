@@ -163,14 +163,9 @@ class invitemirror:
         channel = db[server.id]["Channel"]
         time = datetime.datetime.now()
         fmt = '%H:%M:%S'
-        delete = discord.Embed(colour=discord.Colour.blue())
-        delete.set_author(name="A message by {} has been deleted!".format(message.author), icon_url=message.author.avatar_url)
-        delete.add_field(name="Channel", value=message.channel.mention)
-        delete.add_field(name="Time", value=time.strftime(fmt))
-        delete.add_field(name="Message", value=message.content, inline=False)
-        delete.set_footer(text="User ID: {}.".format(message.author.id))
+        msg = ":pencil: `{}` **Channel**: {} **{}'s** message has been deleted. Content: {}".format(time.strftime(fmt), message.channel.mention, message.author, message.content)
         await self.bot.send_message(server.get_channel(channel),
-                                    embed=delete)
+                                    msg)
 
     async def on_message_edit(self, before, after):
         server = before.server
@@ -186,14 +181,7 @@ class invitemirror:
         channel = db[server.id]["Channel"]
         time = datetime.datetime.now()
         fmt = '%H:%M:%S'
-        msg = "`{}` **Channel**: {} **{}'s** message has been edited.\nBefore: {}\nAfter: {}".format(time.strftime(fmt), before.channel.mention, before.author, before.content, after.content)
-        edit = discord.Embed(colour=discord.Colour.blue())
-        edit.set_author(name="A message by {} has been edited!".format(before.author), icon_url=before.author.avatar_url)
-        edit.add_field(name="Channel", value=before.channel.mention)
-        edit.add_field(name="Time", value=time.strftime(fmt))
-        edit.add_field(name="Message Before", value=before.content, inline=False)
-        edit.add_field(name="Message After", value=after.content, inline=False)
-        edit.set_footer(text="User ID: {}.".format(before.author.id))
+        msg = ":pencil: `{}` **Channel**: {} **{}'s** message has been edited.\nBefore: {}\nAfter: {}".format(time.strftime(fmt), before.channel.mention, before.author, before.content, after.content)
         await self.bot.send_message(server.get_channel(channel),
                                     msg)
 
@@ -209,12 +197,7 @@ class invitemirror:
         channel = db[server.id]["Channel"]
         time = datetime.datetime.now()
         fmt = '%H:%M:%S'
-        voice=discord.Embed(colour=discord.Colour.blue())
-        voice.set_author(name="{} has updated thier voice state!".format(before.name), icon_url=before.avatar_url)
-        voice.add_field(name="Time", value=time.strftime(fmt))
-        voice.add_field(name="User ID", value="{}".format(before.id))
-        voice.add_field(name="Voice Before", value=before.voice_channel, inline=False)
-        voice.add_field(name="Voice After", value=after.voice_channel, inline=False)
+        msg = ":person_with_pouting_face::skin-tone-3: `{}` **{}'s** voice status has updated. **Channel**: {} Status: **Local**: Mute = `{}` Deaf = `{}` **Server**: Mute = `{}` Deaf = `{}`".format(time.strftime(fmt), after.name, after.voice_channel, after.self_mute, after.self_deaf, after.mute, after.deaf)
         await self.bot.send_message(server.get_channel(channel),
                                     embed=voice)
 
