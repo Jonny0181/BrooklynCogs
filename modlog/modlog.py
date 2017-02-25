@@ -9,7 +9,7 @@ from random import choice, randint
 
 inv_settings = {"Channel": None, "toggleedit": False, "toggledelete": False, "toggleuser": False, "toggleroles": False,
                 "togglevoice": False,
-                "toggleban": False, "join": False, "leave": False}
+                "toggleban": False, "togglejoin": False, "toggleleave": False}
 
 
 class invitemirror:
@@ -25,7 +25,7 @@ class invitemirror:
             db = fileIO(self.direct, "load")
             await self.bot.send_cmd_help(ctx)
             try:
-                await self.bot.say(embed=discord.Embed(title="Current settings:", description="Edit: {}\nDelete: {}\nUser: {}\nRoles: {}\nVoice: {}\nBan: {}\nJoin: {}".format(str(db[ctx.message.server.id]['toggleedit']), str(db[ctx.message.server.id]['toggledelete']), str(db[ctx.message.server.id]['toggleuser']), str(db[ctx.message.server.id]['toggleroles']), str(db[ctx.message.server.id]['togglevoice']), str(db[ctx.message.server.id]['toggleban']), str(db[ctx.message.server.id]['join']))))
+                await self.bot.say(embed=discord.Embed(title="Current settings:", description="Edit: {}\nDelete: {}\nUser: {}\nRoles: {}\nVoice: {}\nBan: {}\nJoin: {}".format(str(db[ctx.message.server.id]['toggleedit']), str(db[ctx.message.server.id]['toggledelete']), str(db[ctx.message.server.id]['toggleuser']), str(db[ctx.message.server.id]['toggleroles']), str(db[ctx.message.server.id]['togglevoice']), str(db[ctx.message.server.id]['toggleban']), str(db[ctx.message.server.id]['togglejoin']))))
             except KeyError:
                 return
 
@@ -186,7 +186,7 @@ class invitemirror:
         db = fileIO(self.direct, 'load')
         if not server.id in db:
             return
-        if db[server.id]['join'] == False:
+        if db[server.id]['togglejoin'] == False:
             return
         channel = db[server.id]["Channel"]
         time = dateime.datetime.now()
