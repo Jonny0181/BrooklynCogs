@@ -1068,7 +1068,6 @@ class Audio:
         self.save_settings()
 
     @commands.command(pass_context=True, name="volume", no_pm=True)
-    @checks.mod_or_permissions(manage_messages=True)
     async def audioset_volume(self, ctx, percent: int=None):
         """Sets the volume (0 - 100)
         Note: volume may be set up to 200 but you may experience clipping."""
