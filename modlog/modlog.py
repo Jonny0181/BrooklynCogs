@@ -30,6 +30,7 @@ class invitemirror:
                 e.add_field(name="Delete", value=str(db[ctx.message.server.id]['toggledelete']))
                 e.add_field(name="Edit", value=str(db[ctx.message.server.id]['toggleedit']))
                 e.add_field(name="Roles", value=str(db[ctx.message.server.id]['toggleroles']))
+                e.add_field(name="User", value=str(db[ctx.message.server.id]['toggleuser']))
                 e.add_field(name="Voice", value=str(db[ctx.message.server.id]['togglevoice']))
                 e.add_field(name="Ban", value=str(db[ctx.message.server.id]['toggleban']))
                 e.add_field(name="Join", value=str(db[ctx.message.server.id]['togglejoin']))
