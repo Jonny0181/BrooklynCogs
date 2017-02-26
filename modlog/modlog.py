@@ -94,6 +94,20 @@ class invitemirror:
             db[server.id]['togglejoin'] = False
             fileIO(self.direct, 'save', db)
             await self.bot.say("Disabled join logs.")
+            
+    @modlogtoggles.command(name='leave', pass_context=True, no_pm=True)
+    async def leave(self, ctx):
+        """toggles notofications when a member joins the server."""
+        server = ctx.message.server
+        db = fileIO(self.direct, "load")
+        if db[server.id]["toggleleave"] == False:
+            db[server.id]["toggleleave"] = True
+            fileIO(self.direct, "save", db)
+            await self.bot.say("Enabled leave logs.")
+        elif db[server.id]['toggleleave'] == True:
+            db[server.id]['toggleleave'] = False
+            fileIO(self.direct, 'save', db)
+            await self.bot.say("Disabled leave logs.")
 
     @modlogtoggles.command(name='delete', pass_context=True, no_pm=True)
     async def delete(self, ctx):
@@ -194,6 +208,19 @@ class invitemirror:
         users = len([e.name for e in server.members])
         msg = ":white_check_mark: `{}` **{}** join the server. Total users: {}.".format(time.strftime(fmt), member.name, users)
         await self.bot.send_message(server.get_channel(channel), msg)
+        
+    async def on_member_remove(self, member):
+        server = member.server
+        db = fileIO(self.direct, 'load')
+        if not server.id in db:
+            return
+        if db[server.id]['toggleleave'] == False:
+            return
+        channel = db[server.id]["Channel"]
+        time = datetime.datetime.now()
+        fmt = "%H:%M:%S"
+        users = len([e.name for e in server.members])
+        msg = ":x: `{}` **{}** has left the server or was kicked. Total members {}.".format(time.strftime(fmt), member.name, users)
 
     async def on_message_edit(self, before, after):
         server = before.server
@@ -225,7 +252,7 @@ class invitemirror:
         channel = db[server.id]["Channel"]
         time = datetime.datetime.now()
         fmt = '%H:%M:%S'
-        msg = ":person_with_pouting_face::skin-tone-3: `{}` **{}'s** voice status has updated. **Channel**: {}\nStatus: Local Mute: {} Local Deaf: {} Server Mute: {} Server Deaf: {}".format(time.strftime(fmt), after.name, after.voice_channel, after.self_mute, after.self_deaf, after.mute, after.deaf)
+        msg = ":person_with_pouting_face::skin-tone-3: `{}` **{}'s** voice status has updated. **Channel**: {}\n**Local Mute:** {} **Local Deaf:** {} **Server Mute:** {} **Server Deaf:** {}".format(time.strftime(fmt), after.name, after.voice_channel, after.self_mute, after.self_deaf, after.mute, after.deaf)
         await self.bot.send_message(server.get_channel(channel),
                                     msg)
 
@@ -259,23 +286,19 @@ class invitemirror:
             await self.bot.send_message(server.get_channel(channel),
                                         msg)
 
-    async def on_member_ban(self, member, before):
+    async def on_member_ban(self, member):
         server = before.server
         db = fileIO(self.direct, "load")
         if not server.id in db:
             return
-        if db[server.id]['toggleuser'] == False:
+        if db[server.id]['toggleban'] == False:
             return
         channel = db[server.id]["Channel"]
         time = datetime.datetime.now()
         fmt = '%H:%M:%S'
-        ban = discord.Embed(colour=discord.Colour.blue())
-        ban.add_field(name="Status", value="Ban")
-        ban.add_field(name="User", value=member)
-        ban.add_field(name="User ID", value=member.id)
-        ban.add_field(name="Time", value=time.strftime(fmt))
+        msg = ":hammer: `{}` {}({}) has been banned!".format(member.name, member.id)
         await self.bot.send_message(server.get_channel(channel),
-                                    embed=ban)
+                                    msg)
 
 
 def check_folder():
