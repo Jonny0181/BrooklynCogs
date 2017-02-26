@@ -232,6 +232,21 @@ class invitemirror:
         users = len([e.name for e in server.members])
         msg = ":x: `{}` **{}** has left the server or was kicked. Total members {}.".format(time.strftime(fmt), member.name, users)
 
+    async def on_member_update(self, before, after):
+        server = before.server
+        db = fileIO(self.direct, "load")
+        if not server.id in db:
+            return
+        if db[server.id]['toggleuser'] == False:
+            return
+        channel = db[server.id]["Channel"]
+        time = datetime.datetime.now()
+        fmt = '%H:%M:%S'
+        if not before.name == after.name:
+            msg = ":person_with_pouting_face::skin-tone-3: `{}` **{}** changed their username from **{}** to **{}**".format(time.strftime(fmt), before.name, after.name)
+            await self.bot.send_message(server.get_channel(channel),
+                                        msg)
+
     async def on_message_edit(self, before, after):
         server = before.server
         db = fileIO(self.direct, "load")
