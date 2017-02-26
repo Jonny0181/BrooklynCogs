@@ -968,10 +968,9 @@ class Audio:
         self.queue[server.id]["REPEAT"] = value
 
     def _setup_queue(self, server):
-        self.queue[server.id] = {"REPEAT": False, "PLAYLIST": False,
-                                 "VOICE_CHANNEL_ID": None,
-                                 "QUEUE": deque(), "TEMP_QUEUE": deque(),
-                                 "NOW_PLAYING": None}
+        self.queue[server.id] = {"REPEAT": False, "PLAYLIST": False, "VOICE_CHANNEL_ID": None,
+                                 "QUEUE": deque(), "TEMP_QUEUE": deque(), "NOW_PLAYING": None,
+                                 "AUTHORID" : deque(), "CHANNELID":None}
 
     def _stop(self, server):
         self._setup_queue(server)
@@ -1407,8 +1406,9 @@ class Audio:
                 url = url.split("&")[0]  # Temp fix for the &list issue
 
             queue = await self.bot.say("Enqueued your song! :white_check_mark:")
-            self._add_to_queue(server, url, author=author)
+            self._add_to_queue(server, url)
             await self.bot.delete_message(queued)
+        self.queue[server.id]["CHANNELID"] = channel.id
 
     @commands.command(pass_context=True, no_pm=True)
     async def prev(self, ctx):
@@ -1905,6 +1905,42 @@ class Audio:
                 await self.bot.say("You need to be in the voice channel to stop the music.")
         else:
             await self.bot.say("Can't stop if I'm not playing.")
+          
+    async def _embed_np(self, message, server:discord.Server=None, channel:discord.Channel=None, author:discord.Member=None):
+        
+        """Info about the current song."""
+        server = server or message.server
+        channel = channel or message.channel
+        author = author or server.me
+        if not self.is_playing(server):
+            hai = discord.Embed(description="I'm not playing on this server.", colour=discord.Colour.blue())
+            await self.bot.send_message(channel, embed=hai)
+            return
+
+        song = self._get_queue_nowplaying(server)
+        if song:
+            if not hasattr(song, 'creator'):
+                song.creator = None
+            if not hasattr(song, 'view_count'):
+                song.view_count = None
+            if not hasattr(song, 'like_count'):
+                song.like_count = None
+            if not hasattr(song, 'dislike_count'):
+                song.dislike_count = None
+            if not hasattr(song, 'uploader'):
+                song.uploader = None
+            if hasattr(song, 'duration'):
+                m, s = divmod(song.duration, 60)
+                h, m = divmod(m, 60)
+                if h:
+                    dur = "{0}:{1:0>2}:{2:0>2}".format(h, m, s)
+                else:
+                    dur = "{0}:{1:0>2}".format(m, s)
+            else:
+                dur = None
+            embed = discord.Embed(colour=discord.Colour.blue())
+            msg = "**Now playing** in {}: **{}** `{}`".format(server.me.voice_channel, song.title, dur)
+            await self.bot.send_message(channel, msg)
 
     def is_playing(self, server):
         if not self.voice_connected(server):
