@@ -1408,7 +1408,7 @@ class Audio:
             if "[SEARCH:]" not in url and "youtube" in url:
                 url = url.split("&")[0]  # Temp fix for the &list issue
 
-            queue = await self.bot.say("Enqueued your song! :white_check_mark:")
+            queued = await self.bot.say("Enqueued your song! :white_check_mark:")
             self._add_to_queue(server, url)
             await self.bot.delete_message(queued)
         self.queue[server.id]["CHANNELID"] = channel.id
