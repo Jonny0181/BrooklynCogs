@@ -1691,7 +1691,7 @@ class Audio:
         now_playing = self._get_queue_nowplaying(server)
 
         if now_playing is not None:
-            msg += "\n**Now playing:**\n{}\n{}".format(now_playing.title, now_playing.webpage_url)
+            msg += "\n**Now playing:**\n{}\n<{}>\n".format(now_playing.title, now_playing.webpage_url)
 
         queue_url_list = self._get_queue(server, 5)
         tempqueue_url_list = self._get_queue_tempqueue(server, 5)
