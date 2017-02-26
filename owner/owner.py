@@ -172,9 +172,7 @@ class Owner:
         except CogLoadError as e:
             log.exception(e)
             traceback.print_exc()
-            em = discord.Embed(description="That module could not be loaded. Check your"
-                               " console or logs for more information.\n\n"
-                               "Error: `{}`".format(e.args[0]), colour=discord.Colour(value=colour))
+            em = discord.Embed(description="{}".format(e), colour=discord.Colour(value=colour))
             await self.bot.say(embed=em)
         else:
             set_cog(module, True)
