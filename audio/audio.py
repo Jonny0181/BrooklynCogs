@@ -2024,12 +2024,12 @@ class Audio:
         queue = self.queue[server.id]["QUEUE"]
         repeat = self.queue[server.id]["REPEAT"]
         last_song = self.queue[server.id]["NOW_PLAYING"]
-
+        channel = server.get_channel(self.queue[server.id]["CHANNELID"])
         assert temp_queue is self.queue[server.id]["TEMP_QUEUE"]
         assert queue is self.queue[server.id]["QUEUE"]
 
         # _play handles creating the voice_client and player for us
-
+        author=None
         if not self.is_playing(server):
             log.debug("not playing anything on sid {}".format(server.id) +
                       ", attempting to start a new song.")
@@ -2055,6 +2055,7 @@ class Audio:
                 song = None
             self.queue[server.id]["NOW_PLAYING"] = song
             log.debug("set now_playing for sid {}".format(server.id))
+            await self._embed_np(message=None, server=server, channel=channel, author=author)
             self.bot.loop.create_task(self._update_bot_status())
 
         elif server.id in self.downloaders:
