@@ -988,6 +988,10 @@ class Audio:
             return
 
         del self.downloaders[server.id]
+        
+    def _extend_to_queue(self, server, url, author:None):
+        if server.id not in self.queue: self._setup_queue(server)
+        self.queue[server.id]["QUEUE"].extend(url)
 
     def _stop_player(self, server):
         if not self.voice_connected(server):
