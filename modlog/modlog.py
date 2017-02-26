@@ -26,8 +26,7 @@ class invitemirror:
             server = ctx.message.server
             await self.bot.send_cmd_help(ctx)
             try:
-                e = discord.Embed(colour=discord.Colour.blue())
-                e.title = "Setting for {}".format(server.name)
+                e = discord.Embed(title="Setting for {}".format(server.name), colour=discord.Colour.blue())
                 e.add_field(name="Delete", value=str(db[ctx.message.server.id]['toggledelete']))
                 e.add_field(name="Edit", value=str(db[ctx.message.server.id]['toggleedit']))
                 e.add_field(name="Roles", value=str(db[ctx.message.server.id]['toggleroles']))
