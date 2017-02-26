@@ -23,9 +23,20 @@ class invitemirror:
         """toggle which server activity to log"""
         if ctx.invoked_subcommand is None:
             db = fileIO(self.direct, "load")
+            server = ctx.message.server
             await self.bot.send_cmd_help(ctx)
             try:
-                await self.bot.say("```css\nCurrent settings:\nEdit: {}\nDelete: {}\nUser: {}\nRoles: {}\nVoice: {}\nBan: {}\nJoin: {}\nLeave: {}```".format(str(db[ctx.message.server.id]['toggleedit']), str(db[ctx.message.server.id]['toggledelete']), str(db[ctx.message.server.id]['toggleuser']), str(db[ctx.message.server.id]['toggleroles']), str(db[ctx.message.server.id]['togglevoice']), str(db[ctx.message.server.id]['toggleban']), str(db[ctx.message.server.id]['togglejoin']), str(db[ctx.message.server.id]['toggleleave'])))
+                e = discord.Embed(colour=discord.Colour.blue())
+                e.title = "Setting for {}".format(server.name)
+                e.add_field(name="Delete", value=str(db[ctx.message.server.id]['toggledelete']))
+                e.add_field(name="Edit", value=str(db[ctx.message.server.id]['toggleedit']))
+                e.add_field(name="Roles", value=str(db[ctx.message.server.id]['toggleroles']))
+                e.add_field(name="Voice", value=str(db[ctx.message.server.id]['togglevoice']))
+                e.add_field(name="Ban", value=str(db[ctx.message.server.id]['toggleban']))
+                e.add_field(name="Join", value=str(db[ctx.message.server.id]['togglejoin']))
+                e.add_field(name="Leave", value=str(db[ctx.message.server.id]['toggleleave']))
+                e.set_thumbnail(url=server.icon_url)
+            await self.bot.say(embed=e)
             except KeyError:
                 return
 
