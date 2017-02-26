@@ -1114,9 +1114,8 @@ class Audio:
                                " status")
         self.save_settings()
 
-    @audioset.command(pass_context=True, name="volume", no_pm=True)
-    @checks.mod_or_permissions(manage_messages=True)
-    async def audioset_volume(self, ctx, percent: int=None):
+    @commands.command(pass_context=True, no_pm=True)
+    async def volume(self, ctx, percent: int=None):
         """Sets the volume (0 - 100)
         Note: volume may be set up to 200 but you may experience clipping."""
         server = ctx.message.server
@@ -1521,12 +1520,6 @@ class Audio:
         else:
             await self.bot.say("Done.")
 
-    @playlist.command(pass_context=True, no_pm=True, name="extend")
-    async def playlist_extend(self, ctx, playlist_url_or_name):
-        """Extends a playlist with a playlist link"""
-        # Need better wording ^
-        await self.bot.say("Not implemented yet.")
-
     @playlist.command(pass_context=True, no_pm=True, name="list")
     async def playlist_list(self, ctx):
         """Lists all available playlists"""
@@ -1698,12 +1691,12 @@ class Audio:
         now_playing = self._get_queue_nowplaying(server)
 
         if now_playing is not None:
-            msg += "\n***Now playing:***\n{}\n".format(now_playing.title)
+            msg += "\n**Now playing:**\n{}\n{}".format(now_playing.title, now_playing.webpage_url)
 
         queue_url_list = self._get_queue(server, 5)
         tempqueue_url_list = self._get_queue_tempqueue(server, 5)
 
-        await self.bot.say("Gathering information...")
+        waiter = await self.bot.say("Gathering information...")
 
         queue_song_list = await self._download_all(queue_url_list)
         tempqueue_song_list = await self._download_all(tempqueue_url_list)
@@ -1722,8 +1715,8 @@ class Audio:
                 song_info.append("{}. {.title}".format(num, song))
             except AttributeError:
                 song_info.append("{}. {.webpage_url}".format(num, song))
-        msg += "\n***Next up:***\n" + "\n".join(song_info)
-
+        msg += "\n**Next up:**\n" + "\n".join(song_info)
+        await self.bot.delete_message(waiter)
         await self.bot.say(msg)
 
     @commands.group(pass_context=True, no_pm=True)
@@ -1860,7 +1853,7 @@ class Audio:
 
 
     @commands.command(pass_context=True, no_pm=True)
-    async def song(self, ctx):
+    async def np(self, ctx):
         """Info about the current song."""
         server = ctx.message.server
         if not self.is_playing(server):
@@ -1884,16 +1877,16 @@ class Audio:
                     dur = "{0}:{1:0>2}".format(m, s)
             else:
                 dur = None
-            msg = ("\n**Title:** {}\n**Author:** {}\n**Uploader:** {}\n"
-                   "**Views:** {}\n**Duration:** {}\n\n<{}>".format(
+            msg = ("**Title:** {}\n**Author:** {}\n**Uploader:** {}\n"
+                   "**Views:** {}\n**Ratings**: \👍{} | {}\👎\n**Duration:** {}\n\n<{}>".format(
                        song.title, song.creator, song.uploader,
-                       song.view_count, dur, song.webpage_url))
+                       song.view_count, str(song.like_count), str(song.dislike_count), dur, song.webpage_url))
             await self.bot.say(msg.replace("**Author:** None\n", "")
                                   .replace("**Views:** None\n", "")
                                   .replace("**Uploader:** None\n", "")
                                   .replace("**Duration:** None\n", ""))
         else:
-            await self.bot.say("Darude - Sandstorm.")
+            await self.bot.say("Failed to get information.")
 
     @commands.command(pass_context=True, no_pm=True)
     async def stop(self, ctx):
@@ -1912,12 +1905,6 @@ class Audio:
                 await self.bot.say("You need to be in the voice channel to stop the music.")
         else:
             await self.bot.say("Can't stop if I'm not playing.")
-
-    @commands.command(name="yt", pass_context=True, no_pm=True)
-    async def yt_search(self, ctx, *, search_terms: str):
-        """Searches and plays a video from YouTube"""
-        await self.bot.say("Searching...")
-        await ctx.invoke(self.play, url_or_search_terms=search_terms)
 
     def is_playing(self, server):
         if not self.voice_connected(server):
