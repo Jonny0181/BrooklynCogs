@@ -1378,6 +1378,34 @@ class Audio:
         self._stop_player(server)
         self._clear_queue(server)
         self._add_to_queue(server, url)
+        
+        songlist = None
+        if self._match_sc_playlist(url):
+            msg = await self.bot.say("Proccessing soundcloud playlist... This could take a few moments!")
+            songlist = await self._parse_sc_playlist(url)
+        elif self._match_yt_playlist(url):
+            msg = await self.bot.say("Enumerating youtube playlist... This could take a few moments!")
+            songlist = await self._parse_yt_playlist(url)
+
+        if songlist:
+            #playlist = self._make_playlist(author, url, songlist)
+            #print("playlist {} \nsonglist {}".format(playlist.playlist, songlist))
+
+            msg2 = await self.bot.edit_message(msg, "{} where proccessed, and added to the playlist!".format(len(songlist)))
+            self._extend_to_queue(server, songlist, author=author)
+            await asyncio.sleep(5)
+            await self.bot.delete_message(msg2)
+        else:
+            if not "." in url:
+                url = url.replace("/", "&#47")
+                url = "[SEARCH:]" + url
+
+            if "[SEARCH:]" not in url and "youtube" in url:
+                url = url.split("&")[0]  # Temp fix for the &list issue
+
+            queue = await self.bot.say("Enqueued your song! :white_check_mark:")
+            self._add_to_queue(server, url, author=author)
+            await self.bot.delete_message(queued)
 
     @commands.command(pass_context=True, no_pm=True)
     async def prev(self, ctx):
