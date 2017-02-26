@@ -1323,10 +1323,11 @@ class Audio:
     async def play(self, ctx, *, url_or_search_terms):
         """Plays a link / searches and play"""
         url = url_or_search_terms
-        server = ctx.message.server
-        author = ctx.message.author
-        channel = message.channel
+        if url is None: return await self._queue_list(ctx)  # Default to queue
         message = ctx.message
+        server = message.server
+        channel = message.channel
+        author = message.author
         voice_channel = author.voice_channel
 
         # Checking if playing in current server
