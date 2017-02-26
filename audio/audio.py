@@ -1325,6 +1325,7 @@ class Audio:
         url = url_or_search_terms
         server = ctx.message.server
         author = ctx.message.author
+        channel = message.channel
         voice_channel = author.voice_channel
 
         # Checking if playing in current server
