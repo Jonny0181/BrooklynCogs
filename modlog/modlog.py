@@ -35,7 +35,7 @@ class invitemirror:
                 e.add_field(name="Join", value=str(db[ctx.message.server.id]['togglejoin']))
                 e.add_field(name="Leave", value=str(db[ctx.message.server.id]['toggleleave']))
                 e.set_thumbnail(url=server.icon_url)
-            await self.bot.say(embed=e)
+                await self.bot.say(embed=e)
             except KeyError:
                 return
 
