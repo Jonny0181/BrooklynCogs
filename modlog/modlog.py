@@ -298,6 +298,8 @@ class invitemirror:
             joinmsg.set_thumbnail(url="http://www.emoji.co.uk/files/twitter-emojis/objects-twitter/11031-inbox-tray.png")
             try:
                 await self.bot.send_message(server.get_channel(channel), embed=joinmsg)
+            except:
+                pass
         if db[server.id]["embed"] == False:
             msg = ":white_check_mark: `{}` **{}** join the server. Total users: {}.".format(time.strftime(fmt), member.name, users)
             await self.bot.send_message(server.get_channel(channel), msg)
