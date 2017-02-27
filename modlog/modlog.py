@@ -338,9 +338,9 @@ class invitemirror:
         time = datetime.datetime.now()
         fmt = '%H:%M:%S'
         if before.name != after.name:
-            msg = ":computer: `{}` Server name update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.name, after.name)
+            msg = ":globe_with_meridians: `{}` Server name update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.name, after.name)
         if before.region != after.region:
-            msg = ":computer: `{}` Server region update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.region, after.region)
+            msg = ":globe_with_meridians: `{}` Server region update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.region, after.region)
         await self.bot.send_message(server.get_channel(channel), msg)
             
         
