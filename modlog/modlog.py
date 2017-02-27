@@ -9,7 +9,7 @@ from random import choice, randint
 
 inv_settings = {"Channel": None, "toggleedit": False, "toggledelete": False, "toggleuser": False, "toggleroles": False,
                 "togglevoice": False,
-                "toggleban": False, "togglejoin": False, "toggleleave": False, "togglechannel": False}
+                "toggleban": False, "togglejoin": False, "toggleleave": False, "togglechannel": False, "toggleserver": False}
 
 
 class invitemirror:
@@ -36,6 +36,7 @@ class invitemirror:
                 e.add_field(name="Join", value=str(db[ctx.message.server.id]['togglejoin']))
                 e.add_field(name="Leave", value=str(db[ctx.message.server.id]['toggleleave']))
                 e.add_field(name="Channel", value=str(db[ctx.message.server.id]['togglechannel']))
+                e.add_field(name="Server", value=str(db[ctx.message.server.id]['toggleserver']))
                 e.set_thumbnail(url=server.icon_url)
                 await self.bot.say(embed=e)
             except KeyError:
@@ -108,22 +109,36 @@ class invitemirror:
             await self.bot.say("Disabled join logs.")
 
     @modlogtoggles.command(pass_context=True, no_pm=True)
-    async def channel(self, ctx):
+    async def server(self, ctx):
         """toggles notofications when a member joins the server."""
         server = ctx.message.server
         db = fileIO(self.direct, "load")
-        if db[server.id]["togglechannel"] == False:
-            db[server.id]["togglechannel"] = True
+        if db[server.id]["togglejoin"] == False:
+            db[server.id]["togglejoin"] = True
             fileIO(self.direct, "save", db)
-            await self.bot.say("Enabled channel logs.")
-        elif db[server.id]['togglechannel'] == True:
-            db[server.id]['togglechannel'] = False
+            await self.bot.say("Enabled join logs.")
+        elif db[server.id]['togglejoin'] == True:
+            db[server.id]['togglejoin'] = False
             fileIO(self.direct, 'save', db)
-            await self.bot.say("Disabled channel logs.")
+            await self.bot.say("Disabled join logs.")
+
+    @modlogtoggles.command(pass_context=True, no_pm=True)
+    async def channel(self, ctx):
+        """toggles channel update logging for the server."""
+        server = ctx.message.server
+        db = fileIO(self.direct, "load")
+        if db[server.id]["toggleserver"] == False:
+            db[server.id]["toggleserver"] = True
+            fileIO(self.direct, "save", db)
+            await self.bot.say("Enabled server logs.")
+        elif db[server.id]['toggleserver'] == True:
+            db[server.id]['toggleserver'] = False
+            fileIO(self.direct, 'save', db)
+            await self.bot.say("Disabled server logs.")
             
     @modlogtoggles.command(pass_context=True, no_pm=True)
     async def leave(self, ctx):
-        """toggles notofications when a member joins the server."""
+        """toggles notofications when a member leaves the server."""
         server = ctx.message.server
         db = fileIO(self.direct, "load")
         if db[server.id]["toggleleave"] == False:
@@ -309,6 +324,26 @@ class invitemirror:
         msg = ":pencil: `{}` **Channel**: {} **{}'s** message has been edited.\nBefore: {}\nAfter: {}".format(time.strftime(fmt), before.channel.mention, before.author, before.content, after.content)
         await self.bot.send_message(server.get_channel(channel),
                                     msg)
+
+    async def on_server_update(self, before, after):
+        server = before.server
+        db = fileIO(self.direct, "load")
+        if not server.id in db:
+            return
+        if db[server.id]['toggleserver'] == False:
+            return
+        if before.bot:
+            return
+        channel = db[server.id]["Channel"]
+        time = datetime.datetime.now()
+        fmt = '%H:%M:%S'
+        if before.name != after.name:
+            msg = ":computer: `{}` Server name update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.name, after.name)
+        if before.region != after.region:
+            msg = ":computer: `{}` Server region update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.region, after.region)
+        await self.bot.send_message(server.get_channel(channel), msg)
+            
+        
 
     async def on_voice_state_update(self, before, after):
         server = before.server
