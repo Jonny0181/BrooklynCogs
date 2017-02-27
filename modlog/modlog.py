@@ -326,6 +326,8 @@ class invitemirror:
             leave.set_thumbnail(url="http://www.emoji.co.uk/files/mozilla-emojis/objects-mozilla/11928-outbox-tray.png")
             try:
                 await self.bot.send_message(server.get_channel(channel), embed=leave)
+            except:
+                pass
         if db[server.id]["embed"] == False:
             msg = ":x: `{}` **{}** has left the server or was kicked. Total members {}.".format(time.strftime(fmt), member.name, users)
             await self.bot.send_message(server.get_channel(channel), msg)
