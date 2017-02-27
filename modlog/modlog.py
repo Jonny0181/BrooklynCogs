@@ -326,7 +326,7 @@ class invitemirror:
                                     msg)
 
     async def on_server_update(self, before, after):
-        server = before.server
+        server = before
         db = fileIO(self.direct, "load")
         if not server.id in db:
             return
