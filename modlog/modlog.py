@@ -110,17 +110,17 @@ class invitemirror:
 
     @modlogtoggles.command(pass_context=True, no_pm=True)
     async def server(self, ctx):
-        """toggles notofications when a member joins the server."""
+        """toggles notofications when the server updates."""
         server = ctx.message.server
         db = fileIO(self.direct, "load")
         if db[server.id]["togglejoin"] == False:
             db[server.id]["togglejoin"] = True
             fileIO(self.direct, "save", db)
-            await self.bot.say("Enabled join logs.")
+            await self.bot.say("Enabled server logs.")
         elif db[server.id]['togglejoin'] == True:
             db[server.id]['togglejoin'] = False
             fileIO(self.direct, 'save', db)
-            await self.bot.say("Disabled join logs.")
+            await self.bot.say("Disabled server logs.")
 
     @modlogtoggles.command(pass_context=True, no_pm=True)
     async def channel(self, ctx):
