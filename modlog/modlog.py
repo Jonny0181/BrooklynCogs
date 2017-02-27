@@ -354,6 +354,8 @@ class invitemirror:
                     voice1.set_thumbnail(url="http://www.hey.fr/fun/emoji/twitter/en/icon/twitter/565-emoji_twitter_speaker_with_three_sound_waves.png")
                     try:
                         await self.bot.send_message(server.get_channel(channel), embed=voice1)
+                    except:
+                        pass
                 else:
                     fmt = "%H:%M:%S"
                     await self.bot.send_message(server.get_channel(channel), ":loud_sound: `{}` Voice channel name update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.name, after.name))
@@ -379,6 +381,8 @@ class invitemirror:
                 topic.set_thumbnail(url="https://s-media-cache-ak0.pinimg.com/originals/27/18/77/27187782801d15f756a27156105d1233.png")
                 try:
                     await self.send_message(server.get_channel(channel), embed=topic)
+                except:
+                    pass
             else:
                 fmt = "%H:%M:%S"
                 await self.bot.send_message(server.get_channel(channel), ":page_facing_up: `{}` Channel topic has been updated.\n**Before:** {}\n**After:** {}".format(time.strftime(fmt), before.topic, after.topic))
@@ -393,6 +397,8 @@ class invitemirror:
                     voice2.add_field(name="Info:", value=infomsg, inline=False)
                     try:
                         await self.bot.send_message(server.get_channel(channel), embed=voice2)
+                    except:
+                        pass
                 else:
                     fmt = "%H:%M:%S"
                     await self.bot.send_message(server.get_channel(channel), ":loud_sound: `{}` Voice channel position update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.position, after.position))
@@ -406,6 +412,8 @@ class invitemirror:
                     text2.add_field(name="Info:", value=infomsg, inline=False)
                     try:
                         await self.bot.send_message(server.get_channel(channel), embed=text2)
+                    except:
+                        pass
                 else:
                     fmt = "%H:%M:%S"
                     await self.bot.send_message(server.get_channel(channel), ":page_facing_up: `{}` Text channel position update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.position, after.position))
@@ -419,6 +427,8 @@ class invitemirror:
                 bitrate.add_field(name="Info:", value=infosg, inline=False)
                 try:
                     await sef.bot.send_message(server.get_channel(channel), embed=bitrate)
+                except:
+                    pass
             else:
                 await self.bot.send_message(server.get_channel(channel), ":loud_sound: `{}` Channel bitrate update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.bitrate, after.bitrate))
 
@@ -449,6 +459,8 @@ class invitemirror:
             delmessage.set_thumbnail(url="http://i.imgur.com/Q8SzUdG.png")
             try:
                 await self.bot.send_message(server.get_channel(channel), embed=delmessage)
+            except:
+                pass
         else:
             msg = ":pencil: `{}` **Channel**: {} **{}'s** message has been edited.\nBefore: {}\nAfter: {}".format(time.strftime(fmt), before.channel.mention, before.author, before.content, after.content)
             await self.bot.send_message(server.get_channel(channel),
@@ -499,7 +511,10 @@ class invitemirror:
             updmessage.set_thumbnail(url="http://i.imgur.com/8gD34rt.png")
             try:
                 await self.bot.send_message(server.get_channel(channel), embed=updmessage)
-        await self.bot.send_message(server.get_channel(channel), ":person_with_pouting_face::skin-tone-3: `{}` **{}'s** voice status has updated. **Channel**: {}\n**Local Mute:** {} **Local Deaf:** {} **Server Mute:** {} **Server Deaf:** {}".format(time.strftime(fmt), after.name, after.voice_channel, after.self_mute, after.self_deaf, after.mute, after.deaf))
+            except:
+                pass
+        else:
+            await self.bot.send_message(server.get_channel(channel), ":person_with_pouting_face::skin-tone-3: `{}` **{}'s** voice status has updated. **Channel**: {}\n**Local Mute:** {} **Local Deaf:** {} **Server Mute:** {} **Server Deaf:** {}".format(time.strftime(fmt), after.name, after.voice_channel, after.self_mute, after.self_deaf, after.mute, after.deaf))
 
     async def on_member_update(self, before, after):
         server = before.server
@@ -525,6 +540,8 @@ class invitemirror:
                 updmessage.set_thumbnail(url="http://i.imgur.com/I5q71rj.png")
                 try:
                     await self.bot.send_message(server.get_channel(channel), embed=updmessage)
+                except:
+                    pass
             else:
                 await self.bot.send_message(server.get_channel(channel), ":person_with_pouting_face::skin-tone-3: `{}` **{}** changed their nickname from **{}** to **{}**".format(time.strftime(fmt), before.name, before.kick, after.nick))
 
@@ -550,7 +567,7 @@ class invitemirror:
                 role.set_thumbnail(url="http://www.emoji.co.uk/files/mozilla-emojis/objects-mozilla/11928-outbox-tray.png")
                 try:
                     await self.bot.send_message(server.get_channel(channel), embed=leave)
-                else:
+                except:
                     await self.bot.send_message(server.get_channel(channel), "How is embed going to work when I don't have embed links permissions?")
             if db[server.id]["embed"] == False:
                 msg = ":person_with_pouting_face::skin-tone-3: `{}` **{}'s** roles have changed. Old: `{}` New: `{}`".format(time.strftime(fmt), before.name, ", ".join([r.name for r in before.roles]), ", ".join([r.name for r in after.roles]))
@@ -578,7 +595,7 @@ class invitemirror:
             banmessage.set_thumbnail(url="http://i.imgur.com/Imx0Znm.png")
             try:
                 await self.bot.send_message(server.get_channel(channel), embed=banmessage)
-            else:
+            except:
                 await self.bot.send_message(server.get_channel(channel), "How is embed modlog going to work when I don't have embed links permissions?")
         else:
             msg = ":hammer: `{}` {}({}) has been banned!".format(time.strftime(fmt), member, member.id)
