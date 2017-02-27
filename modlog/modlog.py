@@ -39,6 +39,18 @@ class invitemirror:
                 e.add_field(name="Server", value=str(db[ctx.message.server.id]['toggleserver']))
                 e.set_thumbnail(url=server.icon_url)
                 await self.bot.say(embed=e)
+            else:
+                await self.bot.say("```Current settings:\a\n\a\n" + "Edit: " + str(
+                    db[ctx.message.server.id]['toggleedit']) + "\nDelete: " + str(
+                    db[ctx.message.server.id]['toggledelete']) + "\nUser: " + str(
+                    db[ctx.message.server.id]['toggleuser']) + "\nRoles: " + str(
+                    db[ctx.message.server.id]['toggleroles']) + "\nVoice: " + str(
+                    db[ctx.message.server.id]['togglevoice']) + "\nBan: " + str(
+                    db[ctx.message.server.id]['toggleban']) + "\nJoin: " + str(
+                    db[ctx.message.server.id]['togglejoin']) + "\nLeave: " + str(
+                    db[ctx.message.server.id]['toggleleave']) + "\nChannel: " + str(
+                    db[ctx.message.server.id]['togglechannel']) + "\nServer: " + str(
+                    db[ctx.message.server.id]['toggleserver']) + "```")
             except KeyError:
                 return
 
