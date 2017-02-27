@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 from cogs.utils import checks
-from __main__ import settings
+from __main__ import settings, send_cmd_help
 
 
 class Updates:
