@@ -18,8 +18,8 @@ class invitemirror:
         self.direct = "data/modlogset/settings.json"
 
     @checks.admin_or_permissions(administrator=True)
-    @commands.group(pass_context=True, no_pm=True)
-    async def modlogtoggle(self, ctx):
+    @commands.group(name='modlogtoggle', pass_context=True, no_pm=True)
+    async def modlogtoggles(self, ctx):
         """toggle which server activity to log"""
         if ctx.invoked_subcommand is None:
             db = fileIO(self.direct, "load")
