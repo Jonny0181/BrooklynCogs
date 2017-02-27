@@ -381,7 +381,7 @@ class invitemirror:
                     voice2 = discord.Embed(colour=discord.Colour.blue())
                     voice2.set_thumbnail(url="http://www.hey.fr/fun/emoji/twitter/en/icon/twitter/565-emoji_twitter_speaker_with_three_sound_waves.png")
                     voice2.set_author(name=time.strftime(fmt) + " Voice Channel Position Update", icon_url="http://www.hey.fr/fun/emoji/twitter/en/icon/twitter/565-emoji_twitter_speaker_with_three_sound_waves.png")
-                    infomsg = ":loud_sound: Voice channel position update. Before: **{}** After: **{}**.".format(before.position, after.position)
+                    infomsg = ":loud_sound: Voice channel position update. Channel: **{}** Before: **{}** After: **{}**.".format(before.name, before.position, after.position)
                     voice2.add_field(name="Info:", value=infomsg, inline=False)
                     try:
                         await self.bot.send_message(server.get_channel(channel), embed=voice2)
@@ -389,7 +389,7 @@ class invitemirror:
                         pass
                 else:
                     fmt = "%H:%M:%S"
-                    await self.bot.send_message(server.get_channel(channel), ":loud_sound: `{}` Voice channel position update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.position, after.position))
+                    await self.bot.send_message(server.get_channel(channel), ":loud_sound: `{}` Voice channel position update. Channel: **{}** Before: **{}** After: **{}**.".format(time.strftime(fmt), before.name, before.position, after.position))
             if before.type == discord.ChannelType.text:
                 if db[server.id]["embed"] == True:
                     fmt = "%H:%M:%S"
@@ -404,7 +404,7 @@ class invitemirror:
                         pass
                 else:
                     fmt = "%H:%M:%S"
-                    await self.bot.send_message(server.get_channel(channel), ":page_facing_up: `{}` Text channel position update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.position, after.position))
+                    await self.bot.send_message(server.get_channel(channel), ":page_facing_up: `{}` Text channel position update. Channel: **{}** Before: **{}** After: **{}**.".format(time.strftime(fmt), before.name, before.position, after.position))
         if before.bitrate != after.bitrate:
             if db[server.id]["embed"] == True:
                 fmt = "%H:%M:%S"
