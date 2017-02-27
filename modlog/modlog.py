@@ -270,8 +270,8 @@ class invitemirror:
             try:
                 await self.bot.send_message(server.get_channel(channel), embed=delmessage)
         else:
-          msg = ":pencil: `{}` **Channel** {} **{}'s** message has been deleted. Content: {}".format(time.strftime(fmt), message.channel.mention, message.author, message.content)
-          await self.bot.send_message(server.get_channel(channel),
+            msg = ":pencil: `{}` **Channel** {} **{}'s** message has been deleted. Content: {}".format(time.strftime(fmt), message.channel.mention, message.author, message.content)
+            await self.bot.send_message(server.get_channel(channel),
                                     msg)
         
     async def on_member_join(self, member):
