@@ -19,7 +19,7 @@ class Updates:
 
     @updates.command(no_pm=True, pass_context=True)
     async def enable(self, ctx, rolename: str="Updates", user: discord.Member=None):
-        """Enables Brooklyn update notifications"""
+        """Enables Brooklyn update notifications."""
         author = ctx.message.author
         channel = ctx.message.channel
         server = ctx.message.server
