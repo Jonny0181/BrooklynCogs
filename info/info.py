@@ -136,47 +136,9 @@ class Info:
         time = (msg.timestamp - ctx.message.timestamp).total_seconds() * 10
         await self.bot.edit_message(msg, 'Acording to my calculations it took {}ms to ping to the server.'.format(round(time)))
 
-    @commands.command(pass_context=True)
-    @checks.is_owner()
-    async def announce(self, ctx, message : str):
-        """Does what it says on the tin"""
-        failedservers = []
-        blockedservers = ['278238864613834753', '282269693283401729', '281374224818503680', '267120547987587072', '183594993967955968', '110373943822540800', '133049272517001216', '267855028914618369', '209814152288403457', '234361176157323265', '246666725448351746', '277303282827788289', '197520956976005121', '273922260291813378', '279913889330757633', '275797729395998720', '281213173598650370']
-        for s in self.bot.servers:
-            if s.id in blockedservers:
-                continue
-            try:
-                await self.bot.send_message(s.default_channel, ":warning: | ANNOUNCEMENT: '" + message + "'") 
-            except:
-                failedservers.append(str(s))
-
     @commands.command()
     async def join(self):
         await self.bot.whisper("Here is my link buddy.\nhttps://discordapp.com/oauth2/authorize?client_id=226132382846156800&permissions=-1&scope=bot")
-
-    @commands.group(pass_context=True)
-    async def feed(self, ctx):
-        """Announcement feed settings."""
-        if ctx.invoked_subcommand == None:
-            await send_cmd_help(ctx)
-
-    @feed.command(pass_context=True)
-    async def disable(self, ctx):
-        """Disables announcement feed for your server!"""
-        server = ctx.message.server
-        owner = discord.utils.get(self.bot.get_all_members(), id="146040787891781632")
-        message = "{} wants to disable announcement feed in their server! Here is the id to the server! Id: `{}`."
-        await self.bot.send_message(owner, message.format(server.name, server.id))
-        await self.bot.say("Disabled announcement feed for this server, sorry for the previous announcements!")
-
-    @feed.command(pass_context=True)
-    async def enable(self, ctx):
-        """Re-enable announcement feed for your server!"""
-        server = ctx.message.server
-        owner = discord.utils.get(self.bot.get_all_members(), id="146040787891781632")
-        message = "{} wants to re-enable announcement feed in their server! Here is the id to the server! Id: `{}`."
-        await self.bot.send_message(owner, message.format(server.name, server.id))
-        await self.bot.say("Re-enabling announcement feed for this server, thank you for subscribing to the feed and updates!")
 
     @commands.command(pass_context=True)
     async def stats(self, ctx):
