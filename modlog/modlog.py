@@ -48,8 +48,8 @@ class invitemirror:
         if ctx.invoked_subcommand is None:
             await self.bot.send_cmd_help(ctx)
 
-    @modlogset.command(pass_context=True, no_pm=True)
-    async def channel(self, ctx):
+    @modlogset.command(name='channel', pass_context=True, no_pm=True)
+    async def _channel(self, ctx):
         """Set the channel to send notifications too"""
         server = ctx.message.server
         db = fileIO(self.direct, "load")
