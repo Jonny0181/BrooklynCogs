@@ -39,7 +39,7 @@ class invitemirror:
                 e.add_field(name="Server", value=str(db[ctx.message.server.id]['toggleserver']))
                 e.set_thumbnail(url=server.icon_url)
                 await self.bot.say(embed=e)
-            else:
+            except:
                 await self.bot.say("```Current settings:\a\n\a\n" + "Edit: " + str(
                     db[ctx.message.server.id]['toggleedit']) + "\nDelete: " + str(
                     db[ctx.message.server.id]['toggledelete']) + "\nUser: " + str(
