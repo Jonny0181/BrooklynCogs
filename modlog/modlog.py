@@ -18,8 +18,8 @@ class invitemirror:
         self.direct = "data/modlogset/settings.json"
 
     @checks.admin_or_permissions(administrator=True)
-    @commands.group(name='modlogtoggle', pass_context=True, no_pm=True)
-    async def modlogtoggles(self, ctx):
+    @commands.group(pass_context=True, no_pm=True)
+    async def modlogtoggle(self, ctx):
         """toggle which server activity to log"""
         if ctx.invoked_subcommand is None:
             db = fileIO(self.direct, "load")
@@ -42,13 +42,13 @@ class invitemirror:
                 return
 
     @checks.admin_or_permissions(administrator=True)
-    @commands.group(pass_context=True, name='modlogset', no_pm=True)
+    @commands.group(pass_context=True, no_pm=True)
     async def modlogset(self, ctx):
         """Change modlog settings"""
         if ctx.invoked_subcommand is None:
             await self.bot.send_cmd_help(ctx)
 
-    @modlogset.command(pass_context=True, name='channel', no_pm=True)
+    @modlogset.command(pass_context=True, no_pm=True)
     async def channel(self, ctx):
         """Set the channel to send notifications too"""
         server = ctx.message.server
@@ -67,7 +67,7 @@ class invitemirror:
         else:
             return
 
-    @modlogset.command(name='disable', pass_context=True, no_pm=True)
+    @modlogset.command(pass_context=True, no_pm=True)
     async def disable(self, ctx):
         """disables the modlog"""
         server = ctx.message.server
@@ -79,7 +79,7 @@ class invitemirror:
         fileIO(self.direct, "save", db)
         await self.bot.say("I will no longer send modlog notifications here")
 
-    @modlogtoggles.command(name='edit', pass_context=True, no_pm=True)
+    @modlogtoggles.command(pass_context=True, no_pm=True)
     async def edit(self, ctx):
         """toggle notifications when a member edits theyre message"""
         server = ctx.message.server
@@ -93,7 +93,7 @@ class invitemirror:
             fileIO(self.direct, "save", db)
             await self.bot.say("Edit messages disabled")
             
-    @modlogtoggles.command(name='join', pass_context=True, no_pm=True)
+    @modlogtoggles.command(pass_context=True, no_pm=True)
     async def join(self, ctx):
         """toggles notofications when a member joins the server."""
         server = ctx.message.server
@@ -106,8 +106,8 @@ class invitemirror:
             db[server.id]['togglejoin'] = False
             fileIO(self.direct, 'save', db)
             await self.bot.say("Disabled join logs.")
-           
-    @modlogtoggles.command(name='channel', pass_context=True, no_pm=True)
+
+    @modlogtoggles.command(pass_context=True, no_pm=True)
     async def channel(self, ctx):
         """toggles notofications when a member joins the server."""
         server = ctx.message.server
@@ -121,7 +121,7 @@ class invitemirror:
             fileIO(self.direct, 'save', db)
             await self.bot.say("Disabled channel logs.")
             
-    @modlogtoggles.command(name='leave', pass_context=True, no_pm=True)
+    @modlogtoggles.command(pass_context=True, no_pm=True)
     async def leave(self, ctx):
         """toggles notofications when a member joins the server."""
         server = ctx.message.server
@@ -135,7 +135,7 @@ class invitemirror:
             fileIO(self.direct, 'save', db)
             await self.bot.say("Disabled leave logs.")
 
-    @modlogtoggles.command(name='delete', pass_context=True, no_pm=True)
+    @modlogtoggles.command(pass_context=True, no_pm=True)
     async def delete(self, ctx):
         """toggle notifications when a member delete theyre message"""
         server = ctx.message.server
@@ -149,7 +149,7 @@ class invitemirror:
             fileIO(self.direct, "save", db)
             await self.bot.say("Delete messages disabled")
 
-    @modlogtoggles.command(name='user', pass_context=True, no_pm=True)
+    @modlogtoggles.command(pass_context=True, no_pm=True)
     async def user(self, ctx):
         """toggle notifications when a user changes his profile"""
         server = ctx.message.server
@@ -163,7 +163,7 @@ class invitemirror:
             fileIO(self.direct, "save", db)
             await self.bot.say("User messages disabled")
 
-    @modlogtoggles.command(name='roles', pass_context=True, no_pm=True)
+    @modlogtoggles.command(pass_context=True, no_pm=True)
     async def roles(self, ctx):
         """toggle notifications when roles change"""
         server = ctx.message.server
@@ -177,7 +177,7 @@ class invitemirror:
             fileIO(self.direct, "save", db)
             await self.bot.say("Role messages disabled")
 
-    @modlogtoggles.command(name='voice', pass_context=True, no_pm=True)
+    @modlogtoggles.command(pass_context=True, no_pm=True)
     async def voice(self, ctx):
         """toggle notifications when voice status change"""
         server = ctx.message.server
@@ -191,7 +191,7 @@ class invitemirror:
             fileIO(self.direct, "save", db)
             await self.bot.say("Voice messages disabled")
 
-    @modlogtoggles.command(name='ban', pass_context=True, no_pm=True)
+    @modlogtoggles.command(pass_context=True, no_pm=True)
     async def ban(self, ctx):
         """toggle notifications when a user is banned"""
         server = ctx.message.server
@@ -356,7 +356,7 @@ class invitemirror:
                                         msg)
 
     async def on_member_ban(self, member):
-        server = before.server
+        server = member.server
         db = fileIO(self.direct, "load")
         if not server.id in db:
             return
@@ -365,7 +365,7 @@ class invitemirror:
         channel = db[server.id]["Channel"]
         time = datetime.datetime.now()
         fmt = '%H:%M:%S'
-        msg = ":hammer: `{}` {}({}) has been banned!".format(member.name, member.id)
+        msg = ":hammer: `{}` {}({}) has been banned!".format(time.strftime(fmt), member, member.id)
         await self.bot.send_message(server.get_channel(channel),
                                     msg)
 
