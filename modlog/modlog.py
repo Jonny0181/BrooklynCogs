@@ -9,7 +9,7 @@ from random import choice, randint
 
 inv_settings = {"Channel": None, "toggleedit": False, "toggledelete": False, "toggleuser": False, "toggleroles": False,
                 "togglevoice": False,
-                "toggleban": False, "togglejoin": False, "toggleleave": False}
+                "toggleban": False, "togglejoin": False, "toggleleave": False, "togglechannel": False}
 
 
 class invitemirror:
@@ -35,6 +35,7 @@ class invitemirror:
                 e.add_field(name="Ban", value=str(db[ctx.message.server.id]['toggleban']))
                 e.add_field(name="Join", value=str(db[ctx.message.server.id]['togglejoin']))
                 e.add_field(name="Leave", value=str(db[ctx.message.server.id]['toggleleave']))
+                e.add_field(name="Channel", value=str(db[ctx.message.server.id]['togglechannel']))
                 e.set_thumbnail(url=server.icon_url)
                 await self.bot.say(embed=e)
             except KeyError:
@@ -105,6 +106,20 @@ class invitemirror:
             db[server.id]['togglejoin'] = False
             fileIO(self.direct, 'save', db)
             await self.bot.say("Disabled join logs.")
+           
+    @modlogtoggles.command(name='channel', pass_context=True, no_pm=True)
+    async def channel(self, ctx):
+        """toggles notofications when a member joins the server."""
+        server = ctx.message.server
+        db = fileIO(self.direct, "load")
+        if db[server.id]["togglechannel"] == False:
+            db[server.id]["togglechannel"] = True
+            fileIO(self.direct, "save", db)
+            await self.bot.say("Enabled channel logs.")
+        elif db[server.id]['togglechannel'] == True:
+            db[server.id]['togglechannel'] = False
+            fileIO(self.direct, 'save', db)
+            await self.bot.say("Disabled channel logs.")
             
     @modlogtoggles.command(name='leave', pass_context=True, no_pm=True)
     async def leave(self, ctx):
@@ -232,6 +247,34 @@ class invitemirror:
         fmt = "%H:%M:%S"
         users = len([e.name for e in server.members])
         msg = ":x: `{}` **{}** has left the server or was kicked. Total members {}.".format(time.strftime(fmt), member.name, users)
+
+    async def on_channel_update(self, before, after):
+        server = member.server
+        db = fileIO(self.direct, 'load')
+        if not server.id in db:
+            return
+        if db[server.id]['togglechannel'] == False:
+            return
+        channel = db[server.id]["Channel"]
+        time = datetime.datetime.now()
+        fmt = "%H:%M:%S"
+        msg = ""
+        if before.name != after.name:
+            if before.type == discord.ChannelType.voice:
+                msg += ":loud_sound: `{}` Voice channel name update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.name, after.name)
+            if before.type == discord.ChannelType.text:
+                msg += ":page_facing_up: `{}` Text channel name update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.name, after.name)
+        if before.topic != after.topic:
+            msg += ":page_facing_up: `{}` Channel topic has been updated.\n**Before:** {}\n**After:** {}".format(time.strftime(fmt), before.topic, after.topic)
+        if before.position != after.position:
+            if before.type == discord.ChannelType.voice:
+                msg += ":loud_sound: `{}` Voice channel position update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.position, after.position)
+            if before.type == discord.ChannelType.text:
+                msg += ":page_facing_up: Text channel position update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.position, after.position)
+        if before.bitrate != after.bitrate:
+           msg += ":loud_sound: `{}` Channel bitrate update. Before: **{}** After: **{}**.".format(time.strftime(fmt), before.bitrate, after.bitrate)
+        await self.bot.send_message(server.get_channel(channel),
+                                    msg)
 
     async def on_member_update(self, before, after):
         server = before.server
