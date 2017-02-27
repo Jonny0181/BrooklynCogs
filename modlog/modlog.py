@@ -269,6 +269,8 @@ class invitemirror:
             delmessage.set_thumbnail(url="http://i.imgur.com/fJpAFgN.png")
             try:
                 await self.bot.send_message(server.get_channel(channel), embed=delmessage)
+            except:
+                pass
         else:
             msg = ":pencil: `{}` **Channel** {} **{}'s** message has been deleted. Content: {}".format(time.strftime(fmt), message.channel.mention, message.author, message.content)
             await self.bot.send_message(server.get_channel(channel),
