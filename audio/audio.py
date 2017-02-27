@@ -1712,9 +1712,12 @@ class Audio:
                 break
             try:
                 song_info.append("{}. {.title}".format(num, song))
+                more_songs = len(self.queue[server.id]["QUEUE"]) - 5
             except AttributeError:
                 song_info.append("{}. {.webpage_url}".format(num, song))
         msg += "\n**Next up:**\n" + "\n".join(song_info)
+        if more_songs > 0:
+            msg += "**and {} more songs....**".format(more_songs)
         await self.bot.delete_message(waiter)
         await self.bot.say(msg)
 
