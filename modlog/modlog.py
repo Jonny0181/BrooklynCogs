@@ -127,14 +127,14 @@ class invitemirror:
         """toggles channel update logging for the server."""
         server = ctx.message.server
         db = fileIO(self.direct, "load")
-        if db[server.id]["toggleserver"] == False:
-            db[server.id]["toggleserver"] = True
+        if db[server.id]["togglechannel"] == False:
+            db[server.id]["togglechannel"] = True
             fileIO(self.direct, "save", db)
-            await self.bot.say("Enabled server logs.")
-        elif db[server.id]['toggleserver'] == True:
-            db[server.id]['toggleserver'] = False
+            await self.bot.say("Enabled channel logs.")
+        elif db[server.id]['togglechannel'] == True:
+            db[server.id]['togglechannel'] = False
             fileIO(self.direct, 'save', db)
-            await self.bot.say("Disabled server logs.")
+            await self.bot.say("Disabled channel logs.")
             
     @modlogtoggles.command(pass_context=True, no_pm=True)
     async def leave(self, ctx):
