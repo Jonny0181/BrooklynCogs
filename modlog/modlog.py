@@ -249,7 +249,7 @@ class invitemirror:
         msg = ":x: `{}` **{}** has left the server or was kicked. Total members {}.".format(time.strftime(fmt), member.name, users)
 
     async def on_channel_update(self, before, after):
-        server = member.server
+        server = before.server
         db = fileIO(self.direct, 'load')
         if not server.id in db:
             return
