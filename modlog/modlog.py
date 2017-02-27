@@ -247,6 +247,7 @@ class invitemirror:
         fmt = "%H:%M:%S"
         users = len([e.name for e in server.members])
         msg = ":x: `{}` **{}** has left the server or was kicked. Total members {}.".format(time.strftime(fmt), member.name, users)
+        await self.bot.send_message(server.get_channel(channel), msg)
 
     async def on_channel_update(self, before, after):
         server = before.server
