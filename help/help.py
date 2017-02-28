@@ -16,6 +16,11 @@ au=discord.Embed(title="Audio Commands:", description="""
   **disconnect  :**   Disconnects Brooklyn from the voice channel.""", colour=discord.Colour.red())
 au.set_thumbnail(url="https://images-ext-2.discordapp.net/eyJ1cmwiOiJodHRwczovL2xoMy5nb29nbGV1c2VyY29udGVudC5jb20vZFVzZm5EUUpadDJ2OWQxbjJ0V3NQWmlZTExtT1FranYzUjRyYnNUdzgzbFlHbzJjUWU4dTJ6LTBZUVB4bW1jZ2tMOGQ9dzMwMCJ9.vpoypHNhN9RNUM_NgLm89xQvjB0?width=80&height=80")
 
+fun=discord.Embed(title="Fun Commands:", description="""
+  **heist  :**        General heist related commands.
+  **setheist  :**     Set different options in the heist config.""", colour=discord.Colour.gold())
+fun.set_thumbnail(url="http://spjonk.se/wp-content/uploads/sites/22/2016/09/fun.jpg")
+
 mod=discord.Embed(title="Moderation Commands:", description="""
   **addrole  :**      Adds a role to a user, defaults to author
   **ban  :**          Bans a user from the server.
@@ -149,6 +154,7 @@ class Help:
         await self.bot.send_message(destination, embed=au)
         await self.bot.send_message(destination, embed=mod)
         await self.bot.send_message(destination, embed=info)
+        await self.bot.send_message(destination, embed=fun)
 
     async def on_message(self, message):
         if message.content == "b!commands":
