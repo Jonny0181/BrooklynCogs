@@ -18,7 +18,13 @@ au.set_thumbnail(url="https://images-ext-2.discordapp.net/eyJ1cmwiOiJodHRwczovL2
 
 fun=discord.Embed(title="Fun Commands:", description="""
   **heist  :**        General heist related commands.
-  **setheist  :**     Set different options in the heist config.""", colour=discord.Colour.red())
+  **setheist  :**     Set different options in the heist config.
+  **bank  :**         Bank operations
+  **economyset  :**   Changes economy module settings
+  **leaderboard  :**  Server / global leaderboard
+  **payday  :**       Get some free credits
+  **payouts  :**      Shows slot machine payouts
+  **slot  :**         Play the slot machine""", colour=discord.Colour.red())
 fun.set_thumbnail(url="http://www.niagarafallsfunzone.com/images/layout/tickets.png")
 
 mod=discord.Embed(title="Moderation Commands:", description="""
