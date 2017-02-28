@@ -18,8 +18,8 @@ au.set_thumbnail(url="https://images-ext-2.discordapp.net/eyJ1cmwiOiJodHRwczovL2
 
 fun=discord.Embed(title="Fun Commands:", description="""
   **heist  :**        General heist related commands.
-  **setheist  :**     Set different options in the heist config.""", colour=discord.Colour.gold())
-fun.set_thumbnail(url="http://spjonk.se/wp-content/uploads/sites/22/2016/09/fun.jpg")
+  **setheist  :**     Set different options in the heist config.""", colour=discord.Colour.red())
+fun.set_thumbnail(url="http://www.niagarafallsfunzone.com/images/layout/tickets.png")
 
 mod=discord.Embed(title="Moderation Commands:", description="""
   **addrole  :**      Adds a role to a user, defaults to author
@@ -84,6 +84,14 @@ class Help:
         author = ctx.message.author
         destination = channel
         await self.bot.send_message(destination, embed=mod)
+
+    @commands.command(pass_context=True)
+    async def fun(self, ctx):
+        """Sends Fun help message."""
+        channel = ctx.message.channel
+        author = ctx.message.author
+        destination = channel
+        await self.bot.send_message(destination, embed=fun)
                 
     @commands.command(pass_context=True)
     async def information(self, ctx):
