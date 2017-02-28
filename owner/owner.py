@@ -249,13 +249,16 @@ class Owner:
         result = str(result)
 
         if not ctx.message.channel.is_private:
-            censor = (self.bot.settings.email, self.bot.settings.password)
+            censor = (self.bot.settings.email,
+                      self.bot.settings.password,
+                      self.bot.settings.token)
             r = "[EXPUNGED]"
             for w in censor:
-                if w != "":
-                    result = result.replace(w, r)
-                    result = result.replace(w.lower(), r)
-                    result = result.replace(w.upper(), r)
+                if w is None or w == "":
+                    continue
+                result = result.replace(w, r)
+                result = result.replace(w.lower(), r)
+                result = result.replace(w.upper(), r)
 
         result = list(pagify(result, shorten_by=16))
 
