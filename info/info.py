@@ -69,16 +69,17 @@ class Info:
         e.add_field(name="Links:", value="[Support Server.](https://discord.gg/ETqpvsa)\n[Invite url.](https://discordapp.com/oauth2/authorize?client_id=226132382846156800&permissions=-1&scope=bot)")
         e.set_author(name="Brooklyn#6591", icon_url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
         e.add_field(name="Changelog:", value="""**Added:**
-`1)` b!hackban | Allows you to ban a user that's not in the server.
-`2)` b!unban | Lets you unban a user from your server.
-`3)` b!pin | Allows you to pin a message.
-`4)` b!discr | Search for other users that have a certain discriminator.
-`5)` b!feed | Allows you to enable or disable announcement updates from Brooklyn.
+`1)` b!heist | General heist related commands.
+`2)` b!setheist | Set different options in the heist config.
+`3)` b!bank | Bank operations.
+`4)` b!economyset | Changes economy module settings.
+`5)` b!leaderboard | Server / global leaderboard.
+`6)` b!payday | Get some free credits.
+`7)` b!payouts | Shows slot machine payouts.
+`8)` b!slot | Play the slot machine.
 
 **Updated:**
-`1)` Audio module. | Changed the audio module from the reaction player. That one seems to have been crashing on you guys a lot lately. So I have updated the audio to the one we had before but I have changed the queue handler and we should be good to go! Just if you have any problems with the audio module please come by the support server and let me know!
-
-`2)` Server Hosting. | I have moved Brooklyn to a faster and better server so we should not have very many problems anymore. If you experience any really bad lag or anything please let me know!""")
+`1)` Audio | Remade the audio module so there will no longer be anymore failed download or play songs anymore. New updating np message and more. Just keep your eye open.""")
         e.set_thumbnail(url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
         try:
             await self.bot.whisper(embed=e)
