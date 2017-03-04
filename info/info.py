@@ -77,6 +77,7 @@ class Info:
 `6)` b!payday | Get some free credits.
 `7)` b!payouts | Shows slot machine payouts.
 `8)` b!slot | Play the slot machine.
+`9)` b!feed | Update notification subscription.
 
 **Updated:**
 `1)` Audio | Remade the audio module so there will no longer be anymore failed download or play songs anymore. New updating np message and more. Just keep your eye open.""")
