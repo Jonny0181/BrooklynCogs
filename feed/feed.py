@@ -35,7 +35,7 @@ class Newsletter:
         else:
             await self.bot.say("You have already registered for a update feed acconut.")
  
-    @newsletter.command(pass_context=True)
+    @feed.command(pass_context=True)
     async def toggle(self, ctx):
         """Allows you to turn on and off the updates whenever you feel like it!"""
         
@@ -54,7 +54,7 @@ class Newsletter:
             await self.bot.say("{}, you need a update feed acconut to start receiving the latest info. Use `{}feed signup` now!".format(user.mention, ctx.prefix))
 
     @checks.is_owner()
-    @newsletter.command(pass_context=True)
+    @feed.command(pass_context=True)
     async def announce(self, ctx, *, msg):
         """Owner only, sends announcement for people who !!!!"""
 
