@@ -16,7 +16,7 @@ class Newsletter:
 
     @commands.group(pass_context=True, invoke_without_command=True)
     async def feed(self, ctx):
-        """Newsletter Commands"""
+        """Update Commands"""
         
         if ctx.invoked_subcommand is None:
             await send_cmd_help(ctx)
@@ -31,7 +31,7 @@ class Newsletter:
             await self.bot.say("Ok, let me set up your account for our update feed!!")
             self.news[user.id] = {'send' : True}
             dataIO.save_json(self.new, self.news)
-            await self.bot.say("Congrats, you will now recieve updates! You can turn it off by saying `{}newsletter toggle`.".format(ctx.prefix))
+            await self.bot.say("Congrats, you will now recieve updates! You can turn it off by saying `{}feed toggle`.".format(ctx.prefix))
         else:
             await self.bot.say("You have already registered for a update feed acconut.")
  
