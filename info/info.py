@@ -51,11 +51,6 @@ class Info:
         else:
             banlist = ", ".join(map(str, banlist))
         await self.bot.say("Total bans: `{}`\n```{}```".format(bancount, banlist))
-	
-    @commands.command()
-    async def musicbot(self):
-        """Invite to Discord Radio."""
-        await self.bot.say("Here you go fam.\nhttps://discordapp.com/oauth2/authorize?client_id=281943091785498626&scope=bot&permissions=70380544")
     
     @commands.command(pass_context=True)
     async def info(self, ctx):
