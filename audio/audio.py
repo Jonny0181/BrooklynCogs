@@ -277,6 +277,8 @@ class Downloader(threading.Thread):
 
         self.song = Song(**video)
 
+def format(length : int):
+	return (str(int(length / 3600)) + ":" if int(length / 60) >= 60 else "")+ ("0" if int(length / 60) >= 60 and int(length / 60)%60 < 10 else "") + str(int(length / 60)%60) + ":" + ("0" if length%60 < 10 else "") + str(length%60)
 
 class Audio:
     """Music Streaming."""
@@ -1657,32 +1659,21 @@ class Audio:
         if server.id not in self.queue:
             await self.bot.say("Nothing playing on this server!")
             return
-        elif len(self.queue[server.id]["QUEUE"]) == 0:
-            await self.bot.say("Nothing queued on this server.")
-            return
-
         msg = ""
-
         now_playing = self._get_queue_nowplaying(server)
-
         if now_playing is not None:
             msg += "\n**Now playing:**\n{}\n<{}>\n".format(now_playing.title, now_playing.webpage_url)
-
         queue_url_list = self._get_queue(server, 5)
         tempqueue_url_list = self._get_queue_tempqueue(server, 5)
-
         waiter = await self.bot.say("Gathering information...")
-
         queue_song_list = await self._download_all(queue_url_list)
         tempqueue_song_list = await self._download_all(tempqueue_url_list)
-
         song_info = []
         for num, song in enumerate(tempqueue_song_list, 1):
             try:
                 song_info.append("{}. {.title}".format(num, song))
             except AttributeError:
                 song_info.append("{}. {.webpage_url}".format(num, song))
-
         for num, song in enumerate(queue_song_list, len(song_info) + 1):
             if num > 5:
                 break
@@ -1693,41 +1684,9 @@ class Audio:
                 song_info.append("{}. {.webpage_url}".format(num, song))
         msg += "\n**Next up:**\n" + "\n".join(song_info)
         if more_songs > 0:
-            msg += "\n\n**and {} more songs....**".format(more_songs)
+            msg += "\n\n**And {} more....**".format(more_songs)
         await self.bot.delete_message(waiter)
         await self.bot.say(msg)
-
-    @commands.group(pass_context=True, no_pm=True)
-    async def repeat(self, ctx):
-        """Toggles REPEAT"""
-        server = ctx.message.server
-        if ctx.invoked_subcommand is None:
-            if self.is_playing(server):
-                if self.queue[server.id]["REPEAT"]:
-                    msg = "The queue is currently looping."
-                else:
-                    msg = "The queue is currently not looping."
-                await self.bot.say(msg)
-                await self.bot.say(
-                    "Do `{}repeat toggle` to change this.".format(ctx.prefix))
-            else:
-                await self.bot.say("Play something to see this setting.")
-
-    @repeat.command(pass_context=True, no_pm=True, name="toggle")
-    async def repeat_toggle(self, ctx):
-        """Flips repeat setting."""
-        server = ctx.message.server
-        if not self.is_playing(server):
-            await self.bot.say("I don't have a repeat setting to flip."
-                               " Try playing something first.")
-            return
-
-        self._set_queue_repeat(server, not self.queue[server.id]["REPEAT"])
-        repeat = self.queue[server.id]["REPEAT"]
-        if repeat:
-            await self.bot.say("Repeat toggled on.")
-        else:
-            await self.bot.say("Repeat toggled off.")
 
     @commands.command(pass_context=True, no_pm=True)
     async def resume(self, ctx):
