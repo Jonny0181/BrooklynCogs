@@ -67,7 +67,7 @@ class Newsletter:
                 user = self.bot.get_user_info(id)
                 message = "**{} Update!\n\n**".format(self.bot.user.name)
                 message += msg
-                message += "\n\n*You can always disable updates by saying `{}newsletter toggle!`*".format(ctx.prefix)
+                message += "\n\n*You can always disable updates by saying `{}feed toggle!`*".format(ctx.prefix)
                 users = discord.utils.get(self.bot.get_all_members(),
                                   id=id)
                 try:
