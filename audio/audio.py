@@ -1371,7 +1371,7 @@ class Audio:
             msg = await self.bot.say("Enumerating youtube playlist...please wait, this could take a few moments!")
             songlist = await self._parse_yt_playlist(url)
         if songlist:
-            msg2 = await self.bot.edit_message(msg, "{} where proccessed, and added to the playlist!".format(len(songlist)))
+            msg2 = await self.bot.edit_message(msg, "{} were proccessed, and added to the playlist!".format(len(songlist)))
             self._extend_to_queue(server, songlist, author=author)
             await asyncio.sleep(5)
             await self.bot.delete_message(msg2)
