@@ -1659,6 +1659,9 @@ class Audio:
         if server.id not in self.queue:
             await self.bot.say("Nothing playing on this server!")
             return
+        elif len(self.queue[server.id]["QUEUE"]) == 0:
+            await self.bot.say("Nothing queued on this server.")
+            return
         msg = ""
         now_playing = self._get_queue_nowplaying(server)
         if now_playing is not None:
