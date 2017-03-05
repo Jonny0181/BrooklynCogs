@@ -24,7 +24,22 @@ fun=discord.Embed(title="Fun Commands:", description="""
   **leaderboard  :**  Server / global leaderboard
   **payday  :**       Get some free credits
   **payouts  :**      Shows slot machine payouts
-  **slot  :**         Play the slot machine""", colour=discord.Colour.red())
+  **slot  :**         Play the slot machine.
+  **cahcredits  :**   Code credits.
+  **cahgames  :**     Displays up to 10 CAH games in progress.
+  **chat  :**         Broadcasts a message to the other players.
+  **flushhand  :**    Flushes the cards in your hand.
+  **game  :**         Displays the game's current status.
+  **hand  :**         Shows your hand.
+  **idlekick  :**     Sets whether or not to kick members if idle.
+  **joincah  :**      Join a Cards Against Humanity game.
+  **laid  :**         Shows who laid their cards and who hasn't.
+  **lay  :**          Lays a card or cards from your hand.
+  **leavecah  :**     Leaves the current game you're in.
+  **newcah  :**       Starts a new Cards Against Humanity game.
+  **pick  :**         As the judge - pick the winning card(s).
+  **removeplayer  :** Removes a player from the game.
+  **score  :**        Display the score of the current game.""", colour=discord.Colour.red())
 fun.set_thumbnail(url="http://www.niagarafallsfunzone.com/images/layout/tickets.png")
 
 mod=discord.Embed(title="Moderation Commands:", description="""
