@@ -1365,7 +1365,7 @@ class Audio:
             self._clear_queue(server)
         songlist = None
         if self._match_sc_playlist(url):
-            msg = wait self.bot.say("Enumerating soundcloud playlist...please wait, this could take a few moments!")
+            msg = await self.bot.say("Enumerating soundcloud playlist...please wait, this could take a few moments!")
             songlist = await self._parse_sc_playlist(url)
         elif self._match_yt_playlist(url):
             msg = await self.bot.say("Enumerating youtube playlist...please wait, this could take a few moments!")
