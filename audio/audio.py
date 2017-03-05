@@ -83,6 +83,10 @@ class UnauthorizedSpeak(Exception):
     pass
 
 
+class ChannelUserLimit(Exception):
+    pass
+
+
 class UnauthorizedSave(Exception):
     pass
 
@@ -1320,82 +1324,53 @@ class Audio:
             await self.bot.say("Nothing playing, nothing to pause.")
 
     @commands.command(pass_context=True, no_pm=True)
-    async def play(self, ctx, *, url_or_search_terms):
+    async def play(self, ctx, *, url_or_search_terms=None):
         """Plays a link / searches and play"""
         url = url_or_search_terms
-        if url is None: return await self._queue_list(ctx)  # Default to queue
+        if url is None: return await send_cmd_help(ctx)
         message = ctx.message
         server = message.server
         channel = message.channel
         author = message.author
         voice_channel = author.voice_channel
-
-        # Checking if playing in current server
-
-        if self.is_playing(server):
-            await ctx.invoke(self._queue, url=url)
-            return  # Default to queue
-
-        # Checking already connected, will join if not
-
+        if "." in url:
+            if not self._valid_playable_url(url):
+                await self.bot.say("I'm sorry but your request is not valid. Please make sure there are no dots in your song name. If you are using a link and are recieving this error in a false way please join the support server and submit a bug report.")
+                return
+        if self.currently_downloading(server):
+            await self.bot.say("Please wait, I am still downloading the last song you queued.")
+            return
         try:
             self.has_connect_perm(author, server)
         except AuthorNotConnected:
-            await self.bot.say("You must join a voice channel before I can"
-                               " play anything.")
+            await self.bot.say("You must join a voice channel before I can play anything.")
             return
         except UnauthorizedConnect:
-            await self.bot.say("I don't have permissions to join your"
-                               " voice channel.")
+            await self.bot.say("I don't have permissions to join your voice channel.")
             return
         except UnauthorizedSpeak:
-            await self.bot.say("I don't have permissions to speak in your"
-                               " voice channel.")
+            await self.bot.say("I don't have permissions to speak in your voice channel.")
             return
-
+        except ChannelUserLimit:
+            await self.bot.say("Your voice channel is full.")
+            return
         if not self.voice_connected(server):
             await self._join_voice_channel(voice_channel)
         else:  # We are connected but not to the right channel
             if self.voice_client(server).channel != voice_channel:
                 await self._stop_and_disconnect(server)
                 await self._join_voice_channel(voice_channel)
-
-        # If not playing, spawn a downloader if it doesn't exist and begin
-        #   downloading the next song
-
-        if self.currently_downloading(server):
-            await self.bot.say("I'm already downloading a file!")
-            return
-
-        url = url.strip("<>")
-
-        if self._match_any_url(url):
-            if not self._valid_playable_url(url):
-                await self.bot.say("That's not a valid URL.")
-                return
-        else:
-            url = url.replace("/", "&#47")
-            url = "[SEARCH:]" + url
-
-        if "[SEARCH:]" not in url and "youtube" in url:
-            url = url.split("&")[0]  # Temp fix for the &list issue
-
-        self._stop_player(server)
-        self._clear_queue(server)
-        self._add_to_queue(server, url)
-        
+        if not self.is_playing(server):
+            self._stop_player(server)
+            self._clear_queue(server)
         songlist = None
         if self._match_sc_playlist(url):
-            msg = await self.bot.say("Proccessing soundcloud playlist... This could take a few moments!")
+            await self.bot.say("Enumerating soundcloud playlist...please wait, this could take a few moments!")
             songlist = await self._parse_sc_playlist(url)
         elif self._match_yt_playlist(url):
-            msg = await self.bot.say("Enumerating youtube playlist... This could take a few moments!")
+            await self.bot.say("Enumerating youtube playlist...please wait, this could take a few moments!")
             songlist = await self._parse_yt_playlist(url)
-
         if songlist:
-            #playlist = self._make_playlist(author, url, songlist)
-            #print("playlist {} \nsonglist {}".format(playlist.playlist, songlist))
-
             msg2 = await self.bot.edit_message(msg, "{} where proccessed, and added to the playlist!".format(len(songlist)))
             self._extend_to_queue(server, songlist, author=author)
             await asyncio.sleep(5)
@@ -1404,9 +1379,10 @@ class Audio:
             if not "." in url:
                 url = url.replace("/", "&#47")
                 url = "[SEARCH:]" + url
-
             if "[SEARCH:]" not in url and "youtube" in url:
                 url = url.split("&")[0]  # Temp fix for the &list issue
+            await self.bot.say("Enqueued your song! :white_check_mark:")
+            self._add_to_queue(server, url, author=author)
         self.queue[server.id]["CHANNELID"] = channel.id
 
     @commands.command(pass_context=True, no_pm=True)
@@ -2041,12 +2017,22 @@ class Audio:
 
     def has_connect_perm(self, author, server):
         channel = author.voice_channel
+
+        if channel:
+            is_admin = channel.permissions_for(server.me).administrator
+            if channel.user_limit == 0:
+                is_full = False
+            else:
+                is_full = len(channel.voice_members) >= channel.user_limit
+
         if channel is None:
             raise AuthorNotConnected
         elif channel.permissions_for(server.me).connect is False:
             raise UnauthorizedConnect
         elif channel.permissions_for(server.me).speak is False:
             raise UnauthorizedSpeak
+        elif is_full and not is_admin:
+            raise ChannelUserLimit
         else:
             return True
         return False
