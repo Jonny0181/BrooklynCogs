@@ -450,7 +450,7 @@ class Info:
         author = ctx.message.author
         if not user:
             user = author
-        data = discord.Embed(description="{}, here is {}'s avatar. :writing_hand::skin-tone-3:".format(ctx.message.author.name, user.name), colour=user.colour)
+        data = discord.Embed(colour=user.colour)
         data.set_image(url=user.avatar_url)
         await self.bot.say(embed=data)
 
