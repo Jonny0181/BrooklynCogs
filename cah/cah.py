@@ -477,7 +477,7 @@ class CardsAgainstHumanity:
                 msg += '{}/{} cards submitted...'.format(submitted, totalUsers)
             if len(msg):
                 # We have something to say
-                await self.bot.send_message(member['User'], msg)
+                await self.bot.send_message(member['User'], embed=discord.Embed(description=msg, colour=discord.Colour.green()))
                 await asyncio.sleep(self.loopsleep)
 
 
@@ -633,7 +633,7 @@ class CardsAgainstHumanity:
         stat_embed.set_author(name='Current Play')
         stat_embed.set_footer(text='Cards Against Humanity - id: {}'.format(game['ID']))
         await self.bot.send_message(user, embed=stat_embed)
-        await self.bot.send_message(user, embed=discord.Embed(description=msg, colour=0x000000))
+        await self.bot.send_message(user, embed=discord.Embed(description=msg, colour=discord.Colour.dark_blue()))
         
     async def showHand(self, ctx, user):
         # Shows the user's hand in an embed
@@ -653,7 +653,7 @@ class CardsAgainstHumanity:
                     points = '{} points'.format(member['Points'])
                 for card in member['Hand']:
                     i += 1
-                    msg += '`{})` {}\n'.format(i, card['Text'])
+                    msg += '{}) {}\n'.format(i, card['Text'])
 
         try:
             blackCard = '**{}**'.format(game['BlackCard']['Text'])
@@ -662,7 +662,7 @@ class CardsAgainstHumanity:
         stat_embed.set_author(name='Your Hand - {}'.format(points))
         stat_embed.set_footer(text='Cards Against Humanity - id: {}'.format(game['ID']))
         await self.bot.send_message(user, embed=stat_embed)
-        await self.bot.send_message(user, embed=discord.Embed(description=msg))
+        await self.bot.send_message(user, embed=discord.Embed(title="Your Hand", description=msg, colour=discord.Color.magenta))
                             
     async def showOptions(self, ctx, user):
         # Shows the judgement options
