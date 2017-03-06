@@ -633,7 +633,7 @@ class CardsAgainstHumanity:
         stat_embed.set_author(name='Current Play')
         stat_embed.set_footer(text='Cards Against Humanity - id: {}'.format(game['ID']))
         await self.bot.send_message(user, embed=stat_embed)
-        await self.bot.send_message(user, embed=discord.Embed(descirption=msg))
+        await self.bot.send_message(user, embed=discord.Embed(description=msg))
         
     async def showHand(self, ctx, user):
         # Shows the user's hand in an embed
