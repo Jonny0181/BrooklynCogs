@@ -547,7 +547,7 @@ class CardsAgainstHumanity:
             else:
                 msg = 'The **Winning** cards were:\n\n{}'.format('{}'.format(' - '.join(winner['Cards'])))
             await self.bot.send_message(member['User'], embed=stat_embed)
-            await self.bot.send_message(member['User'], embed=discord.Embed(description=msg))
+            await self.bot.send_message(member['User'], embed=discord.Embed(description=msg, colour=discord.Colour.green()))
             await asyncio.sleep(self.loopsleep)
 
             # await self.nextPlay(ctx, game)
@@ -633,7 +633,7 @@ class CardsAgainstHumanity:
         stat_embed.set_author(name='Current Play')
         stat_embed.set_footer(text='Cards Against Humanity - id: {}'.format(game['ID']))
         await self.bot.send_message(user, embed=stat_embed)
-        await self.bot.send_message(user, embed=discord.Embed(description=msg))
+        await self.bot.send_message(user, embed=discord.Embed(description=msg, colour=0x000000))
         
     async def showHand(self, ctx, user):
         # Shows the user's hand in an embed
@@ -695,7 +695,7 @@ class CardsAgainstHumanity:
             msg += '`{})` {}\n'.format(i, ' - '.join(sub['Cards']))
         if judge == '**YOU** are':
             msg += '\nPick a winner with `{}pick [submission number]`.'.format(ctx.prefix)
-        await self.bot.send_message(user, embed=discord.Embed(description=msg))
+        await self.bot.send_message(user, embed=discord.Embed(description=msg, colour=discord.Colour.red()))
         
     async def drawCard(self, game):
         # Draws a random unused card and shuffles the deck if needed
