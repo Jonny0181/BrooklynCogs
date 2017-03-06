@@ -505,7 +505,7 @@ class CardsAgainstHumanity:
                         continue
                     msg = 'All cards have been submitted!'
                     # if
-                    await self.bot.send_message(member['User'], msg)
+                    await self.bot.send_message(member['User'], embed=discord.Embed(description=msg, colour=discord.Colour.green()))
                     await self.showOptions(ctx, member['User'])
                     await asyncio.sleep(self.loopsleep)
 
@@ -1002,7 +1002,7 @@ class CardsAgainstHumanity:
         shuffle(userGame['Submitted'])
 
         user['Laid'] = True
-        await self.bot.send_message(ctx.message.author, 'You submitted your {}!'.format(cardSpeak))
+        await self.bot.send_message(ctx.message.author, embed=discord.Embed(description='You submitted your {}!'.format(cardSpeak), colour=discord.Colour.green()))
         await self.checkSubmissions(ctx, userGame, user)
             
 
