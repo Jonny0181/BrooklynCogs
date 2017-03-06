@@ -662,7 +662,7 @@ class CardsAgainstHumanity:
         stat_embed.set_author(name='Your Hand - {}'.format(points))
         stat_embed.set_footer(text='Cards Against Humanity - id: {}'.format(game['ID']))
         await self.bot.send_message(user, embed=stat_embed)
-        await self.bot.send_message(user, embed=discord.Embed(title="Your Hand", description=msg, colour=discord.Color.magenta))
+        await self.bot.send_message(user, embed=discord.Embed(title="Your Hand", description=msg, colour=discord.Color.magenta()))
                             
     async def showOptions(self, ctx, user):
         # Shows the judgement options
