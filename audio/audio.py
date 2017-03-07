@@ -1326,7 +1326,7 @@ class Audio:
             await self.bot.say("Nothing playing, nothing to pause.")
 
     @commands.command(pass_context=True, no_pm=True)
-    async def play(self, ctx, *, url_or_search_terms=None):
+    async def play(self, song, ctx, *, url_or_search_terms=None):
         """Plays a link / searches and play"""
         url = url_or_search_terms
         if url is None: return await send_cmd_help(ctx)
@@ -1383,7 +1383,7 @@ class Audio:
                 url = "[SEARCH:]" + url
             if "[SEARCH:]" not in url and "youtube" in url:
                 url = url.split("&")[0]  # Temp fix for the &list issue
-            await self.bot.say("Enqueued your song! :white_check_mark:")
+            await self.bot.say("Enqueued {}! :white_check_mark:".format(song.title))
             self._add_to_queue(server, url)
         self.queue[server.id]["CHANNELID"] = channel.id
 
