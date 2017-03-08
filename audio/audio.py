@@ -1805,6 +1805,7 @@ class Audio:
     async def np(self, ctx):
         """Info about the current song."""
         server = ctx.message.server
+        author = ctx.message.author
         if not self.is_playing(server):
             await self.bot.say("I'm not playing on this server.")
             return
@@ -1821,16 +1822,29 @@ class Audio:
                 m, s = divmod(song.duration, 60)
                 h, m = divmod(m, 60)
                 if h:
-                    dur = "{0}:{1:0>2}:{2:0>2}".format(h, m, s)
+                    dur = "{0}h {1:0>2}m {2:0>2}s".format(h, m, s)
                 else:
-                    dur = "{0}:{1:0>2}".format(m, s)
+                    dur = "{0}m {1:0>2}s".format(m, s)
             else:
                 dur = None
-            msg = ("**Title:** {}\n**Author:** {}\n**Uploader:** {}\n"
+            try:
+                e = discord.Embed(title="Now Playing in {}:".format(server.me.voice_channel), colour=author.colour)
+                e.add_field(name="Title:", value=song.title, inline=False)
+                e.add_field(name="Duration:", value="{}ms".format(song.dur))
+                e.add_field(name="Author:", value=song.creator)
+                e.add_field(name="Uploader:", value=song.uploader)
+                e.add_field(name="Views:", value=song.view_count)
+                e.add_field(name="Ratings:", value="\👍 {} | {} \👎".format(str(song.like_count), str(song.dislike_count)))
+                e.add_field(name="License:", value=song.license)
+                e.add_field(name="Url:", value=song.webpage_url, inline=False)
+                e.set_thumbnail(url=song.thumbnail)
+                await bot.say(embed=e)
+            except:
+                msg = ("**Title:** {}\n**Author:** {}\n**Uploader:** {}\n"
                    "**Views:** {}\n**Ratings**: \👍{} | {}\👎\n**Duration:** {}\n\n<{}>".format(
                        song.title, song.creator, song.uploader,
                        song.view_count, str(song.like_count), str(song.dislike_count), dur, song.webpage_url))
-            await self.bot.say(msg.replace("**Author:** None\n", "")
+                await self.bot.say(msg.replace("**Author:** None\n", "")
                                   .replace("**Views:** None\n", "")
                                   .replace("**Uploader:** None\n", "")
                                   .replace("**Duration:** None\n", ""))
@@ -1882,9 +1896,9 @@ class Audio:
                 m, s = divmod(song.duration, 60)
                 h, m = divmod(m, 60)
                 if h:
-                    dur = "{0}:{1:0>2}:{2:0>2}".format(h, m, s)
+                    dur = "{0}h {1:0>2}m {2:0>2}s".format(h, m, s)
                 else:
-                    dur = "{0}:{1:0>2}".format(m, s)
+                    dur = "{0}m {1:0>2}s".format(m, s)
             else:
                 dur = None
             try:
