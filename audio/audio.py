@@ -1664,9 +1664,11 @@ class Audio:
             return
         msg = ""
         now_playing = self._get_queue_nowplaying(server)
+        e = discord.Embed(title="Current queue for {}".format(server.name), colour=author.colour)
         if now_playing is not None:
             msg += "\n**Now playing:**\n{}\n<{}>\n".format(now_playing.title, now_playing.webpage_url)
-            emsg = "{}\n<{}>\n".format(now_playing.title, now_playing.webpage_url)
+            e.add_field(name="Now Playing:", value="{}\n{}\n".format(now_playing.title, now_playing.webpage_url))
+            e.set_thumbnail(url=now_playing.thumbnail)
         queue_url_list = self._get_queue(server, 5)
         tempqueue_url_list = self._get_queue_tempqueue(server, 5)
         waiter = await self.bot.say("Gathering information...")
@@ -1687,17 +1689,12 @@ class Audio:
             except AttributeError:
                 song_info.append("{}. {.webpage_url}".format(num, song))
         msg += "\n**Next up:**\n" + "\n".join(song_info)
-        emsg2 = "\n".join(song_info)
+        e.add_field(name="Next Up:", value="\n".join(song_info))
         if more_songs > 0:
             msg += "\n\n**And {} more....**".format(more_songs)
-            emsg3 = "And {} more....".format(more_songs)
+            e.set_footer(text="And {} more....".format(more_songs))
         await self.bot.delete_message(waiter)
         try:
-            e = discord.Embed(title="Current queue for {}".format(server.name), colour=discord.Colour.blue())
-            e.add_field(name="Now playing:", value=emsg)
-            e.add_field(name="Next up:", value=emsg2)
-            e.set_footer(text=emsg3)
-            e.set_thumbnail(now_playing.thumbnail)
             await self.bot.say(embed=e)
         except:
             await self.bot.say(msg)
@@ -1890,8 +1887,7 @@ class Audio:
             else:
                 dur = None
             try:
-                embed = discord.Embed(title="Now playing in {}".format(server.me.voice_channel), description="{} | {}\n{}".format(song.title, dur, song.webpage_url), colour=discord.Colour.blue())
-                embed.set_thumbnail(url=song.thumbnail)
+                embed = discord.Embed(title="Now playing in "+server.me.voice_channel, description="{} | {}\n{}".format(song.title, dur, song.webpage_url), colour=discord.Colour.blue())
                 await self.bot.send_message(channel, embed=embed)
             except:
                 msg = "**Now playing** in {}: **{}** `{}`".format(server.me.voice_channel, song.title, dur)
