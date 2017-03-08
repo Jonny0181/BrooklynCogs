@@ -1891,6 +1891,7 @@ class Audio:
                 dur = None
             try:
                 embed = discord.Embed(title="Now playing in "+server.me.voice_channel, description="{} | {}\n{}".format(song.title, dur, song.webpage_url), colour=discord.Colour.blue())
+                await self.bot.say(embed=embed)
             except:
                 msg = "**Now playing** in {}: **{}** `{}`".format(server.me.voice_channel, song.title, dur)
                 await self.bot.send_message(channel, msg)
