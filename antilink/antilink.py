@@ -366,10 +366,7 @@ class AntiLink:
         data = fileIO(self.link_data, "load")
         data[server.id] = db_data
         fileIO(self.link_data, "save", data)
-    async def on_server_remove(self, server):
-        data = fileIO(self.link_data, "load")
-        del data[server.id]
-        fileIO(self.link_data, "save", data)
+        
 def check_folders():
     if os.path.exists("data/antilink"):
         pass
