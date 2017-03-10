@@ -32,7 +32,7 @@ class Info:
         idlle = len([e.name for e in self.bot.get_all_members() if e.status == discord.Status.idle])
         dnd2 = len([e.name for e in self.bot.get_all_members() if e.status == discord.Status.dnd])
         off = len([e.name for e in self.bot.get_all_members() if e.status == discord.Status.offline])
-        msg = "I am currently in **{}** servers.\n".format(len(bot.servers))
+        msg = "I am currently in **{}** servers.\n".format(len(self.bot.servers))
         msg += "{} Users: {}\n".format(online, on)
         msg += "{} Users: {}\n".format(away, idlle)
         msg += "{} Users: {}\n".format(dnd, dnd2)
