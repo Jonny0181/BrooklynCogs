@@ -81,18 +81,8 @@ class Info:
         e.add_field(name="Links:", value="[Support Server.](https://discord.gg/ETqpvsa)\n[Invite url.](https://discordapp.com/oauth2/authorize?client_id=226132382846156800&permissions=-1&scope=bot)")
         e.set_author(name="Brooklyn#6591", icon_url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
         e.add_field(name="Changelog:", value="""**Added:**
-`1)` b!heist | General heist related commands.
-`2)` b!setheist | Set different options in the heist config.
-`3)` b!bank | Bank operations.
-`4)` b!economyset | Changes economy module settings.
-`5)` b!leaderboard | Server / global leaderboard.
-`6)` b!payday | Get some free credits.
-`7)` b!payouts | Shows slot machine payouts.
-`8)` b!slot | Play the slot machine.
-`9)` b!feed | Update notification subscription.
-
-**Updated:**
-`1)` Audio | Remade the audio module so there will no longer be anymore failed download or play songs anymore. New updating np message and more. Just keep your eye open.""")
+`1)` b!serverstats | Shows stats on users status and servercount.
+`2)` b!banlist | Shows bans  in the server.""")
         e.set_thumbnail(url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
         try:
             await self.bot.say(embed=e)
@@ -116,14 +106,8 @@ class Info:
             data += "Invite Url: https://discordapp.com/oauth2/authorize?client_id=226132382846156800&permissions=-1&scope=bot\n\n"
             data += "**Changelog:**\n\n"
             data += "**Added:**\n"
-            data += "`1)` b!hackban | Allows you to ban a user that's not in the server.\n"
-            data += "`2)` b!unban | Lets you unban a user from your server.\n"
-            data += "`3)` b!pin | Allows you to pin a message\n"
-            data += "`4)` b!discr | Search for other users that have a certain discriminator.\n"
-            data += "`5)` b!feed | Allows you to enable or disable announcement updates from Brooklyn.\n\n"
-            data += "**Updated:**\n"
-            data += "`1)` Audio module. | So I have updated the audio to the one we had before but I have changed the queue handler and we should be good to go! Just if you have any problems with the audio module please come by the support server and let me know!\n"
-            data += "`2)` Server Hosting. | I have moved Brooklyn to a faster and better server so we should not have very many problems anymore. If you experience any really bad lag or anything please let me know!"
+            data += "`1)` b!banlist | Shows bans for the server.\n"
+            data += "`2)` b!serverstats | Shows stats on users status and servercount.\n"
             await self.bot.say(data)
 
     @commands.command(pass_context=True)
