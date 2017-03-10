@@ -23,6 +23,23 @@ class Info:
             return user.joined_at
 
     @commands.command(pass_context=True)
+    async def serverstats(self, ctx):
+        away = "<:vpAway:212789859071426561>"
+        dnd = "<:vpDnD:236744731088912384>"
+        offline = "<:vpOffline:212790005943369728>"
+        online = "<:vpOnline:212789758110334977>"
+        on = len([e.name for e in self.bot.get_all_members() if e.status == discord.Status.online])
+        idlle = len([e.name for e in self.bot.get_all_members() if e.status == discord.Status.idle])
+        dnd2 = len([e.name for e in self.bot.get_all_members() if e.status == discord.Status.dnd])
+        off = len([e.name for e in self.bot.get_all_members() if e.status == discord.Status.offline])
+        msg = "I am currently in **{}** servers.\n".format(len(bot.servers))
+        msg += "{} Users: {}\n".format(online, on)
+        msg += "{} Users: {}\n".format(away, idlle)
+        msg += "{} Users: {}\n".format(dnd, dnd2)
+        msg += "{} Users: {}\n".format(offline, off)
+        await self.bot.say(msg)
+
+    @commands.command(pass_context=True)
     async def discr(self, ctx, discrim: int):
         """gives you farmed discrms"""
         try:
