@@ -1838,7 +1838,7 @@ class Audio:
             e.add_field(name="Url:", value=song.webpage_url, inline=False)
             e.set_thumbnail(url=song.thumbnail)
             try:
-                await bot.say(embed=e)
+                await self.bot.say(embed=e)
             except:
                 msg = ("**Title:** {}\n**Author:** {}\n**Uploader:** {}\n"
                    "**Views:** {}\n**Ratings**: \👍{} | {}\👎\n**Duration:** {}\n\n<{}>".format(
