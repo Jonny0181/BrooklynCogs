@@ -309,7 +309,7 @@ class Info:
 
     @commands.command(pass_context=True, no_pm=True)
     async def cookie(self, ctx, *, user: discord.Member):
-        await self.bot.say("**You have given {} a cookie! | :cookie:".format(user.mention))
+        await self.bot.say("**You have given {} a cookie! | :cookie:**".format(user.mention))
 
     @commands.command(pass_context=True, no_pm=True)
     async def uinfo(self, ctx, *, user: discord.Member=None):
