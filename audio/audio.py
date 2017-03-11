@@ -1827,17 +1827,17 @@ class Audio:
                     dur = "{0}m {1:0>2}s".format(m, s)
             else:
                 dur = None
+            e = discord.Embed(title="Now Playing in {}:".format(server.me.voice_channel), colour=author.colour)
+            e.add_field(name="Title:", value=song.title, inline=False)
+            e.add_field(name="Duration:", value="{}ms".format(song.dur))
+            e.add_field(name="Author:", value=song.creator)
+            e.add_field(name="Uploader:", value=song.uploader)
+            e.add_field(name="Views:", value=song.view_count)
+            e.add_field(name="Ratings:", value="\👍 {} | {} \👎".format(str(song.like_count), str(song.dislike_count)))
+            e.add_field(name="License:", value=song.license)
+            e.add_field(name="Url:", value=song.webpage_url, inline=False)
+            e.set_thumbnail(url=song.thumbnail)
             try:
-                e = discord.Embed(title="Now Playing in {}:".format(server.me.voice_channel), colour=author.colour)
-                e.add_field(name="Title:", value=song.title, inline=False)
-                e.add_field(name="Duration:", value="{}ms".format(song.dur))
-                e.add_field(name="Author:", value=song.creator)
-                e.add_field(name="Uploader:", value=song.uploader)
-                e.add_field(name="Views:", value=song.view_count)
-                e.add_field(name="Ratings:", value="\👍 {} | {} \👎".format(str(song.like_count), str(song.dislike_count)))
-                e.add_field(name="License:", value=song.license)
-                e.add_field(name="Url:", value=song.webpage_url, inline=False)
-                e.set_thumbnail(url=song.thumbnail)
                 await bot.say(embed=e)
             except:
                 msg = ("**Title:** {}\n**Author:** {}\n**Uploader:** {}\n"
