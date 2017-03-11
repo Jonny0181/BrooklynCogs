@@ -39,7 +39,8 @@ fun=discord.Embed(title="Fun Commands:", description="""
   **newcah  :**       Starts a new Cards Against Humanity game.
   **pick  :**         As the judge - pick the winning card(s).
   **removeplayer  :** Removes a player from the game.
-  **score  :**        Display the score of the current game.""", colour=discord.Colour.red())
+  **score  :**        Display the score of the current game.
+  **cookie  :**       Give a user a cookie.""", colour=discord.Colour.red())
 fun.set_thumbnail(url="http://www.niagarafallsfunzone.com/images/layout/tickets.png")
 
 mod=discord.Embed(title="Moderation Commands:", description="""
