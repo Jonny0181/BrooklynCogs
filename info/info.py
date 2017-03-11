@@ -308,6 +308,10 @@ class Info:
             await self.bot.say(data)
 
     @commands.command(pass_context=True, no_pm=True)
+    async def cookie(self, ctx, *, user: discord.Member):
+        await self.bot.say("**You have given {} a cookie! | :cookie:".format(user.mention))
+
+    @commands.command(pass_context=True, no_pm=True)
     async def uinfo(self, ctx, *, user: discord.Member=None):
         """Shows userss informations"""
         author = ctx.message.author
