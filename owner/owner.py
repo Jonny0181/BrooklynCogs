@@ -65,6 +65,24 @@ class Owner:
             await self.bot.send_file(ctx.message.channel, fp)
         else:
             await self.bot.say("Cog not found!")
+
+    @commands.command()
+    @checks.is_owner()
+    async def setauth(self, auth):
+        """Sets the authorization header key for bots.discord.pw to update the amount of servers your bot is in, yw."""
+        if self.settings['client_id'] == "client_id_here":
+            await self.bot.say("You first have to set the client id with [p]setclientid <id>.")
+        data = {'server_count': int(len(self.bot.servers))}
+        try:
+            post = requests.post("https://bots.discord.pw/api/bots/" + self.settings['client_id'] + "/stats", headers={'Authorization': auth, 'Content-Type' : 'application/json'}, data=json.dumps(data))
+            print(post.content.decode("utf-8"))
+        except Exception as e:
+            await self.bot.say("Auth key is not working or an error occured.\n")
+            await self.bot.say(e)
+            return
+        self.settings['auth_key'] = auth
+        self.save_settings()
+        await self.bot.say("Auth key set and servercount updated.")
 	
     @commands.command(pass_context=True)
     @checks.is_owner()
