@@ -1829,7 +1829,7 @@ class Audio:
                 dur = None
             e = discord.Embed(title="Now Playing in {}:".format(server.me.voice_channel), colour=author.colour)
             e.add_field(name="Title:", value=song.title, inline=False)
-            e.add_field(name="Duration:", value="{}ms".format(song.dur))
+            e.add_field(name="Duration:", value="{}ms".format(dur))
             e.add_field(name="Author:", value=song.creator)
             e.add_field(name="Uploader:", value=song.uploader)
             e.add_field(name="Views:", value=song.view_count)
