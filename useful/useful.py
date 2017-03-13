@@ -249,20 +249,24 @@ class Useful:
         if not self.settings['auth_key'] == "key_here":
             data = {'server_count': int(len(self.bot.servers))}
             post = requests.post("https://bots.discord.pw/api/bots/" + self.settings['client_id'] + "/stats", headers={'Authorization': self.settings['auth_key'], 'Content-Type' : 'application/json'}, data=json.dumps(data))
+            await bot.change_presence(game=discord.Game(name="b!help | {}".format(len(bot.servers))), status=discord.Status.dnd)
             print("Joined a server, updated stats on bots.discord.pw. " + post.content.decode("utf-8"))
         if not self.settings['auth_key_dl'] == "dl_key_here":
             data = {"token": self.settings['auth_key_dl'], "servers": len(bot.servers)}
             post = requests.post("https://bots.discordlist.net/api.php", data=json.dumps(data))
+            await bot.change_presence(game=discord.Game(name="b!help | {}".format(len(bot.servers))), status=discord.Status.dnd)
             print("Left a server, updated stats on bots.discordlist.net. " + post.content.decode("utf-8"))
         
     async def on_server_remove(self, server):
         if not self.settings['auth_key'] == "key_here":
             data = {'server_count': int(len(self.bot.servers))}
             post = requests.post("https://bots.discord.pw/api/bots/" + self.settings['client_id'] + "/stats", headers={'Authorization': self.settings['auth_key'], 'Content-Type' : 'application/json'}, data=json.dumps(data))
+            await bot.change_presence(game=discord.Game(name="b!help | {}".format(len(bot.servers))), status=discord.Status.dnd)
             print("Left a server, updated stats on bots.discord.pw. " + post.content.decode("utf-8"))
         if not self.settings['auth_key_dl'] == "dl_key_here":
             data = {"token": self.settings['auth_key_dl'], "servers": len(bot.servers)}
             post = await requests.post("https://bots.discordlist.net/api.php", data=json.dumps(data))
+            await bot.change_presence(game=discord.Game(name="b!help | {}".format(len(bot.servers))), status=discord.Status.dnd)
             print("Left a server, updated stats on bots.discordlist.net. " + post.content.decode("utf-8"))
         
 def check_folders():
