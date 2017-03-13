@@ -280,8 +280,8 @@ class Downloader:
             msg = ("```{} by {}```\n\n{}".format(name, author, desc))
             await self.bot.say(msg)
 
-    @cog.command(hidden=True)
-    async def search(self, *terms: str):
+    @cog.command(pass_context=True)
+    async def search(self, ctx, *, term: str):
         """Search installable cogs"""
 
         # base url for the cogs.red search API
