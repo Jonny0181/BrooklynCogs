@@ -73,7 +73,7 @@ class Info:
     async def info(self, ctx):
         """Shows information on Brooklyn."""
         prefix = ctx.prefix
-        owner = "Yσυηg Sιηαтяα™#5484"
+        owner = "<@146040787891781632>"
         servers = len(self.bot.servers)
         members = len([e.name for e in self.bot.get_all_members()])
         e = discord.Embed(description="Brooklyn - A multi function Discord bot with music, moderation, and utility features.", colour=discord.Colour.blue())
@@ -89,7 +89,7 @@ class Info:
             await self.bot.say(embed=e)
         except discord.HTTPException:
             prefix = ctx.prefix
-            owner = "Yσυηg Sιηαтяα™#5484"
+            owner = "<@146040787891781632>
             servers = len(self.bot.servers)
             users = len([e.name for e in self.bot.get_all_members()])
             channels = len([e.name for e in self.bot.get_all_channels()])
@@ -160,7 +160,7 @@ class Info:
         await self.bot.type()
         t2 = time.perf_counter()
         data = discord.Embed(description="Showing stats for {}.".format(self.bot.user.name), colour=discord.Colour.red())
-        data.add_field(name="Owner", value="Yσυηg Sιηαтяα™#5484\n146040787891781632")
+        data.add_field(name="Owner", value="<@146040787891781632>")
         data.add_field(name="Ping", value="{}ms".format(round((t2-t1)*1000)))
         data.add_field(name="Servers", value=len(self.bot.servers))
         data.add_field(name="Api version", value=discord.__version__)
