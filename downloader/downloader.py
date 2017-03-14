@@ -215,7 +215,6 @@ class Downloader:
     @cog.command(name="list")
     async def _send_list(self, repo_name=None):
         """Lists installable cogs
-
         Repositories list:
         https://twentysix26.github.io/Red-Docs/red_cog_approved_repos/"""
         retlist = []
@@ -225,6 +224,8 @@ class Downloader:
                 if 'url' == cog:
                     continue
                 data = self.get_info_data(repo_name, cog)
+                if data and data.get("HIDDEN") is True:
+                    continue
                 if data:
                     retlist.append([cog, data.get("SHORT", "")])
                 else:
@@ -280,7 +281,7 @@ class Downloader:
             msg = ("```{} by {}```\n\n{}".format(name, author, desc))
             await self.bot.say(msg)
 
-    @cog.command(pass_context=True)
+    @cog.command(hidden=True, pass_context=True)
     async def search(self, ctx, *, term: str):
         """Search installable cogs"""
 
