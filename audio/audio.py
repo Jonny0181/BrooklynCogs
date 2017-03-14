@@ -1383,11 +1383,41 @@ class Audio:
                 url = "[SEARCH:]" + url
             if "[SEARCH:]" not in url and "youtube" in url:
                 url = url.split("&")[0]  # Temp fix for the &list issue
-            if "[SEARCH:]" not in url and "soundcloud" in url:
-                url = url.split("&")[0]  # Temp fix for the &list issue
             await self.bot.say("Enqueued! :white_check_mark:")
             self._add_to_queue(server, url)
         self.queue[server.id]["CHANNELID"] = channel.id
+        
+    @commands.group(pass_context=True, no_pm=True)
+    async def repeat(self, ctx):
+        """Toggles REPEAT"""
+        server = ctx.message.server
+        if ctx.invoked_subcommand is None:
+            if self.is_playing(server):
+                if self.queue[server.id]["REPEAT"]:
+                    msg = "The queue is currently looping."
+                else:
+                    msg = "The queue is currently not looping."
+                await self.bot.say(msg)
+                await self.bot.say(
+                    "Do `{}repeat toggle` to change this.".format(ctx.prefix))
+            else:
+                await self.bot.say("Play something to see this setting.")
+
+    @repeat.command(pass_context=True, no_pm=True, name="toggle")
+    async def repeat_toggle(self, ctx):
+        """Flips repeat setting."""
+        server = ctx.message.server
+        if not self.is_playing(server):
+            await self.bot.say("I don't have a repeat setting to flip."
+                               " Try playing something first.")
+            return
+
+        self._set_queue_repeat(server, not self.queue[server.id]["REPEAT"])
+        repeat = self.queue[server.id]["REPEAT"]
+        if repeat:
+            await self.bot.say("Repeat toggled on.")
+        else:
+            await self.bot.say("Repeat toggled off.")
 
     @commands.command(pass_context=True, no_pm=True)
     async def prev(self, ctx):
