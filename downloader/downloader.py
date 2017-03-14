@@ -281,7 +281,7 @@ class Downloader:
             msg = ("```{} by {}```\n\n{}".format(name, author, desc))
             await self.bot.say(msg)
 
-    @cog.command(hidden=True, pass_context=True)
+    @cog.command(pass_context=True)
     async def search(self, ctx, *, term: str):
         """Search installable cogs"""
 
