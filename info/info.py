@@ -89,7 +89,7 @@ class Info:
             await self.bot.say(embed=e)
         except discord.HTTPException:
             prefix = ctx.prefix
-            owner = "<@146040787891781632>
+            owner = "<@146040787891781632>"
             servers = len(self.bot.servers)
             users = len([e.name for e in self.bot.get_all_members()])
             channels = len([e.name for e in self.bot.get_all_channels()])
