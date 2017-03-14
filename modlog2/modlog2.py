@@ -426,5 +426,5 @@ def check_files():
 def setup(bot):
     check_folders()
     check_files()
-    n = ActivityLogger(bot)
+    n = Modlog(bot)
     bot.add_cog(n)
