@@ -172,7 +172,7 @@ class Info:
         data.add_field(name='Uptime', value="%d Weeks," % (w) + " %d Days," % (d) + " %d Hours,"
                                    % (
                 h) + " %d Minutes," % (m) + " and %d Seconds!" % (s))
-        data.add_field(name="Voice Stats:", value="Connected to {} voice channels, with a total of {} users.".format(len([e.name for e in bot.get_all_channels() if e.server.me.voice_channel]), len([e.voice_members for e in bot.get_all_channels() if e.server.me.voice_channel])), inline=False)
+        data.add_field(name="Voice Stats:", value="Connected to {} voice channels, with a total of {} users.".format(len([e.name for e in self.bot.get_all_channels() if e.server.me.voice_channel]), len([e.voice_members for e in self.bot.get_all_channels() if e.server.me.voice_channel])), inline=False)
         data.set_author(name=ctx.message.author.display_name, icon_url=ctx.message.author.avatar_url)
         data.set_thumbnail(url=ctx.message.author.avatar_url)
         await self.bot.say(embed=data)
