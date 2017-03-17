@@ -144,13 +144,13 @@ class Info:
         """Shows stats."""
         text_channels = 0
         voice_channels = 0 
-	list2 = []
-	list = []
-	for i in self.bot.servers:
+        list2 = []
+        list = []
+        for i in self.bot.servers:
             if i.me.voice_channel is not None:
-	        list.append(i.me.voice_channel)
-	for c in list:
-	    list.extend(c.voice_members)
+                list.append(i.me.voice_channel)
+        for c in list:
+            list.extend(c.voice_members)
         mem_v = psutil.virtual_memory()
         cpu_p = psutil.cpu_percent(interval=None, percpu=True)
         cpu_usage = sum(cpu_p)/len(cpu_p)
