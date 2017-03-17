@@ -146,7 +146,7 @@ class Info:
         voice_channels = 0 
         list2 = []
         list = []
-        for i in bot.servers:
+        for i in self.bot.servers:
             if i.me.voice_channel is not None:
                 list.append(i.me.voice_channel)
         for c in list:
