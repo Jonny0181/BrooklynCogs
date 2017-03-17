@@ -144,6 +144,13 @@ class Info:
         """Shows stats."""
         text_channels = 0
         voice_channels = 0 
+	list2 = []
+	list = []
+	for i in self.bot.servers:
+            if i.me.voice_channel is not None:
+	        list.append(i.me.voice_channel)
+	for c in list:
+	    list.extend(c.voice_members)
         mem_v = psutil.virtual_memory()
         cpu_p = psutil.cpu_percent(interval=None, percpu=True)
         cpu_usage = sum(cpu_p)/len(cpu_p)
@@ -172,6 +179,7 @@ class Info:
         data.add_field(name='Uptime', value="%d Weeks," % (w) + " %d Days," % (d) + " %d Hours,"
                                    % (
                 h) + " %d Minutes," % (m) + " and %d Seconds!" % (s))
+	data.add_field(name="Voice Stats:", value="Connected to {} voice channels, with a total of {} users.".format(len(list), len(list2)), inline=False)
         data.set_author(name=ctx.message.author.display_name, icon_url=ctx.message.author.avatar_url)
         data.set_thumbnail(url=ctx.message.author.avatar_url)
         await self.bot.say(embed=data)
