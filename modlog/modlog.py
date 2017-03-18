@@ -307,7 +307,7 @@ class invitemirror:
             if before.type == discord.ChannelType.text:
                 msg = discord.Embed(colour=discord.Color.blue())
                 msg.title = "Text channel name update!"
-                msg.add_field(name="Before:" value=css.format(before.name), inline=False)
+                msg.add_field(name="Before:", value=css.format(before.name), inline=False)
                 msg.add_field(name="After:", value=css.format(after.name), inline=False)
                 msg.set_thumbnail(url="https://s-media-cache-ak0.pinimg.com/originals/27/18/77/27187782801d15f756a27156105d1233.png")
                 msg.set_footer(text=timef)
