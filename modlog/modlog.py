@@ -358,10 +358,11 @@ class invitemirror:
             return
         channel = db[server.id]["Channel"]
         msg = discord.Embed(colour=discord.Color.blue())
-        msg.title = "{} has edited a message in {}".format(before, before.channel)
+        msg.title = "{} has edited a message in {}".format(before.display_name, before.channel)
         msg.add_field(name="Before Message:", value=css.format(before.content), inline=False)
         msg.add_field(name="After Message:", value=css.format(after.content), inline=False)
         msg.set_footer(text=timef)
+        msg.set_thumbnail(url=before.avatar_url)
         await self.bot.send_message(server.get_channel(channel), embed=msg)
 
     async def on_server_update(self, before, after):
