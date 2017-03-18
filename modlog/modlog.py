@@ -319,7 +319,7 @@ class invitemirror:
             msg.add_field(name="After:", value=css.format(after.topic), inline=False)
             msg.set_thumbnail(url="https://s-media-cache-ak0.pinimg.com/originals/27/18/77/27187782801d15f756a27156105d1233.png")
             msg.set_footer(text=timef)
-            await self.send_message(server.get_channel(channel), embed=msg)
+            await self.bot.send_message(server.get_channel(channel), embed=msg)
         if before.position != after.position:
             if before.type == discord.ChannelType.voice:
                 msg = discord.Embed(colour=discord.Colour.blue())
@@ -417,7 +417,7 @@ class invitemirror:
         db = fileIO(self.direct, "load")
         if not server.id in db:
             return
-        if db[server.id]['toggleuser'] and db[server.id]['toggleroles'] == False:
+        if db[server.id]['toggleuser'] == False:
             return
         channel = db[server.id]["Channel"]
         time = datetime.datetime.now()
@@ -476,7 +476,6 @@ def check_file():
     if not fileIO(f, 'check'):
         print('Creating default settings.json...')
         fileIO(f, 'save', {})
-
 
 def setup(bot):
     check_folder()
