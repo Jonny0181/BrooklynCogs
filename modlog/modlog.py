@@ -423,9 +423,9 @@ class invitemirror:
         fmt = '%H:%M:%S'
         if not before.nick == after.nick:
             msg = discord.Embed(colour=discord.Color.blue())
-            msg.title = "{}'s nickname has changed".format(before.name)\
-            msg.add_field(name="Before:", value=before.nick)
-            msg.add_field(name=" After:", value=after.nick)
+            msg.title = "{}'s nickname has changed".format(before.name)
+            msg.add_field(name="Before:", value=css.format(before.nick))
+            msg.add_field(name=" After:", value=css.format(after.nick))
             msg.set_footer(text=timef)
             msg.set_thumbnail(url="http://i.imgur.com/I5q71rj.png")
             await self.bot.send_message(server.get_channel(channel), embed=msg)
