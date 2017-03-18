@@ -443,7 +443,7 @@ class invitemirror:
         if not before.roles == after.roles:
             msg = discord.Embed(description=name, colour=discord.Color.blue())
             msg.title = "{}'s roles have changed!".format(before.name)
-            msg.add_field(name="Before:" value=css.format(", ".join([r.name for r in before.roles])), inline=False)
+            msg.add_field(name="Before:", value=css.format(", ".join([r.name for r in before.roles])), inline=False)
             msg.add_field(name="After:", value=css.format(", ".join([r.name for r in after.roles])), inline=False)
             msg.set_footer(text=timef)
             await self.bot.send_message(server.get_channel(channel), embed=msg)
