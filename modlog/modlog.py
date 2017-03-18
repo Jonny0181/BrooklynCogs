@@ -446,7 +446,7 @@ class invitemirror:
             msg.add_field(name="Before:", value=css.format(", ".join([r.name for r in before.roles])), inline=False)
             msg.add_field(name="After:", value=css.format(", ".join([r.name for r in after.roles])), inline=False)
             msg.set_footer(text=timef)
-            msg.set_thumbnail(after.avatar_url)
+            msg.set_thumbnail(url=after.avatar_url)
             await self.bot.send_message(server.get_channel(channel), embed=msg)
                                     
     async def on_member_ban(self, member):
