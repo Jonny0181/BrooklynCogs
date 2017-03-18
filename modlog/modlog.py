@@ -407,7 +407,6 @@ class invitemirror:
         msg.title = "{}'s voice status has changed".format(before.name)
         msg.add_field(name="Before:", value="Channel: {}\nServer Deafened: {}\nServer Muted: {}\nLocal Deafened: {}\nLocal Muted: {}".format(before.voice_channel, before.deaf, before.mute, before.self_deaf, before.self_mute).replace("False", ":vpRedTick:").replace("True", ":vpGreenTick: "))
         msg.add_field(name="After:", value="Channel: {}\nServer Deafened: {}\nServer Muted: {}\nLocal Deafened: {}\nLocal Muted: {}".format(after.voice_channel, after.deaf, after.mute, after.self_deaf, after.self_mute).replace("False", ":vpRedTick:").replace("True", ":vpGreenTick: "))
-        msg.add_field(name="Local:", value="{} Deafened.\n{} Muted.".format())
         msg.set_footer(text=timef)
         await self.bot.send_message(server.get_channel(channel), embed=msg)
 
