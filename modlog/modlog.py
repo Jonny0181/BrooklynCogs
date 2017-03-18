@@ -422,7 +422,7 @@ class invitemirror:
         channel = db[server.id]["Channel"]
         time = datetime.datetime.now()
         fmt = '%H:%M:%S'
-        if not before.nick == after.nick:
+        if before.nick != after.nick:
             msg = discord.Embed(colour=discord.Color.blue())
             msg.title = "{}'s nickname has changed".format(before.name)
             msg.add_field(name="Before:", value=css.format(before.nick))
@@ -441,7 +441,7 @@ class invitemirror:
         channel = db[server.id]["Channel"]
         time = datetime.datetime.now()
         fmt = '%H:%M:%S'
-        if not before.roles == after.roles:
+        if before.roles != after.roles:
             msg = discord.Embed(colour=discord.Color.blue())
             msg.title = "{}'s roles have changed!".format(before.name)
             msg.add_field(name="Before:", value=css.format(", ".join([r.name for r in before.roles])), inline=False)
@@ -460,10 +460,10 @@ class invitemirror:
         if member.bot == True:
             return
         channel = db[server.id]["Channel"]
-        time = datetime.datetime.now()
-        fmt = '%H:%M:%S'
-        msg = ":hammer: `{0} {1.name}#{1.discriminator}`".format(time.strftime(fmt), member)
-        await self.bot.send_message(server.get_channel(channel), msg)
+        msg = discord.Embed(description="{1.name}#{1.discriminator} has been banned!".format(member), colour=discord.Colour.red())
+        msg.set_thumbnail(url=member.avatar_url)
+        msg.set_footer(text=timef)
+        await self.bot.send_message(server.get_channel(channel), embed=msg)
 
 def check_folder():
     if not os.path.exists('data/modlogset'):
