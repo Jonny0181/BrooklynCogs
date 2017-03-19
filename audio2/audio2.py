@@ -1978,16 +1978,10 @@ class Audio:
                     dura = self.get_time(song.duration)
                     durb = self.get_time(timea)
                     um = "({}/{})".format(durb, dura)
-                    counter = "⏯ : **{0}<:vpOnRadio:216568548984750090>{1}**".format(idka, idk)
-                    embed.description = "{0} {1}\n\n{2}\n\nSong Duration: {3} ({4}% Completed)".format(song_info, um, counter, dur, completed)
+                    counter = "{} {}<:vpOnRadio:216568548984750090>{} {}".format(durb, idka, idk, dura)
+                    embed.description = "{}\n{}\nSong Duration: {} ({}% Completed)".format(song_info, counter, dur, completed)
                 else:
                     embed.description = "{0}\nSong Duration: {1}".format(song_info, dur)
-                embed.add_field(name = "Statistics", value = "Views: {0.view_count} 📷\n\nLikes: {0.like_count} 👍\n\nDislikes: {0.dislike_count}  👎".format(song))
-                embed.colour = discord.Colour.blue()
-                if song.uploader is not None:
-                    embed.set_footer(text = "Uploaded By: {0.uploader}".format(song))
-                else:
-                    pass
                 embed.set_thumbnail(url=song.thumbnail)
                 deleted = await self.bot.send_message(channel, embed=embed)
             except:
