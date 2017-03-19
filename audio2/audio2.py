@@ -1123,7 +1123,7 @@ class Audio:
         self.save_settings()
 
     @commands.command(pass_context=True, no_pm=True)
-    @checks.musicmaster_or_permissions(manage_channels = True)
+    @checks.mod_or_permissions(manage_messages=True)
     async def volume(self, ctx, percent: int=None):
         """Sets the volume from 0 to 100"""
         server = ctx.message.server
@@ -1207,7 +1207,7 @@ class Audio:
             self._cache_size()))
 
     @commands.group(pass_context=True, hidden=True, no_pm=True)
-    @checks.musicmaster_or_permissions(manage_messages=True)
+    @checks.mod_or_permissions(manage_messages=True)
     async def disconnect(self, ctx):
         """Disconnects from voice channel in current server."""
         if ctx.invoked_subcommand is None:
@@ -1427,7 +1427,7 @@ class Audio:
         self.queue[server.id]["CHANNELID"] = channel.id
         
     @commands.group(pass_context=True, no_pm=True)
-    @checks.musicmaster_or_permissions(manage_messages=True)
+    @checks.mod_or_permissions(manage_messages=True)
     async def repeat(self, ctx):
         """Toggles repeat mode """
         server = ctx.message.server
@@ -1460,7 +1460,7 @@ class Audio:
             await self.bot.say("Repeat mode turned off.")
 
     @commands.command(pass_context=True, no_pm=True)
-    @checks.musicmaster_or_permissions(manage_messages = True)
+    @checks.mod_or_permissions(manage_messages=True)
     async def prev(self, ctx):
         """Goes back to the last song played."""
         # Current song is in NOW_PLAYING
