@@ -1346,6 +1346,7 @@ class Audio:
             await self.bot.say("Joined Voice Channel: **{}**".format(str(voice_channel)))
         else:
             await self.bot.say("You don't have the permissions required to summon me.\nAdmin role, Mod role or Music role is required to summon me!")
+            
     def check_donators(self, msg):
         db = fileIO("data/patreon/patreon.json", "load")
         author = msg.author
@@ -1357,6 +1358,7 @@ class Audio:
             return True
         else:
             return False
+            
     @commands.command(pass_context=True, no_pm=True)
     async def play(self, ctx, *, url_or_search_terms=None):
         """Plays a link / searches and play"""
@@ -1400,7 +1402,6 @@ class Audio:
         if not self.is_playing(server):
             self._stop_player(server)
             self._clear_queue(server)
-        check = self.check_donators(message)
         songlist = None
         if self._match_sc_playlist(url):
             msg = await self.bot.say("Processing SoundCloud Playlist")
@@ -1409,8 +1410,6 @@ class Audio:
             msg = await self.bot.say("Processing Youtube Playlist")
             songlist = await self._parse_yt_playlist(url)
         if songlist:
-            if not check is True:
-                return await self.bot.say("You do not have the Privileges to play Youtube Playlists")
             msg2 ="Done Processing the Playlist. Added {} Songs to the Queue".format(len(songlist))
             msg3 = await self.bot.edit_message(msg, msg2)
             await asyncio.sleep(5)
