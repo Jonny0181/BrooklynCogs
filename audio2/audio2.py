@@ -1966,13 +1966,13 @@ class Audio:
             else:
                 dur = "No Duration"
             try:
-                embed = discord.Embed(title = "Now playing in {0}:".format(server.me.voice_channel))
+                embed = discord.Embed(title = "Now playing in {0}:".format(server.me.voice_channel), colour=discord.Colour.blue())
                 song_info = "[{0}]({1})".format(str(song.title).replace("None", "No Name"), song.webpage_url)
                 if server.id in self.timer and dur != "No Duration":
                     timea = time.time() - self.timer[server.id]
                     back = math.floor((timea/song.duration)*50)
                     completed = math.floor((timea/song.duration)*100)
-                    front = 50 - back
+                    front = 30 - back
                     idk = "-"*front
                     idka = "-"*back
                     dura = self.get_time(song.duration)
