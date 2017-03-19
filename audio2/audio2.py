@@ -1701,7 +1701,7 @@ class Audio:
         if now_playing is not None:
             song = now_playing
             em.title = "Now playing in {0.name}:".format(server)
-            song_info = "[{0}]({1})".format(str(song.title).replace("None", "No Name"), song.webpage_url)
+            song_info = "{0}".format(str(song.title).replace("None", "No Name"))
             dur = self.get_time(song.duration, msg = True)
             em.set_thumbnail(url = song.thumbnail)
             if server.id in self.timer and dur != "No Duration":
@@ -1736,10 +1736,10 @@ class Audio:
                     title = song.title[:45].replace("[", "").replace("]", "")+"..."
                 else:
                     title = song.title
-                song_info.append("**{0})** [{2}]({1.webpage_url})".format(num, song, title))
+                song_info.append("{}) {}".format(num, title))
                 more_songs = len(self.queue[server.id]["QUEUE"]) - 10
             except AttributeError:
-                song_info.append("**{})** [No Name]({.webpage_url})".format(num, song))
+                song_info.append("{}) No Name".format(num))
         print(song_info, len("\n".join(song_info)))
         em.add_field(name="Next up", value="\n".join(song_info))
         if more_songs > 0:
@@ -1876,6 +1876,7 @@ class Audio:
                 await self.bot.say("You need to be in the voice channel to stop the music.")
         else:
             await self.bot.say("Not playing anything in **{0.name}**".format(server))
+            
     def get_time(self, time, msg = False):
         time = int(round(time, 0))
         m, s = divmod(time, 60)
@@ -1891,6 +1892,47 @@ class Audio:
             else:
                 dur = "{0}:{1:0>2}".format(m, s)
         return dur
+        
+    async def _embed_np2(self, message, server:discord.Server=None, channel:discord.Channel=None, author:discord.Member=None):
+        
+        """Info about the current song."""
+        server = server or message.server
+        channel = channel or message.channel
+        author = author or server.me
+        if not self.is_playing(server):
+            hai = discord.Embed(description="I'm not playing on this server.", colour=discord.Colour.blue())
+            await self.bot.send_message(channel, embed=hai)
+            return
+
+        song = self._get_queue_nowplaying(server)
+        if song:
+            if not hasattr(song, 'creator'):
+                song.creator = None
+            if not hasattr(song, 'view_count'):
+                song.view_count = None
+            if not hasattr(song, 'like_count'):
+                song.like_count = None
+            if not hasattr(song, 'dislike_count'):
+                song.dislike_count = None
+            if not hasattr(song, 'uploader'):
+                song.uploader = None
+            if hasattr(song, 'duration'):
+                m, s = divmod(song.duration, 60)
+                h, m = divmod(m, 60)
+                if h:
+                    dur = "{0}h {1:0>2}m {2:0>2}s".format(h, m, s)
+                else:
+                    dur = "{0}m {1:0>2}s".format(m, s)
+            else:
+                dur = None
+            try:
+                embed = discord.Embed(title="Now playing in {}:".format(server.me.voice_channel), description="{} | {}\n{}".format(song.title, dur, song.webpage_url), colour=discord.Colour.blue())
+                embed.set_thumbnail(url=song.thumbnail)
+                await self.bot.send_message(channel, embed=embed)
+            except:
+                msg = "**Now playing** in {}: **{}** `{}`".format(server.me.voice_channel, song.title, dur)
+                await self.bot.send_message(channel, msg)
+        
     async def _embed_np(self, message, server:discord.Server=None, channel:discord.Channel=None, author:discord.Member=None, delete = None):
         
         """Info about the current song."""
@@ -2123,7 +2165,7 @@ class Audio:
             self.queue[server.id]["NOW_PLAYING"] = song
             self.timer[server.id] = time.time()
             log.debug("set now_playing for sid {}".format(server.id))
-            self.bot.loop.create_task(self._embed_np_and_delete(message=None, server=server, channel=channel, author=author))
+            self.bot.loop.create_task(self._embed_np2_and_delete(message=None, server=server, channel=channel, author=author))
             self.bot.loop.create_task(self._update_bot_status())
 
         elif server.id in self.downloaders:
