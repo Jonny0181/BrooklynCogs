@@ -2165,7 +2165,7 @@ class Audio:
             self.queue[server.id]["NOW_PLAYING"] = song
             self.timer[server.id] = time.time()
             log.debug("set now_playing for sid {}".format(server.id))
-            self.bot.loop.create_task(self._embed_np2_and_delete(message=None, server=server, channel=channel, author=author))
+            self.bot.loop.create_task(self._embed_np_and_delete(message=None, server=server, channel=channel, author=author))
             self.bot.loop.create_task(self._update_bot_status())
 
         elif server.id in self.downloaders:
@@ -2183,8 +2183,9 @@ class Audio:
                 # Download next song
                 next_dl.start()
                 await self._download_next(server, curr_dl, next_dl)
+                
     async def _embed_np_and_delete(self, message, server:discord.Server=None, channel:discord.Channel=None, author:discord.Member=None):
-        await self._embed_np(message=None, server=server, channel=channel, author=author, delete = True)
+        await self._embed_np2(message=None, server=server, channel=channel, author=author, delete = True)
 
     async def queue_scheduler(self):
         while self == self.bot.get_cog('Audio'):
