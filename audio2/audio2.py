@@ -1893,7 +1893,7 @@ class Audio:
                 dur = "{0}:{1:0>2}".format(m, s)
         return dur
         
-    async def _embed_np2(self, message, server:discord.Server=None, channel:discord.Channel=None, author:discord.Member=None):
+    async def _embed_np2(self, message, server:discord.Server=None, channel:discord.Channel=None, author:discord.Member=None, delete = None):
         
         """Info about the current song."""
         server = server or message.server
