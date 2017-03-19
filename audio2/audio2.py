@@ -1972,7 +1972,7 @@ class Audio:
                     timea = time.time() - self.timer[server.id]
                     back = math.floor((timea/song.duration)*50)
                     completed = math.floor((timea/song.duration)*100)
-                    front = 30 - back
+                    front = 35 - back
                     idk = "-"*front
                     idka = "-"*back
                     dura = self.get_time(song.duration)
