@@ -1972,14 +1972,14 @@ class Audio:
                     timea = time.time() - self.timer[server.id]
                     back = math.floor((timea/song.duration)*50)
                     completed = math.floor((timea/song.duration)*100)
-                    front = 50 - back
+                    front = 35 - back
                     idk = "-"*front
                     idka = "-"*back
                     dura = self.get_time(song.duration)
                     durb = self.get_time(timea)
                     um = "({}/{})".format(durb, dura)
                     counter = "{} {}<:vpOnRadio:216568548984750090>{} {}".format(durb, idka, idk, dura)
-                    embed.description = "{}\nSong Duration: {} ({}% Completed)\n{}".format(song_info, counter, dur, completed)
+                    embed.description = "{}\n{}\nSong Duration: {} ({}% Completed)".format(song_info, counter, completed, dur)
                 else:
                     embed.description = "{0}\nSong Duration: {1}".format(song_info, dur)
                 embed.set_thumbnail(url=song.thumbnail)
