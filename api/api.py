@@ -1,10 +1,6 @@
-"""
-API Commands
-"""
-
 import aiohttp
 from discord.ext import commands
-
+from __main__ import send_cmd_help
 
 class API:
     def __init__(self, bot):
