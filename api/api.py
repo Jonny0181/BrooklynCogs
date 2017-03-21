@@ -117,5 +117,5 @@ class API:
         await self.bot.say("```xl\n{}\n```".format(x))
 
 
-def setup(bot: DiscordBot):
+def setup(bot):
     bot.add_cog(API(bot))
