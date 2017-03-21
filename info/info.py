@@ -479,10 +479,10 @@ class Info:
         colour = "".join([random.choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
         server = ctx.message.server
-        one = [e.mention for e in server.members if e.permissions_in(ctx.message.channel).manage_messages and not e.bot and e.status == discord.Status.online]
-        two = [e.mention for e in server.members if e.permissions_in(ctx.message.channel).manage_messages and not e.bot and e.status == discord.Status.idle]
-        three = [e.mention for e in server.members if e.permissions_in(ctx.message.channel).manage_messages and not e.bot and e.status == discord.Status.dnd]
-        four = [e.mention for e in server.members if e.permissions_in(ctx.message.channel).manage_messages and not e.bot and e.status == discord.Status.offline]
+        one = [e.display_name for e in server.members if e.permissions_in(ctx.message.channel).manage_messages and not e.bot and e.status == discord.Status.online]
+        two = [e.display_name for e in server.members if e.permissions_in(ctx.message.channel).manage_messages and not e.bot and e.status == discord.Status.idle]
+        three = [e.display_name for e in server.members if e.permissions_in(ctx.message.channel).manage_messages and not e.bot and e.status == discord.Status.dnd]
+        four = [e.display_name for e in server.members if e.permissions_in(ctx.message.channel).manage_messages and not e.bot and e.status == discord.Status.offline]
         embed = discord.Embed(description="Listing mods for this server.", colour=discord.Colour(value=colour))
         if one:
             embed.add_field(name="Online", value="{0}".format(("\n".join(one)).replace("`", "")), inline=False)
@@ -513,10 +513,10 @@ class Info:
         colour = "".join([random.choice('0123456789ABCDEF') for x in range(6)])
         colour = int(colour, 16)
         server = ctx.message.server
-        one = [e.mention for e in server.members if e.permissions_in(ctx.message.channel).administrator and not e.bot and e.status == discord.Status.online]
-        two = [e.mention for e in server.members if e.permissions_in(ctx.message.channel).administrator and not e.bot and e.status == discord.Status.idle]
-        three = [e.mention for e in server.members if e.permissions_in(ctx.message.channel).administrator and not e.bot and e.status == discord.Status.dnd]
-        four = [e.mention for e in server.members if e.permissions_in(ctx.message.channel).administrator and not e.bot and e.status == discord.Status.offline]
+        one = [e.display_name for e in server.members if e.permissions_in(ctx.message.channel).administrator and not e.bot and e.status == discord.Status.online]
+        two = [e.display_name for e in server.members if e.permissions_in(ctx.message.channel).administrator and not e.bot and e.status == discord.Status.idle]
+        three = [e.display_name for e in server.members if e.permissions_in(ctx.message.channel).administrator and not e.bot and e.status == discord.Status.dnd]
+        four = [e.display_name for e in server.members if e.permissions_in(ctx.message.channel).administrator and not e.bot and e.status == discord.Status.offline]
         embed = discord.Embed(description="Listing admins for this server.", colour=discord.Colour(value=colour))
         if one:
             embed.add_field(name="Online", value="{0}".format(("\n".join(one)).replace("`", "")), inline=False)
