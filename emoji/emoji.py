@@ -10,10 +10,11 @@ class Emoji:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.command()
-    async def emoji(self):
+    @commands.command(pass_context=True)
+    async def emoji(self, ctx):
         """Posts a random emoji!"""
-        await self.bot.say(random.choice(emojis))
+        author = ctx.message.author
+        await self.bot.say(embed=discord.Embed(description=random.choice(emojis), colour=author.colour))
         
 def setup(bot):
     n = Emoji(bot)
