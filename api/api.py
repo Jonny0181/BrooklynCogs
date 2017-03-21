@@ -120,4 +120,4 @@ class API:
 
 
 def setup(bot: DiscordBot):
-    bot.add_cog(API(bot)
+    bot.add_cog(API(bot))
