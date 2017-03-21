@@ -86,7 +86,7 @@ class Info:
         members = len([e.name for e in self.bot.get_all_members()])
         e = discord.Embed(description="Brooklyn - A multi function Discord bot with music, moderation, and utility features.", colour=discord.Colour.blue())
         e.add_field(name="Live Information:", value="Owner: {}\nPrefix: {}\nServers: {}\nTotal Users: {}\nTotal Commands: {}\nTotal Modules: {}\nApi Version: {}".format(owner, prefix, servers, members, len(self.bot.commands), len(self.bot.cogs), discord.__version__))
-        e.add_field(name="Links:", value="[Support Server.](https://discord.gg/ETqpvsa)\n[Invite url.](https://discordapp.com/oauth2/authorize?client_id=226132382846156800&permissions=-1&scope=bot)")
+        e.add_field(name="Links:", value="[Support Server.](https://discord.gg/ETqpvsa)\n[Invite url.](https://discordapp.com/oauth2/authorize?client_id=226132382846156800&permissions=-1&scope=bot)\n[Website](http://brooklyn.cf/)\n[Patreon](https://www.patreon.com/_brooklyn)")
         e.set_author(name="Brooklyn#6591", icon_url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
         e.add_field(name="Changelog:", value="""**Added:**
 `1)` b!serverstats | Shows stats on users status and servercount.
@@ -112,7 +112,9 @@ class Info:
             data += "Total Modules: {}\n\n".format(len(self.bot.cogs))
             data += "**Links:**\n"
             data += "Official Server: https://discord.gg/ETqpvsa\n"
-            data += "Invite Url: https://discordapp.com/oauth2/authorize?client_id=226132382846156800&permissions=-1&scope=bot\n\n"
+            data += "Invite Url: https://discordapp.com/oauth2/authorize?client_id=226132382846156800&permissions=-1&scope=bot\n"
+            data += "Website: http://brooklyn.cf/\n"
+            data += "Patreon: https://www.patreon.com/_brooklyn\n\n"
             data += "**Changelog:**\n\n"
             data += "**Added:**\n"
             data += "`1)` b!banlist | Shows bans for the server.\n"
