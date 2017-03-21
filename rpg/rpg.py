@@ -37,7 +37,6 @@ def server_eco_mode(func):
 class RPG(object):
     def __init__(self, bot):
         self.bot = bot
-        self.bot.shutdowns.append(self.shutdown())
         file = "invdata/servers.json"
         if json.is_valid_json(file):
             self.settings = json.load_json(file)
