@@ -10,7 +10,7 @@ class API:
     def __init__(self, bot):
         self.bot = bot
 
-    @commands.group()
+    @commands.group(pass_context=True)
     async def api(self, ctx):
         """Gives information on various APIs.
             Currently available APIs: steam, discord
@@ -19,7 +19,7 @@ class API:
             await send_cmd_help(ctx)
             return
 
-    @api.command()
+    @api.command(pass_context=True)
     async def steam(self, ctx):
         """
         Steam API
@@ -85,7 +85,7 @@ class API:
                 steam__c_s_g_o_items, steam_tf2_games, steam__d_o_t_a2_games, steam__c_s_g_o_games)
         await self.bot.say("```xl\n{}\n```".format(x))
 
-    @api.command()
+    @api.command(pass_context=True)
     async def discord(self, ctx):
         """
         Discord API
