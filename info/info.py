@@ -510,13 +510,13 @@ class Info:
         three = [e.mention for e in server.members if e.permissions_in(ctx.message.channel).administrator and not e.bot and e.status == discord.Status.dnd]
         four = [e.mention for e in server.members if e.permissions_in(ctx.message.channel).administrator and not e.bot and e.status == discord.Status.offline]
         embed = discord.Embed(description="Listing admins for this server.", colour=discord.Colour(value=colour))
-        if one is not None:
+        if one == 1:
             embed.add_field(name="Online", value="{0}".format(("\n".join(one)).replace("`", "")), inline=False)
-        if two is not None:
+        if two == 1:
             embed.add_field(name="Idle", value="{0}".format(("\n".join(two)).replace("`", "")), inline=False)
-        if three is not None:
+        if three == 1:
             embed.add_field(name="Dnd", value="{0}".format(("\n".join(three)).replace("`", "")), inline=False)
-        if four is not None:
+        if four == 1:
             embed.add_field(name="Offline", value="{0}".format(("\n".join(four)).replace("`", "")), inline=False)
         if server.icon_url:
             embed.set_author(name=server.name, url=server.icon_url)
