@@ -1,6 +1,7 @@
 import asyncio
 import discord
 import random
+import os
 import psutil
 import datetime
 import time
@@ -21,6 +22,12 @@ class Info:
             return datetime.datetime(2016, 1, 10, 6, 8, 4, 443000)
         else:
             return user.joined_at
+            
+    def _cache_size(self):
+        songs = os.listdir(self.cache_path)
+        size = sum(map(lambda s: os.path.getsize(
+            os.path.join(self.cache_path, s)) / 10**6, songs))
+        return size
 
     @commands.command(pass_context=True)
     async def serverstats(self, ctx):
@@ -143,7 +150,7 @@ class Info:
     async def stats(self, ctx):
         """Shows stats."""
         text_channels = 0
-        voice_channels = 0 
+        voice_channels = 0
         list2 = []
         list = []
         for i in self.bot.servers:
@@ -179,7 +186,7 @@ class Info:
         data.add_field(name='Uptime', value="%d Weeks," % (w) + " %d Days," % (d) + " %d Hours,"
                                    % (
                 h) + " %d Minutes," % (m) + " and %d Seconds!" % (s))
-        data.add_field(name="Voice Stats:", value="Connected to {} voice channels, with a total of {} users.".format(len(list), len(list2)), inline=False)
+        data.add_field(name="Voice Stats:", value="Connected to {} voice channels, with a total of {} users, and {:.3f} MB of cache.".format(len(list), len(list2), self._cache_size()), inline=False)
         data.set_author(name=ctx.message.author.display_name, icon_url=ctx.message.author.avatar_url)
         data.set_thumbnail(url=ctx.message.author.avatar_url)
         await self.bot.say(embed=data)
@@ -600,7 +607,7 @@ class Info:
             em.add_field(name="Valid Perms", value="{}".format(perms_we_have))
             em.add_field(name="Invalid Perms", value="{}".format(perms_we_dont))
             em.set_thumbnail(url=server.icon_url)
-        try:    
+        try:
             await self.bot.edit_message(lolol, embed=em)
         except discord.HTTPException:
             permss = "```diff\n"
