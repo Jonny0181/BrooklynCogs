@@ -11,7 +11,7 @@ def server_complex_mode(func):
     async def predicate(self, ctx, *args):
         if str(ctx.guild.id) not in self.settings or self.settings[str(ctx.message.guild.id)]["mode"] == 0:
             await ctx.send("This command requires complex mode to be enabled!"
-                           " Use the `;inventory servmode` command to switch"
+                           " Use the `b!inventory servmode` command to switch"
                            " to complex mode, where items are restricted to admin defined")
         else:
             await func(self, ctx, *args)
