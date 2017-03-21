@@ -5,11 +5,9 @@ API Commands
 import aiohttp
 from discord.ext import commands
 
-from discordbot.bot import DiscordBot
-
 
 class API:
-    def __init__(self, bot: DiscordBot):
+    def __init__(self, bot):
         self.bot = bot
 
     @commands.group()
@@ -19,7 +17,7 @@ class API:
         """
 
         if ctx.invoked_subcommand is None:
-            await ctx.send("Invalid subcommand passed: {0.subcommand_passed}".format(ctx))
+            await self.bot.say("Invalid subcommand passed: {0.subcommand_passed}".format(ctx))
 
     @api.command()
     async def steam(self, ctx):
@@ -85,7 +83,7 @@ class API:
             "        CS:GO: \"{9}\"".format(
                 steam_client, steam_community, steam_store, steam_user, steam_tf2_items, steam__d_o_t_a2_items,
                 steam__c_s_g_o_items, steam_tf2_games, steam__d_o_t_a2_games, steam__c_s_g_o_games)
-        await ctx.send("```xl\n{}\n```".format(x))
+        await self.bot.say("```xl\n{}\n```".format(x))
 
     @api.command()
     async def discord(self, ctx):
@@ -116,7 +114,7 @@ class API:
                 resp["components"][5]["status"], resp["components"][6]["status"], resp["components"][8]["status"],
                 resp["components"][9]["status"], resp["components"][10]["status"], resp["components"][11]["status"],
                 resp["components"][12]["status"], resp["status"]["description"])
-        await ctx.send("```xl\n{}\n```".format(x))
+        await self.bot.say("```xl\n{}\n```".format(x))
 
 
 def setup(bot: DiscordBot):
