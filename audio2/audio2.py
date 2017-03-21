@@ -1043,6 +1043,15 @@ class Audio:
             return True
         return False
 
+    @commands.command(pass_context=True, no_pm=True)
+    async def milk(self, ctx):
+        url = "https://www.youtube.com/watch?v=IM1uBvNvUuE"
+        channel = ctx.message.author.voice.voice_channel
+        voice = await self.bot.join_voice_channel(channel)
+        player = await voice.create_ytdl_player(url)
+        player.start()
+        await voice.disconnect()
+
     @commands.group(pass_context=True)
     async def audioset(self, ctx):
         """Audio settings."""
