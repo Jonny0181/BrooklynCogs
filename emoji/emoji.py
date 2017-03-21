@@ -8,8 +8,7 @@ class Emoji:
         
 emojis = ["<:AWOOOKEN:279557451513200641>",
           "<:FeelsBanMan:260505104396845056>"]
-          
-          
+
     @commands.command()
     async def emoji(self):
         """Posts a random emoji!"""
