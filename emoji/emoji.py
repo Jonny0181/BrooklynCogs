@@ -7,7 +7,7 @@ emojis = ["<:AWOOOKEN:279557451513200641>",
           "<:FeelsBanMan:260505104396845056>"]
 
 class Emoji:
-    def __init__(self, ctx):
+    def __init__(self, bot):
         self.bot = bot
 
     @commands.command()
