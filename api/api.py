@@ -15,9 +15,9 @@ class API:
         """Gives information on various APIs.
             Currently available APIs: steam, discord
         """
-
         if ctx.invoked_subcommand is None:
-            await self.bot.say("Invalid subcommand passed: {0.subcommand_passed}".format(ctx))
+            await send_cmd_help(ctx)
+            return
 
     @api.command()
     async def steam(self, ctx):
