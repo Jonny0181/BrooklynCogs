@@ -15,6 +15,7 @@ starttime = time.time()
 class Info:
     def __init__(self, bot):
 	    self.bot = bot
+	    self.cache_path = "data/audio/cache"
 
     def fetch_joined_at(self, user, server):
         """Just a special case for someone special :^)"""
