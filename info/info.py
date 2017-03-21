@@ -519,21 +519,21 @@ class Info:
         four = [e.mention for e in server.members if e.permissions_in(ctx.message.channel).administrator and not e.bot and e.status == discord.Status.offline]
         embed = discord.Embed(description="Listing admins for this server.", colour=discord.Colour(value=colour))
         if one:
-            embed.add_field(name="Online", value=":green_heart: {0}".format((" \n:green_heart: ".join(one)).replace("`", "")), inline=False)
+            embed.add_field(name="Online", value="{0}".format(("\n".join(one)).replace("`", "")), inline=False)
         else:
-            embed.add_field(name="Offline", value=":green_heart: None", inline=False)
+            embed.remove_field(0)
         if two:
-            embed.add_field(name="Idle", value=":yellow_heart: {0}".format((" \n:yellow_heart: ".join(two)).replace("`", "")), inline=False)
+            embed.add_field(name="Idle", value="{0}".format(("\n".join(two)).replace("`", "")), inline=False)
         else:
-            embed.add_field(name="Idle", value=":yellow_heart: None", inline=False)
+            embed.remove_field(1)
         if three:
-            embed.add_field(name="Dnd", value=":heart: {0}".format((" \n:heart: ".join(three)).replace("`", "")), inline=False)
+            embed.add_field(name="Dnd", value="{0}".format(("\n".join(three)).replace("`", "")), inline=False)
         else:
-            embed.add_field(name="Dnd", value=":heart: None", inline=False)
+            embed.remove_field(2)
         if four:
-            embed.add_field(name="Offline", value=":black_heart: {0}".format((" \n:black_heart: ".join(four)).replace("`", "")), inline=False)
+            embed.add_field(name="Offline", value="{0}".format(("\n".join(four)).replace("`", "")), inline=False)
         else:
-            embed.add_field(name="Offline", value=":black_heart: None", inline=False)
+            embed.remove_field(3)
         if server.icon_url:
             embed.set_author(name=server.name, url=server.icon_url)
             embed.set_thumbnail(url=server.icon_url)
