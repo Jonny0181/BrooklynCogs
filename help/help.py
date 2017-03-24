@@ -85,7 +85,8 @@ info=discord.Embed(title="Infomation Commands: ", description="""
   **utime  :**        Shows how long the bot has been online.
   **feed  :**         Enables or disables announcement subscription.
   **banlist  :**      Shows bans for the server.
-  **serverstats  :**  Shows stats on users status and servercount.""", colour=discord.Colour.blue())
+  **serverstats  :**  Shows stats on users status and servercount.
+  **sleaderboard  :** Shows Brooklyn top 10 servers.""", colour=discord.Colour.blue())
 info.set_thumbnail(url="https://images-ext-1.discordapp.net/eyJ1cmwiOiJodHRwczovL3VwbG9hZC53aWtpbWVkaWEub3JnL3dpa2lwZWRpYS9lbi81LzU0L0luZm9ybWF0aW9uLnBuZyJ9.xi-2ZzV_czvJDaudMrqeqOgNZ8E?width=80&height=80")
 
 class Help:
