@@ -44,6 +44,7 @@ fun=discord.Embed(title="Fun Commands:", description="""
 fun.set_thumbnail(url="http://www.niagarafallsfunzone.com/images/layout/tickets.png")
 
 mod=discord.Embed(title="Moderation Commands:", description="""
+  **antiraid  :**     Manage antiraid settings.
   **addrole  :**      Adds a role to a user, defaults to author
   **ban  :**          Bans a user from the server.
   **botclean  :**     Removes all bot messages.
