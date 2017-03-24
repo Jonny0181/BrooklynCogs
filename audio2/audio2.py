@@ -1782,14 +1782,15 @@ class Audio:
     async def _shuffle(self, ctx):
         """Shuffles the current queue"""
         server = ctx.message.server
+        author = ctx.message.author
         if server.id not in self.queue:
             await self.bot.say("I have nothing in queue to shuffle.")
             return
         emojis = ["<:AWOOOOOHGOD1:269027610099449866>" ,"<:awoooken:269027609692602369>", "<:awooOHGODWHY:291401862404636673>", "<:awoo:269027609256525824>", "<:AWOOOKEN2:269027609659047938>"]
-        msg = await self.bot.say(" ".join(emojis))
+        msg = await self.bot.say(embed=discord.Embed(description=" ".join(emojis), colour=author.colour))
         for i in range(len(emojis)):
             random.shuffle(emojis)
-            msg = await self.bot.edit_message(msg, " ".join(emojis))
+            msg = await self.bot.edit_message(msg, embed=discord.Embed(description=" ".join(emojis), colour=author.colour))
             await asyncio.sleep(0.3)
         self._shuffle_queue(server)
         self._shuffle_temp_queue(server)
