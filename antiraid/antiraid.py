@@ -14,7 +14,7 @@ class AntiRaid:
 
     @commands.group(pass_context=True)
     async def antiraid(self, ctx):
-        """Manage raidprotect."""
+        """Manage antiraid settings."""
         if not ctx.invoked_subcommand:
             await self.bot.send_cmd_help(ctx)
         if not ctx.message.server.id in self.settings:
