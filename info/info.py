@@ -30,7 +30,7 @@ class Info:
             os.path.join(self.cache_path, s)) / 10**6, songs))
         return size
 
-    @commands.command(pass_contaxt=True)
+    @commands.command(pass_context=True)
     async def sleaderboard(self, ctx):
         author = ctx.message.author
         e = discord.Embed(colour=author.colour)
