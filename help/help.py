@@ -190,7 +190,7 @@ class Help:
     async def on_message(self, message):
         if message.content == "b!commands":
             if not message.channel.is_private:
-                await self.bot.send_message(message.channel, message.author.mention+", I have pm'd you my commands! :mailbox:")        
+                await self.bot.send_message(message.channel, message.author.mention+", I have pm'd you my commands! :mailbox_with_mail:")        
 
 def setup(bot):
     n = Help(bot)
