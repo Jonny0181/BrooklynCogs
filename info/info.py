@@ -127,8 +127,7 @@ class Info:
             data += "Patreon: https://www.patreon.com/_brooklyn\n\n"
             data += "**Changelog:**\n\n"
             data += "**Added:**\n"
-            data += "`1)` b!banlist | Shows bans for the server.\n"
-            data += "`2)` b!serverstats | Shows stats on users status and servercount.\n"
+            data += "`1)` b!sleaderboard | Shows Brooklyn top 10 servers."
             await self.bot.say(data)
 
     @commands.command(pass_context=True)
