@@ -33,6 +33,7 @@ class Info:
     @commands.command(pass_context=True)
     async def sleaderboard(self, ctx):
         author = ctx.message.author
+        server = ctx.message.server
         e = discord.Embed(colour=author.colour)
         e.set_thumbnail(url=server.me.avatar_url)
         e.title = "Currently on {} server with {} users!".format(len(self.bot.servers), len([e.name for e in self.bot.get_all_members()]))
