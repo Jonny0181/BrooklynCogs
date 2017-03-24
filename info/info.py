@@ -99,9 +99,7 @@ class Info:
         e.add_field(name="Links:", value="[Support Server.](https://discord.gg/ETqpvsa)\n[Invite url.](https://discordapp.com/oauth2/authorize?client_id=226132382846156800&permissions=-1&scope=bot)\n[Website](http://brooklyn.cf/)\n[Patreon](https://www.patreon.com/_brooklyn)")
         e.set_author(name="Brooklyn#6591", icon_url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
         e.add_field(name="Changelog:", value="""**Added:**
-`1)` b!serverstats | Shows stats on users status and servercount.
-`2)` b!banlist | Shows bans  in the server.
-`3)` b!cookie | Give a user a cookie. (Requested by user.)""")
+`1)` b!sleaderboard | Shows Brooklyn top 10 servers.""")
         e.set_thumbnail(url="https://images-ext-1.discordapp.net/.eJwFwQsKwyAMANC7eAA_iU3TwthZYhRW2FZRu8FK7773TnO0p1nNY4zaV-c0v23euu4tS61W95eTjwxp3QFQQEAGjhQmYu8dKsSFOSoxQ8ZJEMscUoLZL5FI7bekeu_br9yCh2iuP44VINs.ZtSGfr53jRG7PUbMI4gaUeWw0l0?width=250&height=250")
         try:
             await self.bot.say(embed=e)
