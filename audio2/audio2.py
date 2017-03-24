@@ -1794,7 +1794,8 @@ class Audio:
             await asyncio.sleep(0.3)
         self._shuffle_queue(server)
         self._shuffle_temp_queue(server)
-        await self.bot.edit_message(msg, "Shuffled the queue for **{0.name}**".format(server))
+        await self.bot.delete_message(msg)
+        await self.bot.say("Shuffled the queue for **{0.name}**".format(server))
 
     @commands.command(pass_context=True, aliases=["next"], no_pm=True)
     async def skip(self, ctx):
