@@ -1785,7 +1785,7 @@ class Audio:
         if server.id not in self.queue:
             await self.bot.say("I have nothing in queue to shuffle.")
             return
-        emojis = ["⏯" ,"▶", "⏸", "⏹", "◀"]
+        emojis = ["<:AWOOOOOHGOD1:269027610099449866>" ,"<:awoooken:269027609692602369>", "<:awooOHGODWHY:291401862404636673>", "<:awoo:269027609256525824>", "<:AWOOOKEN2:269027609659047938>"]
         msg = await self.bot.say(" ".join(emojis))
         for i in range(len(emojis)):
             random.shuffle(emojis)
