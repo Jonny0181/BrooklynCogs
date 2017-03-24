@@ -31,7 +31,7 @@ class Info:
         return size
 
     @commands.command(pass_contaxt=True)
-    async def sleaderboard(ctx):
+    async def sleaderboard(self, ctx):
         author = ctx.message.author
         e = discord.Embed(colour=author.colour)
         e.set_thumbnail(url=server.me.avatar_url)
