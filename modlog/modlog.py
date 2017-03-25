@@ -72,8 +72,8 @@ class ModLog:
             else:
                 await self.bot.say("Channel already in ignore list.")
 
-    @commands.command(pass_context=True, name="unignore", no_pm=True)
-    async def unignore_channel(self, ctx, channel: discord.Channel=None):
+    @modlogset.command(pass_context=True, name="unignore", no_pm=True)
+    async def _unignore(self, ctx, channel: discord.Channel=None):
         """Removes channel from ignore list
         Defaults to current one"""
         current_ch = ctx.message.channel
