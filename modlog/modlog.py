@@ -487,7 +487,7 @@ class ModLog:
             e.set_thumbnail(url=before.avatar_url)
             e.set_footer(text=timef)
             e.set_author(name="{}'s voice status has updated!")
-            await self.bot.send_message(server.get_channel(channel), embed=msg)
+            await self.bot.send_message(server.get_channel(channel), embed=e)
 
     async def on_member_update(self, before, after):
         server = before.server
