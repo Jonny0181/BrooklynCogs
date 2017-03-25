@@ -507,7 +507,6 @@ class ModLog:
             return
         channel = db[server.id]["Channel"]
         msg = discord.Embed(description="A role was created and the roles name is {}".format(role.name), colour=discord.Colour.blue)
-        msg.set_author(name="Server role created!")
         msg.set_thumbnail(url="http://www.emoji.co.uk/files/twitter-emojis/symbols-twitter/11164-globe-with-meridians.png")
         msg.set_footer(text=timef)
         await self.bot.send_message(server.get_channel(channel), embed=msg)
@@ -521,7 +520,6 @@ class ModLog:
             return
         channel = db[server.id]["Channel"]
         msg = discord.Embed(description="A role was deleted and the roles name was {}".format(role.name), colour=discord.Colour.blue)
-        msg.set_author(name="Server role deleted!")
         msg.set_thumbnail(url="http://www.emoji.co.uk/files/twitter-emojis/symbols-twitter/11164-globe-with-meridians.png")
         msg.set_footer(text=timef)
         await self.bot.send_message(server.get_channel(channel), embed=msg)
