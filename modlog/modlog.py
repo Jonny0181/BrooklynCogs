@@ -13,7 +13,7 @@ inv_settings = {"embed": False, "Channel": None, "toggleedit": False, "toggledel
 timef = datetime.datetime.now().strftime("%A, %B %-d %Y at %-I:%M%p").replace("PM", "pm").replace("AM", "am")
 css = "```css\n{}```"
 
-class invitemirror:
+class Modlog:
     def __init__(self, bot):
         self.bot = bot
         self.direct = "data/modlogset/settings.json"
@@ -480,4 +480,4 @@ def check_file():
 def setup(bot):
     check_folder()
     check_file()
-    bot.add_cog(invitemirror(bot))
+    bot.add_cog(Modlog(bot))
