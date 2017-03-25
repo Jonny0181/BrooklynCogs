@@ -107,7 +107,7 @@ class ModLog:
                 db[server.id] = inv_settings
                 db[server.id]["Channel"] = channel.id
                 fileIO(self.direct, "save", db)
-                await self.bot.say("I will now send toggled modlog notifications here")
+                await self.bot.say("Successfully set the channel for modlog.")
         else:
             return
 
@@ -121,7 +121,7 @@ class ModLog:
             return
         del db[server.id]
         fileIO(self.direct, "save", db)
-        await self.bot.say("I will no longer send modlog notifications here")
+        await self.bot.say("Successfully disabled modloging for this server.")
 
     @modlogtoggles.command(pass_context=True, no_pm=True)
     async def edit(self, ctx):
