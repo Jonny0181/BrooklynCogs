@@ -449,7 +449,7 @@ class ModLog:
             return
         if db[server.id]['togglevoice'] == False:
             return
-        if before.author.bot == True:
+        if before.bot == True:
             return
         channel = db[server.id]["Channel"]
         msg = ""
