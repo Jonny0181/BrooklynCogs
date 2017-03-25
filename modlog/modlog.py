@@ -453,7 +453,7 @@ class ModLog:
             return
         channel = db[server.id]["Channel"]
         msg = ""
-		if before.voice_channel != after.voice_channel:
+        if before.voice_channel != after.voice_channel:
 			msg += "User: {0} <{0.id}>\n".format(before)
 			if not before.voice_channel:
 				msg += "Voice Channel Join: {0.name} <{0.id}>".format(after.voice_channel)
@@ -472,7 +472,7 @@ class ModLog:
 				msg += "Server Deafened: {0} <{0.id}>".format(after)
 			else:
 				msg += "Server Un-Deafened: {0} <{0.id}>".format(after)
-		if before.self_mute != after.self_mute:
+        if before.self_mute != after.self_mute:
 			if not before.self_mute:
 				msg += "Muted: {0} <{0.id}>".format(after)
 			else:
