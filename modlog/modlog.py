@@ -499,7 +499,7 @@ class ModLog:
             await self.bot.send_message(server.get_channel(channel), embed=msg)
             
     async def on_server_role_create(self, role):
-        role = role.server
+        server = role.server
         db = fileIO(self.direct, "load")
         if not server.id in db:
             return
@@ -512,7 +512,7 @@ class ModLog:
         await self.bot.send_message(server.get_channel(channel), embed=msg)
         
     async def on_server_role_delete(self, role):
-        role = role.server
+        server = role.server
         db = fileIO(self.direct, "load")
         if not server.id in db:
             return
