@@ -335,7 +335,7 @@ class ModLog:
             return
         if db[server.id]['togglechannel'] == False:
             return
-        if message.channel.id in self.ignore_list["CHANNELS"]:
+        if before.channel.id in self.ignore_list["CHANNELS"]:
             return
         channel = db[server.id]["Channel"]
         time = datetime.datetime.now()
