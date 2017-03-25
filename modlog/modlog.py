@@ -506,8 +506,8 @@ class ModLog:
         if db[server.id]["toggleserver"] == False:
             return
         channel = db[server.id]["Channel"]
-        msg = discord.Embed(description="A role was created and the roles name is {}".format(role), colour=discord.Colour.blue())
-        msg.set_thumbnail(url="http://www.emoji.co.uk/files/twitter-emojis/symbols-twitter/11164-globe-with-meridians.png")
+        msg = discord.Embed(description="A role was created and the roles name is {}".format(role.name), colour=discord.Colour.green())
+        msg.set_author(name="A role was created!")
         msg.set_footer(text=timef)
         await self.bot.send_message(server.get_channel(channel), embed=msg)
         
@@ -519,8 +519,8 @@ class ModLog:
         if db[server.id]["toggleserver"] == False:
             return
         channel = db[server.id]["Channel"]
-        msg = discord.Embed(description="A role was deleted and the roles name was {}".format(role), colour=discord.Colour.blue())
-        msg.set_thumbnail(url="http://www.emoji.co.uk/files/twitter-emojis/symbols-twitter/11164-globe-with-meridians.png")
+        msg = discord.Embed(description="A role was deleted and the roles name was {}".format(role.name), colour=discord.Colour.red())
+        msg.set_author(name="A role was deleted!")
         msg.set_footer(text=timef)
         await self.bot.send_message(server.get_channel(channel), embed=msg)
         
