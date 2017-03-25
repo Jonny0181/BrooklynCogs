@@ -1,4 +1,5 @@
 import discord
+import datetime
 from discord.ext import commands
 
 timef = datetime.datetime.now().strftime("%A, %B %-d %Y at %-I:%M%p").replace("PM", "pm").replace("AM", "am")
