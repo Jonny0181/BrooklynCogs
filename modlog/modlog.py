@@ -110,19 +110,6 @@ class ModLog:
                 await self.bot.say("I will now send toggled modlog notifications here")
         else:
             return
-    @modlogset.command(pass_context=True, no_pm=True)
-    async def embed(self, ctx):
-        """Enables or disables embed modlog."""
-        server = ctx.message.server
-        db = fileIO(self.direct, "load")
-        if db[server.id]["embed"] == False:
-            db[server.id]["embed"] = True
-            fileIO(self.direct, "save", db)
-            await self.bot.say("Enabled embed modlog.")
-        elif db[server.id]["embed"] == True:
-            db[server.id]["embed"] = False
-            fileIO(self.direct, "save", db)
-            await self.bot.say("Disabled embed modlog.")
 
     @modlogset.command(pass_context=True, no_pm=True)
     async def disable(self, ctx):
