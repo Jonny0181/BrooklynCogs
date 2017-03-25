@@ -9,7 +9,7 @@ class EmbedSay:
         
         
     @commands.command(pass_context=True)
-    async def embedsay(self, ctx, *, text: str)):
+    async def embedsay(self, ctx, *, text: str):
         """Have Brooklyn say a message but in embed!"""
         author = ctx.message.author
         e = discord.Embed(description=str(text))
