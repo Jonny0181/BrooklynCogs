@@ -198,41 +198,41 @@ class Mod:
         await self.bot.reply(fmt)
         fileIO(self.link_data, "save", data)
 
-	@commands.command(pass_context=True)
-	@commands.cooldown(2, 5, commands.BucketType.server)
-	@checks.admin_or_permissions(manage_messages=True)
-	async def clean(self, ctx, max_messages:int=None):
-		"""Removes inputed amount of bot and invoker messages."""
-		none = False
-		if max_messages is None:
-			none = True
-			max_messages = 20
-		if max_messages and max_messages > 1500:
-			await self.bot.say("2 many messages (<= 1500)")
-			return
-		if ctx.message.server.me.permissions_in(ctx.message.channel).manage_messages:
-			prefix = await self.bot.funcs.get_prefix(ctx.message)
-			prefix = prefix[0][0]
-			check = lambda m: m.author == self.bot.user or m.content.startswith(prefix)
-			deleted = await self.bot.purge_from(ctx.message.channel, limit=max_messages, check=check, after=datetime.datetime.now() - datetime.timedelta(minutes=5) if none else None)
-			self.bot.pruned_messages.append(deleted)
-			count = len(deleted)
-		else:
-			count = 0
-			async for message in self.bot.logs_from(ctx.message.channel, limit=max_messages+1, after=datetime.datetime.now() - datetime.timedelta(minutes=5) if none else None):
-				if message.author == self.bot.user:
-					self.bot.pruned_messages.append(message)
-					asyncio.ensure_future(self.bot.delete_message(message))
-					await asyncio.sleep(0.21)
-					count += 1
-		x = await self.bot.send_message(ctx.message.channel, "Removed `{0}` messages out of `{1}` searched messages".format(count, max_messages))
-		await asyncio.sleep(10)
-		try:
-			self.bot.pruned_messages.append(ctx.message)
-			await self.bot.delete_message(ctx.message)
-		except:
-			pass
-		await self.bot.delete_message(x)
+    @commands.command(pass_context=True)
+    @commands.cooldown(2, 5, commands.BucketType.server)
+    @checks.admin_or_permissions(manage_messages=True)
+    async def clean(self, ctx, max_messages:int=None):
+        """Removes inputed amount of bot and invoker messages."""
+	none = False
+	if max_messages is None:
+	    none = True
+	    max_messages = 20
+	if max_messages and max_messages > 1500:
+	    await self.bot.say("To many messages for me to search through.")
+	    return
+	if ctx.message.server.me.permissions_in(ctx.message.channel).manage_messages:
+	    prefix = await self.bot.funcs.get_prefix(ctx.message)
+	    prefix = prefix[0][0]
+	    check = lambda m: m.author == self.bot.user or m.content.startswith(prefix)
+	    deleted = await self.bot.purge_from(ctx.message.channel, limit=max_messages, check=check, after=datetime.datetime.now() - datetime.timedelta(minutes=5) if none else None)
+	    self.bot.pruned_messages.append(deleted)
+	    count = len(deleted)
+	else:
+	    count = 0
+	    async for message in self.bot.logs_from(ctx.message.channel, limit=max_messages+1, after=datetime.datetime.now() - datetime.timedelta(minutes=5) if none else None):
+                if message.author == self.bot.user:
+		    self.bot.pruned_messages.append(message)
+		    asyncio.ensure_future(self.bot.delete_message(message))
+		    await asyncio.sleep(0.21)
+		    count += 1
+	x = await self.bot.send_message(ctx.message.channel, "Removed `{0}` messages out of `{1}` searched messages".format(count, max_messages))
+	await asyncio.sleep(10)
+	try:
+	    self.bot.pruned_messages.append(ctx.message)
+	    await self.bot.delete_message(ctx.message)
+	except:
+	    pass
+	await self.bot.delete_message(x)
 
     @commands.command(pass_context=True)
     @checks.admin_or_permissions(ban_members=True)
