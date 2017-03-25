@@ -93,7 +93,7 @@ class ModLog:
                 await self.bot.say("That channel is not in the ignore list.")
 
     @modlogset.command(name='channel', pass_context=True, no_pm=True)
-    async def _channel(self, ctx):
+    async def _channel(self, ctx, channel: discord.Channel):
         """Set the channel to send notifications too"""
         server = ctx.message.server
         db = fileIO(self.direct, "load")
