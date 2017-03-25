@@ -452,7 +452,7 @@ class ModLog:
         if before.bot == True:
             return
         channel = db[server.id]["Channel"]
-        msg = ""
+        msg = "Action taken:\n"
         if before.voice_channel != after.voice_channel:
             msg += "User: {0} <{0.id}>\n".format(before)
             if not before.voice_channel:
@@ -486,7 +486,7 @@ class ModLog:
             e = discord.Embed(description=msg, colour=discord.Colour.blue())
             e.set_thumbnail(url=before.avatar_url)
             e.set_footer(text=timef)
-            e.set_author(name="{}'s voice status has updated!")
+            e.set_author(name="{}'s voice status has updated!".format(before))
             await self.bot.send_message(server.get_channel(channel), embed=e)
 
     async def on_member_update(self, before, after):
