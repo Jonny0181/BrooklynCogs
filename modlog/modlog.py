@@ -414,7 +414,7 @@ class ModLog:
         await self.bot.send_message(server.get_channel(channel), embed=msg)
 
     async def on_server_update(self, before, after):
-        server = before
+        server = before.server
         db = fileIO(self.direct, "load")
         if not server.id in db:
             return
