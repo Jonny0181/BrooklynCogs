@@ -1,7 +1,7 @@
 from discord.ext import commands
 from cogs.utils import checks
 import datetime
-from cogs.utils.dataIO import fileIO
+from cogs.utils.dataIO import fileIO, dataIO
 import discord
 import asyncio
 import os
@@ -13,10 +13,11 @@ inv_settings = {"embed": False, "Channel": None, "toggleedit": False, "toggledel
 timef = datetime.datetime.now().strftime("%A, %B %-d %Y at %-I:%M%p").replace("PM", "pm").replace("AM", "am")
 css = "```css\n{}```"
 
-class Modlog:
+class ModLog:
     def __init__(self, bot):
         self.bot = bot
         self.direct = "data/modlogset/settings.json"
+        self.ignore_list = dataIO.load_json("data/modlogset/ignorelist.json")
 
     @checks.admin_or_permissions(administrator=True)
     @commands.group(name='modlogtoggle', pass_context=True, no_pm=True)
@@ -49,6 +50,47 @@ class Modlog:
         """Change modlog settings"""
         if ctx.invoked_subcommand is None:
             await self.bot.send_cmd_help(ctx)
+            
+    @modlogset.command(pass_context=True, name="ignore", no_pm=True)
+    async def _ignore(self, ctx, channel: discord.Channel=None):
+        """Sets a channel for modlog to ignore.
+        
+        Defaults to current channel."""
+        current_ch = ctx.message.channel
+        if not channel:
+            if current_ch.id not in self.ignore_list["CHANNELS"]:
+                self.ignore_list["CHANNELS"].append(current_ch.id)
+                dataIO.save_json("data/modlogset/ignorelist.json", self.ignore_list)
+                await self.bot.say("Channel added to ignore list.")
+            else:
+                await self.bot.say("Channel already in ignore list.")
+        else:
+            if channel.id not in self.ignore_list["CHANNELS"]:
+                self.ignore_list["CHANNELS"].append(channel.id)
+                dataIO.save_json("data/modlogset/ignorelist.json", self.ignore_list)
+                await self.bot.say("Channel added to ignore list.")
+            else:
+                await self.bot.say("Channel already in ignore list.")
+
+    @commands.command(pass_context=True, name="unignore", no_pm=True)
+    async def unignore_channel(self, ctx, channel: discord.Channel=None):
+        """Removes channel from ignore list
+        Defaults to current one"""
+        current_ch = ctx.message.channel
+        if not channel:
+            if current_ch.id in self.ignore_list["CHANNELS"]:
+                self.ignore_list["CHANNELS"].remove(current_ch.id)
+                dataIO.save_json("data/modlogset/ignorelist.json", self.ignore_list)
+                await self.bot.say("This channel has been removed from the ignore list.")
+            else:
+                await self.bot.say("This channel is not in the ignore list.")
+        else:
+            if channel.id in self.ignore_list["CHANNELS"]:
+                self.ignore_list["CHANNELS"].remove(channel.id)
+                dataIO.save_json("data/modlogset/ignorelist.json", self.ignore_list)
+                await self.bot.say("Channel removed from ignore list.")
+            else:
+                await self.bot.say("That channel is not in the ignore list.")
 
     @modlogset.command(name='channel', pass_context=True, no_pm=True)
     async def _channel(self, ctx):
@@ -241,8 +283,10 @@ class Modlog:
             return
         if db[server.id]['toggledelete'] == False:
             return
-        if message.author is message.author.bot:
-            pass
+        if message.author.bot == True:
+            return
+        if message.channel.id in self.ignore_list["CHANNELS"]:
+            return
         channel = db[server.id]["Channel"]
         time = datetime.datetime.now()
         fmt = '%H:%M:%S'
@@ -290,6 +334,8 @@ class Modlog:
         if not server.id in db:
             return
         if db[server.id]['togglechannel'] == False:
+            return
+        if message.channel.id in self.ignore_list["CHANNELS"]:
             return
         channel = db[server.id]["Channel"]
         time = datetime.datetime.now()
@@ -354,7 +400,9 @@ class Modlog:
             return
         if before.content == after.content:
             return
-        if before.author.bot:
+        if before.author.bot == True:
+            return
+        if message.channel.id in self.ignore_list["CHANNELS"]:
             return
         channel = db[server.id]["Channel"]
         msg = discord.Embed(colour=discord.Color.blue())
@@ -401,7 +449,7 @@ class Modlog:
             return
         if db[server.id]['togglevoice'] == False:
             return
-        if before.bot:
+        if before.author.bot == True:
             return
         channel = db[server.id]["Channel"]
         msg = discord.Embed(colour=discord.Color.blue())
@@ -419,16 +467,16 @@ class Modlog:
             return
         if db[server.id]['toggleuser'] == False:
             return
+        if before.author.bot == True:
+            return
         channel = db[server.id]["Channel"]
-        time = datetime.datetime.now()
-        fmt = '%H:%M:%S'
         if before.nick != after.nick:
             msg = discord.Embed(colour=discord.Color.blue())
             msg.title = "{}'s nickname has changed".format(before.name)
             msg.add_field(name="Before:", value=css.format(before.nick))
-            msg.add_field(name=" After:", value=css.format(after.nick))
+            msg.add_field(name="After:", value=css.format(after.nick))
             msg.set_footer(text=timef)
-            msg.set_thumbnail(url="http://i.imgur.com/I5q71rj.png")
+            msg.set_thumbnail(url=after.avatar_url)
             await self.bot.send_message(server.get_channel(channel), embed=msg)
 
     async def on_member_update(self, before, after):
@@ -457,8 +505,6 @@ class Modlog:
             return
         if db[server.id]["toggleban"] == False:
             return
-        if member.bot == True:
-            return
         channel = db[server.id]["Channel"]
         msg = discord.Embed(description="{1.name}#{1.discriminator} has been banned!".format(member), colour=discord.Colour.red())
         msg.set_thumbnail(url=member.avatar_url)
@@ -476,8 +522,14 @@ def check_file():
     if not fileIO(f, 'check'):
         print('Creating default settings.json...')
         fileIO(f, 'save', {})
+        
+def check_file():
+    f = 'data/modlogset/ignorelist.json'
+    if not fileIO(f, 'check'):
+        print('Creating default settings.json...')
+        fileIO(f, 'save', {})
 
 def setup(bot):
     check_folder()
     check_file()
-    bot.add_cog(Modlog(bot))
+    bot.add_cog(ModLog(bot))
