@@ -97,15 +97,15 @@ class ModLog:
         """Set the channel to send notifications too"""
         server = ctx.message.server
         db = fileIO(self.direct, "load")
-        if ctx.message.server.me.permissions_in(ctx.message.channel).send_messages:
+        if ctx.message.server.me.permissions_in(channel).send_messages:
             if server.id in db:
-                db[server.id]['Channel'] = ctx.message.channel.id
+                db[server.id]['Channel'] = channel.id
                 fileIO(self.direct, "save", db)
                 await self.bot.say("Channel changed.")
                 return
             if not server.id in db:
                 db[server.id] = inv_settings
-                db[server.id]["Channel"] = ctx.message.channel.id
+                db[server.id]["Channel"] = channel.id
                 fileIO(self.direct, "save", db)
                 await self.bot.say("I will now send toggled modlog notifications here")
         else:
