@@ -256,6 +256,13 @@ class Useful:
             post = requests.post("https://bots.discordlist.net/api.php", data=json.dumps(data))
             await self.bot.change_presence(game=discord.Game(name="b!help | {} servers!".format(len(self.bot.servers))), status=discord.Status.dnd)
             print("Left a server, updated stats on bots.discordlist.net. " + post.content.decode("utf-8"))
+
+    async def on_server_join(self, server):
+        banned_servers = ["222876766820237312"]
+        if server.id in banned_servers:
+            await self.bot.send_message(server, "<@{}>, Sorry bud but your server has been banned.".format(server.owner.id))
+            await self.bot.leave_server(server)
+            
         
     async def on_server_remove(self, server):
         if not self.settings['auth_key'] == "key_here":
