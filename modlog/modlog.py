@@ -456,32 +456,32 @@ class ModLog:
         if before.voice_channel != after.voice_channel:
             msg += "User: {0} <{0.id}>\n".format(before)
             if not before.voice_channel:
-                msg += "Voice Channel Join: {0.name} <{0.id}>".format(after.voice_channel)
+                msg += "Voice Channel Join: {0.name} <{0.id}>\n".format(after.voice_channel)
             elif before.voice_channel and after.voice_channel:
                 msg += "Voice Channel Before: {0.name} <{0.id}>\n".format(before.voice_channel)
-                msg += "Voice Channel After: {0.name} <{0.id}>".format(after.voice_channel)
+                msg += "Voice Channel After: {0.name} <{0.id}\n>".format(after.voice_channel)
             elif before.voice_channel and not after.voice_channel:
-                msg += "Voice Channel Leave: {0.name} <{0.id}>".format(before.voice_channel)
+                msg += "Voice Channel Leave: {0.name} <{0.id}>\n".format(before.voice_channel)
         if before.mute != after.mute:
             if not before.mute:
-                msg += "Server Muted: {0} <{0.id}>".format(after)
+                msg += "Server Muted: {0} <{0.id}>\n".format(after)
             else:
-                msg += "Server Un-Muted: {0} <{0.id}>".format(after)
+                msg += "Server Un-Muted: {0} <{0.id}>\n".format(after)
         if before.deaf != after.deaf:
             if after.deaf:
-                msg += "Server Deafened: {0} <{0.id}>".format(after)
+                msg += "Server Deafened: {0} <{0.id}>\n".format(after)
             else:
-                msg += "Server Un-Deafened: {0} <{0.id}>".format(after)
+                msg += "Server Un-Deafened: {0} <{0.id}>\n".format(after)
         if before.self_mute != after.self_mute:
             if not before.self_mute:
-                msg += "Muted: {0} <{0.id}>".format(after)
+                msg += "Muted: {0} <{0.id}>\n".format(after)
             else:
-                msg += "Un-Muted: {0} <{0.id}>".format(after)
+                msg += "Un-Muted: {0} <{0.id}>\n".format(after)
         if before.self_deaf != after.self_deaf:
             if after.self_deaf:
-                msg += "Deafened: {0} <{0.id}>".format(after)
+                msg += "Deafened: {0} <{0.id}>\n".format(after)
             else:
-                msg += "Un-Deafened: {0} <{0.id}>".format(after)
+                msg += "Un-Deafened: {0} <{0.id}>\n".format(after)
         if msg:
             e = discord.Embed(description=msg, colour=discord.Colour.blue())
             e.set_thumbnail(url=before.avatar_url)
