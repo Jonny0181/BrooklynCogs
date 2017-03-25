@@ -452,13 +452,42 @@ class ModLog:
         if before.author.bot == True:
             return
         channel = db[server.id]["Channel"]
-        msg = discord.Embed(colour=discord.Color.blue())
-        msg.title = "{}'s voice status has changed".format(before.name)
-        msg.add_field(name="Before:", value="Channel: {}\nServer Deafened: {}\nServer Muted: {}\nLocal Deafened: {}\nLocal Muted: {}".format(before.voice_channel, before.deaf, before.mute, before.self_deaf, before.self_mute).replace("False", "<:vpRedTick:257437215615877129>").replace("True", "<:vpGreenTick:257437292820561920>"))
-        msg.add_field(name="After:", value="Channel: {}\nServer Deafened: {}\nServer Muted: {}\nLocal Deafened: {}\nLocal Muted: {}".format(after.voice_channel, after.deaf, after.mute, after.self_deaf, after.self_mute).replace("False", "<:vpRedTick:257437215615877129>").replace("True", "<:vpGreenTick:257437292820561920>"))
-        msg.set_footer(text=timef)
-        msg.set_thumbnail(url=after.avatar_url)
-        await self.bot.send_message(server.get_channel(channel), embed=msg)
+        msg = ""
+		if before.voice_channel != after.voice_channel:
+			msg += "User: {0} <{0.id}>\n".format(before)
+			if not before.voice_channel:
+				msg += "Voice Channel Join: {0.name} <{0.id}>".format(after.voice_channel)
+			elif before.voice_channel and after.voice_channel:
+				msg += "Voice Channel Before: {0.name} <{0.id}>\n".format(before.voice_channel)
+				msg += "Voice Channel After: {0.name} <{0.id}>".format(after.voice_channel)
+			elif before.voice_channel and not after.voice_channel:
+				msg += "Voice Channel Leave: {0.name} <{0.id}>".format(before.voice_channel)
+		if before.mute != after.mute:
+			if not before.mute:
+				msg += "Server Muted: {0} <{0.id}>".format(after)
+			else:
+				msg += "Server Un-Muted: {0} <{0.id}>".format(after)
+		if before.deaf != after.deaf:
+			if after.deaf:
+				msg += "Server Deafened: {0} <{0.id}>".format(after)
+			else:
+				msg += "Server Un-Deafened: {0} <{0.id}>".format(after)
+		if before.self_mute != after.self_mute:
+			if not before.self_mute:
+				msg += "Muted: {0} <{0.id}>".format(after)
+			else:
+				msg += "Un-Muted: {0} <{0.id}>".format(after)
+		if before.self_deaf != after.self_deaf:
+			if after.self_deaf:
+				msg += "Deafened: {0} <{0.id}>".format(after)
+			else:
+				msg += "Un-Deafened: {0} <{0.id}>".format(after)
+		if msg:
+		    e = discord.Embed(description=desc, colour=discord.Colour.blue())
+		    e.set_thumbnail(url=before.avatar_url)
+		    e.set_footer(text=timef)
+		    e.set_author(name="{}'s voice status has updated!")
+            await self.bot.send_message(server.get_channel(channel), embed=msg)
 
     async def on_member_update(self, before, after):
         server = before.server
