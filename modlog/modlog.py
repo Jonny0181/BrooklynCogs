@@ -483,10 +483,10 @@ class ModLog:
             else:
                 msg += "Un-Deafened: {0} <{0.id}>".format(after)
         if msg:
-		    e = discord.Embed(description=desc, colour=discord.Colour.blue())
-		    e.set_thumbnail(url=before.avatar_url)
-		    e.set_footer(text=timef)
-		    e.set_author(name="{}'s voice status has updated!")
+            e = discord.Embed(description=desc, colour=discord.Colour.blue())
+            e.set_thumbnail(url=before.avatar_url)
+            e.set_footer(text=timef)
+            e.set_author(name="{}'s voice status has updated!")
             await self.bot.send_message(server.get_channel(channel), embed=msg)
 
     async def on_member_update(self, before, after):
