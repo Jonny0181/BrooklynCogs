@@ -93,23 +93,36 @@ class ModLog:
                 await self.bot.say("That channel is not in the ignore list.")
 
     @modlogset.command(name='channel', pass_context=True, no_pm=True)
-    async def _channel(self, ctx, channel: discord.Channel):
+    async def _channel(self, ctx):
         """Set the channel to send notifications too"""
         server = ctx.message.server
         db = fileIO(self.direct, "load")
-        if ctx.message.server.me.permissions_in(channel).send_messages:
+        if ctx.message.server.me.permissions_in(ctx.message.channel).send_messages:
             if server.id in db:
-                db[server.id]['Channel'] = channel.id
+                db[server.id]['Channel'] = ctx.message.channel.id
                 fileIO(self.direct, "save", db)
                 await self.bot.say("Channel changed.")
                 return
             if not server.id in db:
                 db[server.id] = inv_settings
-                db[server.id]["Channel"] = channel.id
+                db[server.id]["Channel"] = ctx.message.channel.id
                 fileIO(self.direct, "save", db)
-                await self.bot.say("Successfully set the channel for modlog.")
+                await self.bot.say("I will now send toggled modlog notifications here")
         else:
             return
+    @modlogset.command(pass_context=True, no_pm=True)
+    async def embed(self, ctx):
+        """Enables or disables embed modlog."""
+        server = ctx.message.server
+        db = fileIO(self.direct, "load")
+        if db[server.id]["embed"] == False:
+            db[server.id]["embed"] = True
+            fileIO(self.direct, "save", db)
+            await self.bot.say("Enabled embed modlog.")
+        elif db[server.id]["embed"] == True:
+            db[server.id]["embed"] = False
+            fileIO(self.direct, "save", db)
+            await self.bot.say("Disabled embed modlog.")
 
     @modlogset.command(pass_context=True, no_pm=True)
     async def disable(self, ctx):
@@ -121,7 +134,7 @@ class ModLog:
             return
         del db[server.id]
         fileIO(self.direct, "save", db)
-        await self.bot.say("Successfully disabled modloging for this server.")
+        await self.bot.say("I will no longer send modlog notifications here")
 
     @modlogtoggles.command(pass_context=True, no_pm=True)
     async def edit(self, ctx):
@@ -484,6 +497,33 @@ class ModLog:
             msg.set_footer(text=timef)
             msg.set_thumbnail(url=after.avatar_url)
             await self.bot.send_message(server.get_channel(channel), embed=msg)
+            
+    async def on_server_role_create(self, role):
+        role = role.server
+        db = fileIO(self.direct, "load")
+        if not server.id in db:
+            return
+        if db[server.id]["toggleserver"] == False:
+            return
+        msg = discord.Embed(description="A role was created and the roles name is {}".format(role.name), colour=discord.Colour.blue)
+        msg.set_author(name="Server role created!")
+        msg.set_thumbnail(url="http://www.emoji.co.uk/files/twitter-emojis/symbols-twitter/11164-globe-with-meridians.png")
+        msg.set_footer(text=timef)
+        await self.bot.send_message(server.get_channel(channel), embed=msg)
+        
+    async def on_server_role_delete(self, role):
+        role = role.server
+        db = fileIO(self.direct, "load")
+        if not server.id in db:
+            return
+        if db[server.id]["toggleserver"] == False:
+            return
+        msg = discord.Embed(description="A role was deleted and the roles name was {}".format(role.name), colour=discord.Colour.blue)
+        msg.set_author(name="Server role deleted!")
+        msg.set_thumbnail(url="http://www.emoji.co.uk/files/twitter-emojis/symbols-twitter/11164-globe-with-meridians.png")
+        msg.set_footer(text=timef)
+        await self.bot.send_message(server.get_channel(channel), embed=msg)
+        
                                     
     async def on_member_ban(self, member):
         server = member.server
