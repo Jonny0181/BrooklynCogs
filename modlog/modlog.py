@@ -402,7 +402,7 @@ class ModLog:
             return
         if before.author.bot == True:
             return
-        if message.channel.id in self.ignore_list["CHANNELS"]:
+        if before.channel.id in self.ignore_list["CHANNELS"]:
             return
         channel = db[server.id]["Channel"]
         msg = discord.Embed(colour=discord.Color.blue())
@@ -425,7 +425,7 @@ class ModLog:
         fmt = '%H:%M:%S'
         if before.name != after.name:
             msg = discord.Embed(colour=discord.Colour.blue())
-            msg = "Server name update!"
+            msg.title = "Server name update!"
             msg.add_field(name="Before:", value=css.format(before.name), inline=False)
             msg.add_field(name="After:", value=css.format(after.name), inline=False)
             msg.set_thumbnail(url="http://www.emoji.co.uk/files/twitter-emojis/symbols-twitter/11164-globe-with-meridians.png")
@@ -433,7 +433,7 @@ class ModLog:
             await self.bot.send_message(server.get_channel(channel), embed=msg)
         if before.region != after.region:
             msg = discord.Embed(colour=discord.Colour.blue())
-            msg = "Server region update!"
+            msg.title = "Server region update!"
             msg.add_field(name="Before:", value=css.format(before.region), inline=False)
             msg.add_field(name="After:", value=css.format(after.region), inline=False)
             msg.set_thumbnail(url="http://www.emoji.co.uk/files/twitter-emojis/symbols-twitter/11164-globe-with-meridians.png")
