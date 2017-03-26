@@ -1,9 +1,6 @@
 import os
-
 import aiohttp
 from discord.ext import commands
-
-from bot import load_config
 
 
 class Weather:
@@ -13,7 +10,6 @@ class Weather:
 
     def __init__(self, bot):
         self.bot = bot
-        self.config = load_config()
 
     async def weather_api_call(self, endpoint, zip_code):
         async with aiohttp.ClientSession() as session:
@@ -87,8 +83,7 @@ class Weather:
             data = await self.weather_api_call(endpoint='conditions', zip_code=zip_code)
             if data['current_observation']['display_location']['zip'] == str(zip_code):
                 async with aiohttp.ClientSession() as session:
-                    url = 'http://api.wunderground.com/api/{}/radar/q/{}.png?newmaps=1&smooth=1&noclutter=1'.format(
-                        self.config['wunderground']['key'],
+                    url = 'http://api.wunderground.com/api/c80325c858abf20d/radar/q/{}.png?newmaps=1&smooth=1&noclutter=1'.format(
                         zip_code
                     )
                     async with session.get(url) as resp:
