@@ -33,10 +33,10 @@ class Weather:
         try:
             data = await self.weather_api_call(endpoint='conditions', zip_code=zip_code)
         except Exception as e:
-            await self.bot.say("The api threw an error, please try again later. Error is `{}`".format(e) )
+            await self.bot.say("The api threw an error, please try again later. Error is `{}`".format(e))
             print(e)
         # You also might want to send this error to your dedicated logging webhook if you have one.
-        return
+            return
 
         try:
             e = discord.Embed(colour=author.colour)
