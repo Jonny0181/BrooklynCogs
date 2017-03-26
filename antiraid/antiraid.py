@@ -32,7 +32,7 @@ class AntiRaid:
     @antiraid.command(pass_context=True)
     @checks.admin_or_permissions(manage_server=True)
     async def toggle(self, ctx):
-        """Toggle raidprotect."""
+        """Toggle antiraid."""
         if self.settings[ctx.message.server.id]['protected']:
             self.settings[ctx.message.server.id]['protected'] = False
             await self.bot.say("Your server is no longer protected, anyone that joins will be able to see all channels.")
