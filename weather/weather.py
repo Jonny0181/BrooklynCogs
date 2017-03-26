@@ -40,7 +40,7 @@ class Weather:
             e.add_field(name="Wind:", value=data['current_observation']['wind_string'])
             e.add_field(name="Humidity:", value=data['current_observation']['relative_humidity'])
             e.add_field(name="Rain:", value=data['current_observation']['precip_today_string'])
-            await self.bot.sayembed=e)
+            await self.bot.say(embed=e)
         except:
             await self.bot.say('```prolog\nError: invalid zip code. Or I dont have the embed_links permission.```')
 
