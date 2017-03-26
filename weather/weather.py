@@ -39,16 +39,20 @@ class Weather:
             return
 
         try:
-            await self.bot.say(
-                '```City: {}\nWeather: {}\nTemp: {}\nWind: {}\nHumidity: {}\nRain: {}```'.format(
-                    data['current_observation']['display_location']['full'],
-                    data['current_observation']['weather'],
-                    data['current_observation']['temperature_string'],
-                    data['current_observation']['wind_string'],
-                    data['current_observation']['relative_humidity'],
-                    data['current_observation']['precip_today_string']
-                )
-            )
+            cty = "{}".format( data['current_observation']['display_location']['full'] )
+            wth = "{}".format( data['current_observation']['weather'] )
+            tmp = "{}".format( data['current_observation']['temperature_string'] )
+            wnd = "{}".format( data['current_observation']['wind_string'] )
+            hmd = "{}".format( data['current_observation']['relative_humidity'] )
+            rai = "{}".format( data['current_observation']['precip_today_string'] )
+            e = discord.Embed(colour=author.colour)
+            e.add_field(name="City:", value=cty )
+            e.add_field(name="Weather:", value=wth )
+            e.add_field(name="Tempature:", value=tmp )
+            e.add_field(name="Wind:", value=wnd)
+            e.add_field(name="Humidity:", value=hmd )
+            e.add_field(name="Rain:", value=rai )
+            await self.bot.say(embed=e)
         except:
             await self.bot.say('```prolog\nError: invalid zip code. Or I dont have the embed_links permission.```')
 
