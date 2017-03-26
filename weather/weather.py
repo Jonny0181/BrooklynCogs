@@ -53,8 +53,8 @@ class Weather:
             e.add_field(name="Humidity:", value=hmd )
             e.add_field(name="Rain:", value=rai )
             await self.bot.say(embed=e)
-        except:
-            await self.bot.say('```prolog\nError: invalid zip code. Or I dont have the embed_links permission.```')
+        except Exception as e:
+            await self.bot.say(e)
 
     @commands.command()
     async def forecast(self, zip_code: int):
