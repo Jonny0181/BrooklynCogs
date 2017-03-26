@@ -46,7 +46,7 @@ class Weather:
             wnd = "{}".format( data['current_observation']['wind_string'] )
             hmd = "{}".format( data['current_observation']['relative_humidity'] )
             rai = "{}".format( data['current_observation']['precip_today_string'] )
-            e = discord.Embed(colour=author.colour)
+            e = discord.Embed(colour=discord.Colour.blue())
             e.add_field(name="City:", value=cty )
             e.add_field(name="Weather:", value=wth )
             e.add_field(name="Tempature:", value=tmp )
