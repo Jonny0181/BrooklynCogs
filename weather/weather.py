@@ -24,26 +24,25 @@ class Weather:
                 else:
                     return await resp.json()
 
-    @commands.command()
-    async def wx(self, zip_code: int):
+    @commands.command(pass_context=True)
+    async def weather(self, ctx, zip_code: int):
         """
         Return current weather conditions.
         """
+        author = ctx.message.author
         data = await self.weather_api_call(endpoint='conditions', zip_code=zip_code)
 
         try:
-            await self.bot.say(
-                '```City: {}\nWeather: {}\nTemp: {}\nWind: {}\nHumidity: {}\nRain: {}```'.format(
-                    data['current_observation']['display_location']['full'],
-                    data['current_observation']['weather'],
-                    data['current_observation']['temperature_string'],
-                    data['current_observation']['wind_string'],
-                    data['current_observation']['relative_humidity'],
-                    data['current_observation']['precip_today_string']
-                )
-            )
+            e = discord.Embed(colour=author.colour)
+            e.add_field(name="City:", value=data['current_observation']['display_location']['full'])
+            e.add_field(name="Weather:", value=data['current_observation']['weather'])
+            e.add_field(name="Tempature:", value=data['current_observation']['temperature_string'])
+            e.add_field(name="Wind:", value=data['current_observation']['wind_string'])
+            e.add_field(name="Humidity:", value=data['current_observation']['relative_humidity'])
+            e.add_field(name="Rain:", value=data['current_observation']['precip_today_string'])
+            await self.bot.sayembed=e)
         except:
-            await self.bot.say('```Error: invalid zip code.```')
+            await self.bot.say('```prolog\nError: invalid zip code. Or I dont have the embed_links permission.```')
 
     @commands.command()
     async def forecast(self, zip_code: int):
@@ -70,7 +69,7 @@ class Weather:
                 )
             )
         except:
-            await self.bot.say('```Error: invalid zip code.```')
+            await self.bot.say('```prolog\nError: invalid zip code. Or I dont have the embed_links permission.```')
 
     @commands.command(pass_context=True)
     async def radar(self, ctx, zip_code: int):
@@ -102,7 +101,7 @@ class Weather:
                                     f.close()
                                     os.remove(image_file)
         except:
-            await self.bot.say('```Error: invalid zip code.```')
+            await self.bot.say('```prolog\nError: invalid zip code. Or I dont have the attach_files permission.```')
 
 
 def setup(bot):
