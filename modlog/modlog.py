@@ -420,8 +420,6 @@ class ModLog:
             return
         if db[server.id]['toggleserver'] == False:
             return
-        if before.bot:
-            return
         channel = db[server.id]["Channel"]
         time = datetime.datetime.now()
         fmt = '%H:%M:%S'
