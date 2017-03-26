@@ -34,12 +34,12 @@ class Weather:
 
         try:
             e = discord.Embed(colour=author.colour)
-            e.add_field(name="City:", value=data['current_observation']['display_location']['full'])
-            e.add_field(name="Weather:", value=data['current_observation']['weather'])
-            e.add_field(name="Tempature:", value=data['current_observation']['temperature_string'])
-            e.add_field(name="Wind:", value=data['current_observation']['wind_string'])
-            e.add_field(name="Humidity:", value=data['current_observation']['relative_humidity'])
-            e.add_field(name="Rain:", value=data['current_observation']['precip_today_string'])
+            e.add_field(name="City:", value="{}".format(data['current_observation']['display_location']['full']))
+            e.add_field(name="Weather:", value="{}".format(data['current_observation']['weather']))
+            e.add_field(name="Tempature:", value="{}".format(data['current_observation']['temperature_string']))
+            e.add_field(name="Wind:", value="{}".format(data['current_observation']['wind_string']))
+            e.add_field(name="Humidity:", value="{}".format(data['current_observation']['relative_humidity']))
+            e.add_field(name="Rain:", value="{}".format(data['current_observation']['precip_today_string']))
             await self.bot.say(embed=e)
         except:
             await self.bot.say('```prolog\nError: invalid zip code. Or I dont have the embed_links permission.```')
