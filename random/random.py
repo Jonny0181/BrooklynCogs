@@ -1,5 +1,6 @@
 import discord
 import random
+import sys
 from discord.ext import commands
 have_pil = True
 
