@@ -287,6 +287,7 @@ class Audio:
     def __init__(self, bot, player):
         self.bot = bot
         self.ban_list = "data/audio/banlist.json"
+        db_data = {"Toggle BanList" : False, "Blacklisted": {}}
         self.queue = {}  # add deque's, repeat
         self.downloaders = {}  # sid: object
         self.settings = dataIO.load_json("data/audio/settings.json")
@@ -1104,8 +1105,6 @@ class Audio:
         self.settings["MAX_LENGTH"] = length
         await self.bot.say("Maximum length is now {} seconds.".format(length))
         self.save_settings()
-
-db_data = {"Toggle BanList" : False, "Blacklisted": {}}
 
     @commands.group(pass_context=True, no_pm=True)
     async def audioban(self, ctx):
