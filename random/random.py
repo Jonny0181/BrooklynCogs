@@ -21,10 +21,7 @@ class Random:
     async def screenshot(self, ctx):
         """Take a screenshot.
         Usage: screenshot"""
-        if have_pil and (sys.platform not in ['linux', 'linux2']):
-            grabber = ImageGrab
-        else:
-            grabber = pyscreenshot
+        grabber = ImageGrab
         image = grabber.grab()
         img_bytes = io.BytesIO()
         image.save(img_bytes, format='PNG')
