@@ -1,7 +1,5 @@
 import discord
 from discord.ext import commands
-pyscreenshot = di.load('pyscreenshot')
-scr = di.load('util.screen')
 have_pil = True
 
 class Random:
