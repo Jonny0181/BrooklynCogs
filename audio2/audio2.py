@@ -1125,6 +1125,7 @@ class Audio:
         """Shows audioban settings and status."""
         channel = ctx.message.channel
         server = ctx.message.server
+        author = ctx.message.author
         directory = fileIO(self.ban_list, "load")
         db = directory[server.id]
         if len(db["Blacklisted"]) != 0:
