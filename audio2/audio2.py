@@ -1470,7 +1470,7 @@ class Audio:
         tex = "None"
         nam = "None"
         some_list = " ".join(e for e in [des, tex, nam, message.content])
-        for url in db["Blacklisted"]:
+        if url in db["Blacklisted"]:
             if url in some_list:
                 await self.bot.say("That search term is banned, please try to play something else.")
                 return
