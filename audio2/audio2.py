@@ -1459,10 +1459,6 @@ class Audio:
         channel = message.channel
         author = message.author
         voice_channel = author.voice_channel
-        des = "None"
-        tex = "None"
-        nam = "None"
-        some_list = " ".join(e for e in [des, tex, nam, message.content])
         data = fileIO(self.ban_list, "load")
         db = data[message.server.id]
         if server.id not in data:
@@ -1470,6 +1466,10 @@ class Audio:
             fileIO(self.ban_list, "save", data)
         url = url_or_search_terms
         if url is None: return await send_cmd_help(ctx)
+        des = "None"
+        tex = "None"
+        nam = "None"
+        some_list = " ".join(e for e in [des, tex, nam, message.content])
         for url in db["Blacklisted"]:
             if url in some_list:
                 check = True
