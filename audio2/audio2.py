@@ -1135,7 +1135,6 @@ class Audio:
         status = (str(db["Toggle BanList"]).replace("True", "Enabled")).replace("False", "Disabled")
         e = discord.Embed(colour=author.colour)
         e.add_field(name="Server", value=server.name)
-        e.add_field(name="Toggled", value=status)
         e.add_field(name="Banlist", value=words, inline=False)
         e.set_thumbnail(url=server.icon_url)
         await self.bot.say(embed=e)
@@ -1172,19 +1171,6 @@ class Audio:
         fmt = "Successfully removed these bans from the list.\n{}".format(wordlist)
         await self.bot.reply(fmt)
         fileIO(self.ban_list, "save", data)
-        
-    @audioban.command(pass_context = True)
-    async def toggle(self, ctx):
-        """Enables or disables the banlist"""
-        server = ctx.message.server
-        db = fileIO(self.ban_list, "load")
-        db[server.id]["Toggle BanList"] = not db[server.id]["Toggle"]
-        if db[server.id]["Toggle BanList"] is True:
-            msg = "Successfully enabled the audioban list. From now on the songs/video you have banned will not be played!"
-        else:
-            msg = "I have successfully disabled the banlist!"
-        await self.bot.reply(msg)
-        fileIO(self.ban_list, "save", db)
 
     @audioset.command(name="player")
     @checks.is_owner()
@@ -1470,13 +1456,10 @@ class Audio:
         tex = "None"
         nam = "None"
         some_list = " ".join(e for e in [des, tex, nam, message.content])
-        if db["Toggle BanList"] is True:
-            if url in db["Blacklisted"]:
-                if url in some_list:
-                    await self.bot.say("That search term is banned, please try to play something else.")
-                    return
-        else:
-            pass
+        if url in db["Blacklisted"]:
+            if url in some_list:
+                await self.bot.say("That search term is banned, please try to play something else.")
+                return
         if ("www") in url and ("." in url) or ("http://" in url) or ("https://" in url) or ("m.youtube.com" in url):
             if not self._valid_playable_url(url):
                 await self.bot.say("I'm sorry but your request is not valid. Please make sure there are no dots in your song name. If you are using a link and are recieving this error in a false way please join the support server and submit a bug report.")
