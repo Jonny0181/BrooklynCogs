@@ -1454,6 +1454,11 @@ class Audio:
     @commands.command(pass_context=True, no_pm=True)
     async def play(self, ctx, *, url_or_search_terms=None):
         """Plays a link / searches and play"""
+        message = ctx.message
+        server = message.server
+        channel = message.channel
+        author = message.author
+        voice_channel = author.voice_channel
         data = fileIO(self.ban_list, "load")
         db = data[message.server.id]
         if server.id not in data:
@@ -1467,11 +1472,6 @@ class Audio:
         if check is True:
             await self.bot.say("That search term is banned, please try to play something else.")
             return
-        message = ctx.message
-        server = message.server
-        channel = message.channel
-        author = message.author
-        voice_channel = author.voice_channel
         if ("www") in url and ("." in url) or ("http://" in url) or ("https://" in url) or ("m.youtube.com" in url):
             if not self._valid_playable_url(url):
                 await self.bot.say("I'm sorry but your request is not valid. Please make sure there are no dots in your song name. If you are using a link and are recieving this error in a false way please join the support server and submit a bug report.")
