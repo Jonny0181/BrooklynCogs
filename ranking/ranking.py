@@ -3,7 +3,7 @@ import random
 from contextlib import suppress
 import discord
 
-class Ranksing(Cog):
+class Ranking:
     """Ranks and levels."""
 
     async def on_not_command(self, msg):
