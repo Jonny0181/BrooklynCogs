@@ -1459,7 +1459,6 @@ class Audio:
             fileIO(self.ban_list, "save", data)
         url = url_or_search_terms
         if url is None: return await send_cmd_help(ctx)
-        else: pass
         if url in in db["Blacklisted"]:
             await self.bot.say("That search term is banned, please try to play something else.")
             return
