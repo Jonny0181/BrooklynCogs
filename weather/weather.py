@@ -56,7 +56,7 @@ class Weather:
         except Exception as e:
             await self.bot.say(e)
 
-    @commands.command()
+    @commands.command(pass_context=True)
     async def forecast(self, ctx, zip_code: int):
         """
         Return three day weather forecast.
