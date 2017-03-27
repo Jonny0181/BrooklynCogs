@@ -1137,7 +1137,7 @@ class Audio:
         e.add_field(name="Server", value=server.name)
         e.add_field(name="Toggled", value=status)
         e.add_field(name="Banlist", value=words, inline=False)
-        e.set_thumbnail(url=server.avatar_url)
+        e.set_thumbnail(url=server.icon_irl)
         await self.bot.say(embed=e)
         
     @audioban.command(pass_context=True)
