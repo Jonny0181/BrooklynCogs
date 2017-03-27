@@ -1153,7 +1153,7 @@ class Audio:
         wordlist = " , ".join(["\"{}\"".format(e) for e in words])
         fmt = "Successfully added these words to the list.\n{}".format(wordlist)
         await self.bot.reply(fmt)
-        fileIO(self.ban_lsit, "save", data)
+        fileIO(self.ban_list, "save", data)
         
     @audioban.command(pass_context=True)
     async def remove(self, ctx, *words : str):
