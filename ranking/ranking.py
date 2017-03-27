@@ -2,6 +2,7 @@ import math
 import random
 from contextlib import suppress
 import discord
+from discord.ext import commands
 
 class Ranking:
     """Ranks and levels."""
