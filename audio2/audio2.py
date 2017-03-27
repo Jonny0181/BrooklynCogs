@@ -22,6 +22,7 @@ import random
 import traceback
 __author__ = "tekulvw"
 __version__ = "0.1.1"
+db_data = {"Toggle BanList" : False, "Blacklisted": {}}
 
 log = logging.getLogger()
 
