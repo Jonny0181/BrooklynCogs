@@ -1459,6 +1459,10 @@ class Audio:
         channel = message.channel
         author = message.author
         voice_channel = author.voice_channel
+        des = "None"
+        tex = "None"
+        nam = "None"
+        some_list = " ".join(e for e in [des, tex, nam, message.content])
         data = fileIO(self.ban_list, "load")
         db = data[message.server.id]
         if server.id not in data:
