@@ -424,8 +424,7 @@ class ModLog:
         msg = discord.Embed(colour=discord.Colour.blue())
         msg.title = "A channel was deleted!"
         msg.add_field(name="Name:", value=css.format(channel.name))
-        if channel.topic:
-            msg.add_field(name="Topic:", value=css.format(channel.topic))
+        msg.add_field(name="Topic:", value=css.format(channel.topic))
         msg.set_footer(text=timef)
         await self.bot.send_message(server.get_channel(channel), embed=msg)
 
