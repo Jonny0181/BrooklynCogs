@@ -1,5 +1,4 @@
 import os
-import discord
 import aiohttp
 from discord.ext import commands
 
@@ -46,7 +45,7 @@ class Weather:
             wnd = "{}".format( data['current_observation']['wind_string'] )
             hmd = "{}".format( data['current_observation']['relative_humidity'] )
             rai = "{}".format( data['current_observation']['precip_today_string'] )
-            e = discord.Embed(colour=discord.Colour.blue())
+            e = discord.Embed(colour=author.colour)
             e.add_field(name="City:", value=cty )
             e.add_field(name="Weather:", value=wth )
             e.add_field(name="Tempature:", value=tmp )
@@ -58,14 +57,15 @@ class Weather:
             await self.bot.say(e)
 
     @commands.command()
-    async def forecast(self, zip_code: int):
+    async def forecast(self, ctx, zip_code: int):
         """
         Return three day weather forecast.
         """
+        author = ctx.message.author
         data = await self.weather_api_call(endpoint='forecast', zip_code=zip_code)
 
         try:
-            await self.bot.say(
+            """await self.bot.say(
                 '```{}:\n\n{}\n\n{}:\n\n{}\n\n{}:\n\n{}\n\n{}:\n\n{}\n\n{}:\n\n{}\n\n{}:\n\n{}```'.format(
                     data['forecast']['txt_forecast']['forecastday'][0]['title'],
                     data['forecast']['txt_forecast']['forecastday'][0]['fcttext'],
@@ -80,9 +80,21 @@ class Weather:
                     data['forecast']['txt_forecast']['forecastday'][5]['title'],
                     data['forecast']['txt_forecast']['forecastday'][5]['fcttext']
                 )
-            )
-        except:
-            await self.bot.say('```prolog\nError: invalid zip code. Or I dont have the embed_links permission.```')
+            )"""
+            if author.colour:
+                k = author.colour
+            else:
+                k = discord.Colour.blue()
+            e = discord.Embed(colour=k)
+            e.add_field(name=data['forecast']['txt_forecast']['forecastday'][0]['title'], value=data['forecast']['txt_forecast']['forecastday'][0]['fcttext'], inline=False)
+            e.add_field(name=data['forecast']['txt_forecast']['forecastday'][1]['title'], value=data['forecast']['txt_forecast']['forecastday'][1]['fcttext'], inline=False)
+            e.add_field(name=data['forecast']['txt_forecast']['forecastday'][2]['title'], value=data['forecast']['txt_forecast']['forecastday'][2]['fcttext'], inline=False)
+            e.add_field(name=data['forecast']['txt_forecast']['forecastday'][3]['title'], value=data['forecast']['txt_forecast']['forecastday'][3]['fcttext'], inline=False)
+            e.add_field(name=data['forecast']['txt_forecast']['forecastday'][4]['title'], value=data['forecast']['txt_forecast']['forecastday'][4]['fcttext'], inline=False)
+            e.add_field(name=data['forecast']['txt_forecast']['forecastday'][5]['title'], value=data['forecast']['txt_forecast']['forecastday'][5]['fcttext'], inline=False)
+            await self.bot.say(embed=e)
+        except Exception as e:
+            await self.bot.say(e)
 
     @commands.command(pass_context=True)
     async def radar(self, ctx, zip_code: int):
