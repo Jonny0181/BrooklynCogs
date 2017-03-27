@@ -1470,10 +1470,11 @@ class Audio:
         tex = "None"
         nam = "None"
         some_list = " ".join(e for e in [des, tex, nam, message.content])
-        if url in db["Blacklisted"]:
-            if url in some_list:
-                await self.bot.say("That search term is banned, please try to play something else.")
-                return
+        if db["Toggle"] is True:
+            if url in db["Blacklisted"]:
+                if url in some_list:
+                    await self.bot.say("That search term is banned, please try to play something else.")
+                    return
         if ("www") in url and ("." in url) or ("http://" in url) or ("https://" in url) or ("m.youtube.com" in url):
             if not self._valid_playable_url(url):
                 await self.bot.say("I'm sorry but your request is not valid. Please make sure there are no dots in your song name. If you are using a link and are recieving this error in a false way please join the support server and submit a bug report.")
