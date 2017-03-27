@@ -1455,7 +1455,7 @@ class Audio:
     async def play(self, ctx, *, url_or_search_terms=None):
         """Plays a link / searches and play"""
         data = fileIO(self.ban_list, "load")
-        db = directory[message.server.id]
+        db = data[message.server.id]
         if server.id not in data:
             data[server.id] = db_data
             fileIO(self.ban_list, "save", data)
