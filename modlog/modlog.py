@@ -427,6 +427,20 @@ class ModLog:
         msg.set_footer(text=timef)
         await self.bot.send_message(server.get_channel(channel), embed=msg)
 
+    async def on_channel_create(self, channel):
+        server = channel.server
+        db = fileIO(self.direct, "load")
+        if not server.id in db:
+            return
+        if db[server.id]['togglechannel'] == False:
+            return
+        channel = db[server.id]["Channel"]
+        msg = discord.Embed(colour=discord.Colour.blue())
+        msg.title = "A channel was created!"
+        msg.add_field(name="Name:", value=css.format(channel.name))
+        msg.set_footer(text=timef)
+        await self.bot.send_message(server.get_channel(channel), embed=msg)
+
     async def on_server_update(self, before, after):
         server = before
         db = fileIO(self.direct, "load")
