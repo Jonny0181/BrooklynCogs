@@ -286,6 +286,7 @@ class Audio:
 
     def __init__(self, bot, player):
         self.bot = bot
+        self.ban_list = "data/audio/banlist.json"
         self.queue = {}  # add deque's, repeat
         self.downloaders = {}  # sid: object
         self.settings = dataIO.load_json("data/audio/settings.json")
@@ -1104,6 +1105,86 @@ class Audio:
         await self.bot.say("Maximum length is now {} seconds.".format(length))
         self.save_settings()
 
+db_data = {"Toggle BanList" : False, "Blacklisted": {}}
+
+    @commands.group(pass_context=True, no_pm=True)
+    async def audioban(self, ctx):
+        """Bans song from being played in your server. :ok_hand:"""
+        channel = ctx.message.channel
+        server = ctx.message.server
+        my = server.me
+        data = fileIO(self.ban_list, "load")
+        if server.id not in data:
+            data[server.id] = db_data
+            fileIO(self.ban_list, "save", data)
+        if ctx.invoked_subcommand is None:
+            await send_cmd_help(ctx)
+            
+    @audioban.command(pass_context=True)
+    async def status(self, ctx):
+        """Shows audioban settings and status."""
+        channel = ctx.message.channel
+        server = ctx.message.server
+        directory = fileIO(self.link_data, "load")
+        db = directory[server.id]
+        if len(db["Blacklisted"]) != 0:
+            words = "- {}".format("\n-".join(["{}".format(x) for x in db["Blacklisted"]]))
+        else:
+            words = "No songs/videos banned for this server!"
+        status = (str(db["Toggle BanList"]).replace("True", "Enabled")).replace("False", "Disabled")
+        e = discord.Embed(colour=author.colour)
+        e.add_field(name="Server", value=server.name)
+        e.add_field(name="Toggled", value=status)
+        e.add_field(name="Banlist", value=words, inline=False)
+        e.set_thumbnail(url=server.avatar_url)
+        await self.bot.say(embed=e)
+        
+    @audioban.command(pass_context=True)
+    async def add(self, ctx, *words : str):
+        """Add a name or link to banlist."""
+        server = ctx.message.server
+        data = fileIO(self.ban_list, "load")
+        if not words:
+            await self.bot.reply("Please pass the names/links you want me to add to the banlist!")
+            return
+        for word in words:
+            data[server.id]["Blacklisted"][word] = True
+        wordlist = " , ".join(["\"{}\"".format(e) for e in words])
+        fmt = "Successfully added these words to the list.\n{}".format(wordlist)
+        await self.bot.reply(fmt)
+        fileIO(self.ban_lsit, "save", data)
+        
+    @audioban.command(pass_context=True)
+    async def remove(self, ctx, *words : str):
+        """Remove a ban from the list."""
+        server = ctx.message.server
+        data = fileIO(self.ban_list, "load")
+        if not words:
+            await self.bot.reply("Please pass the words/links you want me to blacklist")
+            return
+        in_word = []
+        for word in words:
+            if word in data[server.id]["Blacklisted"]:
+                in_word.append(word)
+                del data[server.id]["Blacklisted"][word]
+        wordlist = " , ".join(["\"{}\"".format(e) for e in in_word])
+        fmt = "Successfully removed these bans from the list.\n{}".format(wordlist)
+        await self.bot.reply(fmt)
+        fileIO(self.ban_list, "save", data)
+        
+    @audioban.command(pass_context = True)
+    async def toggle(self, ctx):
+        """Enables or disables the banlist"""
+        server = ctx.message.server
+        db = fileIO(self.ban_list, "load")
+        db[server.id]["Toggle BanList"] = not db[server.id]["Toggle"]
+        if db[server.id]["Toggle BanList"] is True:
+            msg = "Successfully enabled the audioban list. From now on the songs/video you have banned will not be played!"
+        else:
+            msg = "I have successfully disabled the banlist!"
+        await self.bot.reply(msg)
+        fileIO(self.ban_list, "save", db)
+
     @audioset.command(name="player")
     @checks.is_owner()
     async def audioset_player(self):
@@ -1323,9 +1404,10 @@ class Audio:
             await self.bot.say("Paused.")
         else:
             await self.bot.say("Nothing playing, nothing to pause.")
+            
     @commands.command(pass_context=True, no_pm = True)
     async def summon(self, ctx):
-        """Makes Kairos join your Voice Channel"""
+        """Makes Brooklyn join your Voice Channel"""
         message = ctx.message
         server = message.server
         channel = message.channel
@@ -1371,9 +1453,17 @@ class Audio:
     @commands.command(pass_context=True, no_pm=True)
     async def play(self, ctx, *, url_or_search_terms=None):
         """Plays a link / searches and play"""
+        data = fileIO(self.ban_list, "load")
+        db = directory[message.server.id]
+        if server.id not in data:
+            data[server.id] = db_data
+            fileIO(self.ban_list, "save", data)
         url = url_or_search_terms
         if url is None: return await send_cmd_help(ctx)
         else: pass
+        if url in in db["Blacklisted"]:
+            await self.bot.say("That search term is banned, please try to play something else.")
+            return
         message = ctx.message
         server = message.server
         channel = message.channel
@@ -2279,7 +2369,7 @@ def check_folders():
 
 
 def check_files():
-    default = {"VOLUME": 50, "MAX_LENGTH": 3700, "VOTE_ENABLED": True,
+    default = {"VOLUME": 50, "BAN_LIST": None, "MAX_LENGTH": 3700, "VOTE_ENABLED": True,
                "MAX_CACHE": 0, "SOUNDCLOUD_CLIENT_ID": None,
                "TITLE_STATUS": True, "AVCONV": False, "VOTE_THRESHOLD": 50,
                "SERVERS": {}}
