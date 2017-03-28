@@ -291,18 +291,12 @@ class Info:
             data.set_author(name=server.name, url=server.icon_url)
             data.set_thumbnail(url=server.icon_url)
         if server.icon_url and server.features:
-            data.set_author(name=server.name, url=server.icon_url, icon_url="https://static-cdn.jtvnw.net/jtv_user_pictures/panel-92094149-image-0b6104b16249b783-320.png")
-            data.set_thumbnail(url=server.icon_url)
+            data.set_author(name=server.name, url=server.icon_url, icon_url=server.icon_url")
+            data.set_thumbnail(url="https://static-cdn.jtvnw.net/jtv_user_pictures/panel-92094149-image-0b6104b16249b783-320.png)
         else:
             data.set_author(name=server.name)
-        if server.emojis:
-            emotes = discord.Embed(title="Emotes", description=" ".join(emojis), colour=discord.Colour(value=colour))
-        else:
-            emotes = discord.Embed(title="Emotes", description="None", colour=discord.Colour(value=colour))
-
         try:
             await self.bot.say(embed=data)
-            await self.bot.say(embed=emotes)
         except discord.HTTPException:
             online = str(len([m.status for m in server.members if str(m.status) == "online" or str(m.status) == "idle"]))
             server = ctx.message.server
