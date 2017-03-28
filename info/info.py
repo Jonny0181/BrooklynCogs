@@ -290,6 +290,9 @@ class Info:
         if server.icon_url:
             data.set_author(name=server.name, url=server.icon_url)
             data.set_thumbnail(url=server.icon_url)
+        if server.icon_url and server.features:
+            data.set_author(name=server.name, url=server.icon_url, icon_url="https://static-cdn.jtvnw.net/jtv_user_pictures/panel-92094149-image-0b6104b16249b783-320.png")
+            data.set_thumbnail(url=server.icon_url)
         else:
             data.set_author(name=server.name)
         if server.emojis:
