@@ -1447,6 +1447,9 @@ class Audio:
         voice_channel = author.voice_channel
         data = fileIO(self.ban_list, "load")
         db = data[message.server.id]
+        if server.id not in data:
+            data[server.id] = db_data
+            fileIO(self.ban_list, "save", data)
         url = url_or_search_terms
         if url is None: return await send_cmd_help(ctx)
         des = "None"
@@ -1454,9 +1457,6 @@ class Audio:
         nam = "None"
         some_list = " ".join(e for e in [des, tex, nam, message.content])
         if url in db["Blacklisted"]:
-            if server.id not in data:
-                data[server.id] = db_data
-                fileIO(self.ban_list, "save", data)
             if url in some_list:
                 await self.bot.say("That search term is banned, please try to play something else.")
                 return
