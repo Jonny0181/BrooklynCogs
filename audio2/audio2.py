@@ -1447,10 +1447,10 @@ class Audio:
         voice_channel = author.voice_channel
         data = fileIO(self.ban_list, "load")
         db = data[message.server.id]
+        url = url_or_search_terms
         if server.id not in data:
             data[server.id] = db_data
             fileIO(self.ban_list, "save", data)
-        url = url_or_search_terms
         if url is None: return await send_cmd_help(ctx)
         des = "None"
         tex = "None"
