@@ -68,6 +68,8 @@ class Welcomer:
             await self.bot.say(embed=e)
         except Exception as e:
             await self.bot.say(e)
+        except KeyError:
+            await self.bot.say("There is no welcomer settings set on this server.")
         
     @welcomer.command(pass_context=True)
     async def channel(self, ctx, *, channel : discord.Channel):
