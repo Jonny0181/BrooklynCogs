@@ -57,13 +57,13 @@ class Welcomer:
         e = discord.Embed(colour=discord.Colour(value=color))
         e.set_author(name=server.name, icon_url=server.icon_url)
         e.add_field(name="Server Name:", value=server.name)
-        e.add_field(name="Welcomer Channel:", value=db[server.id]["Channel"].replace("None", "No channel set."))
+        e.add_field(name="Welcomer Channel:", value=db[server.id]["Channel"])
         e.add_field(name="Join Toggle:", value=db[server.id]["Join"])
         e.add_field(name="Leave Toggle:", value=db[server.id]["Leave"])
-        e.add_field(name="Bot Role:", value=db[server.id]["Botrole"].replace("None", "No role set."))
+        e.add_field(name="Bot Role:", value=db[server.id]["Botrole"])
         e.add_field(name="Bot Role Toggle:", value=db[server.id]["Botrolet"])
-        e.add_field(name="Join Message:", value=db[server.id]["Joinmsg"].replace("None", "No message set."), inline=False)
-        e.add_field(name="Leave Message:", value=db[server.id]["Leavemsg"].replace("None", "No message set."), inline=False)
+        e.add_field(name="Join Message:", value=db[server.id]["Joinmsg"], inline=False)
+        e.add_field(name="Leave Message:", value=db[server.id]["Leavemsg"], inline=False)
         try:
             await self.bot.say(embed=e)
         except Exception as e:
