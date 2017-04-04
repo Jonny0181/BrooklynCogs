@@ -220,7 +220,7 @@ class Welcomer:
         inv_list = await self.bot.invites_from(server)
         for a in inv_list:
             try:
-                if int(a.uses) > int(json_list[a.url])
+                if int(a.uses) > int(json_list[a.url]):
                     await self.bot.send_message(server.get_channel(channel), message.format(member, a, server))
             except KeyError:
                 await self.bot.send_message(server.get_channel(channel), message.format(member, a, server))
