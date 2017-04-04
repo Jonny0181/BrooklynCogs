@@ -89,7 +89,7 @@ class Welcomer:
                 invs = await self.bot.invites_from(server)
                 for i in invs:
                     db[server.id]["Invites"][i.url] = i.uses
-                fileIO(self.direct, "save", db)
+                fileIO(self.load, "save", db)
                 await self.bot.say("Channel set.")
                 
     @welcomer.command(pass_context=True)
@@ -128,7 +128,7 @@ class Welcomer:
     async def botrole(self, ctx, *, role : discord.Role):
         """Sets the welcomer bot role setting."""
         server = ctx.message.server
-        db = fileIO(self.direct, "load")
+        db = fileIO(self.load, "load")
         if not server.id in db:
             await self.bot.say("Please set the channel you want me to send welcoming and leaving messages to with `{}welcomer channel #channel_name` then you may proceed to setting this message.".format(ctx.prefix))
             return
