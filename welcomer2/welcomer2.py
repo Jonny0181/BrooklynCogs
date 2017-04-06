@@ -101,6 +101,9 @@ class Welcomer:
         """Sets welcomer joinmsg setting."""
         server = ctx.message.server
         db = fileIO(self.load, "load")
+        if ctx.message.server.id not in db:
+            await self.bot.say("Please set the channel you want me to send welcoming and leaving messages to with `{}welcomer channel #channel_name` then you may proceed to setting this message..".format(ctx.prefix))
+            return
         if db[server.id]['Joinmsg'] is not None:
             db[server.id]['Joinmsg'] = message
             fileIO(self.load, "save", db)
@@ -109,14 +112,15 @@ class Welcomer:
             db[server.id]['Joinmsg'] = message
             fileIO(self.load, "save", db)
             await self.bot.say("Join message has been set.")
-        else:
-            await self.bot.say("Please set the channel you want me to send welcoming and leaving messages to with `{}welcomer channel #channel_name` then you may proceed to setting this message.".format(ctx.prefix))
             
     @welcomer.command(pass_context=True)
     async def leavemsg(self, ctx, *, message : str):
         """Sets the welcomer leavemsg setting."""
         server = ctx.message.server
         db = fileIO(self.load, "load")
+        if ctx.message.server.id not in db:
+            await self.bot.say("Please set the channel you want me to send welcoming and leaving messages to with `{}welcomer channel #channel_name` then you may proceed to setting this message..".format(ctx.prefix))
+            return
         if db[server.id]['Leavemsg'] is not None:
             db[server.id]['Leavemsg'] = message
             fileIO(self.load, "save", db)
@@ -134,7 +138,7 @@ class Welcomer:
         server = ctx.message.server
         db = fileIO(self.load, "load")
         if not server.id in db:
-            await self.bot.say("Please set the channel you want me to send welcoming and leaving messages to with `{}welcomer channel #channel_name` then you may proceed to setting this message.".format(ctx.prefix))
+            await self.bot.say("Server not found, please use `{}welcomer channel #channel_name` then you can set the bot role.".format(ctx.prefix))
             return
         if ctx.message.server.me.permissions_in(ctx.message.channel).manage_roles:
             db[server.id]['Botrole'] = role.id
@@ -149,7 +153,7 @@ class Welcomer:
         server = ctx.message.server
         db = fileIO(self.load, "load")
         if not server.id in db:
-            await self.bot.say("Please set the channel you want me to send welcoming and leaving messages to with `{}welcomer channel #channel_name` then you may proceed to setting this message.".format(ctx.prefix))
+            await self.bot.say("Server not found, please use `{}welcomer channel #channel_name` then you can set/enable the bot role.".format(ctx.prefix))
             return
         if db[server.id]['Botrole'] == None:
             await self.bot.say("Botrole not found set it with `{}welcomer botrole`.".format(ctx.prefix))
@@ -183,6 +187,10 @@ class Welcomer:
     async def togglej(self, ctx):
         """Toggles the join message for welcomer."""
         server = ctx.message.server
+        db = fileIO(self.load, "load")
+        if not server.id in db:
+            await self.bot.say("Please set the channel you want me to send welcoming and leaving messages to with `{}welcomer channel #channel_name` then you may proceed to setting this message.".format(ctx.prefix))
+            return
         db = fileIO(self.load, "load")
         if db[server.id]["Join"] == False:
             db[server.id]["Join"] = True
