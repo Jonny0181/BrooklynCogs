@@ -51,6 +51,10 @@ class Welcomer:
     async def status(self, ctx):
         """Shows the servers settings for welcomer."""
         server = ctx.message.server
+        db = fileIO(self.load, "load")
+        if ctx.message.server.id not in db:
+            await self.bot.say(":x: **Welcomer has not been configured for this server, use `welcomer channel` first**")
+            return
         color = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         color = int(color, 16)
         db = fileIO(self.load, "load")
