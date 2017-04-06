@@ -1448,10 +1448,10 @@ class Audio:
         data = fileIO(self.ban_list, "load")
         db = data[message.server.id]
         url = url_or_search_terms
+        if url is None: return await send_cmd_help(ctx)
         if not server.id in data:
             data[server.id] = db_data
             fileIO(self.ban_list, "save", data)
-        if url is None: return await send_cmd_help(ctx)
         des = "None"
         tex = "None"
         nam = "None"
