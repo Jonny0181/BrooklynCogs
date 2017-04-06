@@ -53,7 +53,7 @@ class Welcomer:
         server = ctx.message.server
         db = fileIO(self.load, "load")
         if ctx.message.server.id not in db:
-            await self.bot.say(":x: **Welcomer has not been configured for this server, use `welcomer channel` first**")
+            await self.bot.say("Welcomer has not been configured for this server, use `{}welcomer channel` first.".format(ctx.prefix))
             return
         color = ''.join([choice('0123456789ABCDEF') for x in range(6)])
         color = int(color, 16)
