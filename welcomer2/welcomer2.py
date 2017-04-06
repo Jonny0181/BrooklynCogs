@@ -66,8 +66,6 @@ class Welcomer:
         e.add_field(name="Leave Message:", value=db[server.id]["Leavemsg"], inline=False)
         try:
             await self.bot.say(embed=e)
-        except Exception as e:
-            await self.bot.say(e)
         except KeyError:
             await self.bot.say("There is no welcomer settings set on this server.")
         
