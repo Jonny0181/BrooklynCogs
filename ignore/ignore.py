@@ -51,32 +51,32 @@ class Ignore:
                 return
 
     @_ignore.command(pass_context=True)
-    async def role(self, ctx, *, role : discord.role):
+    async def role(self, ctx, *, role : discord.Role):
         """Ignore a role."""
         server = ctx.message.server
         db = fileIO(self.load, "load")
         if server.id in db:
-            if channel.id not in db[server.id]["Roles"]:
+            if role.id not in db[server.id]["Roles"]:
                 db[server.id]["Roles"].append(role.id)
                 fileIO(self.load, "save", db)
                 await self.bot.say("Role added to the ignore list.")
                 return
-            if channel.id in db[server.id]["Roles"]:
+            if role.id in db[server.id]["Roles"]:
                 await self.bot.say("This role is already in the ignore list.")
                 return
 
     @_ignore.command(pass_context=True)
     async def user(self, ctx, *, user : discord.Member):
-        """Ignore a role."""
+        """Ignore a user."""
         server = ctx.message.server
         db = fileIO(self.load, "load")
         if server.id in db:
-            if channel.id not in db[server.id]["Users"]:
+            if user.id not in db[server.id]["Users"]:
                 db[server.id]["Users"].append(user.id)
                 fileIO(self.load, "save", db)
                 await self.bot.say("User added to the ignore list.")
                 return
-            if channel.id in db[server.id]["Users"]:
+            if user.id in db[server.id]["Users"]:
                 await self.bot.say("This user is already in the ignore list.")
                 return
 
