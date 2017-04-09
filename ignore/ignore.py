@@ -11,7 +11,7 @@ settings = {"Channels" : [], "Users" : [], "Roles" : []}
 class Ignore:
 	def __init__(self, bot):
 		self.bot = bot
-        self.load = "data/ignore/ignore_list.json"
+		self.load = "data/ignore/ignore_list.json"
 		
     @commands.group(pass_context=True, name="ignore")
     async def _ignore(self, ctx):
