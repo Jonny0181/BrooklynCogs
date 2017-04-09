@@ -79,6 +79,15 @@ class Ignore:
             if user.id in db[server.id]["Users"]:
                 await self.bot.say("This user is already in the ignore list.")
                 return
+                
+    async def on_command(self, ctx, command):
+        db = fileIO(self.load, "load")
+        channel = ctx.message.channel
+        server = ctx.message.server
+        user = ctx.message.author
+        if server.id in db:
+            if channel.id in db[server.id]["Channels"]:
+                return False
 
 def check_folder():
     if not os.path.exists('data/ignore'):
