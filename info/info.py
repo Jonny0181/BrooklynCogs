@@ -46,7 +46,7 @@ class Info:
         e = discord.Embed(title='New Members', colour=discord.Colour.green())
 
         for member in members:
-            body = 'joined {0}, created {1}'.format(human_timedelta(member.joined_at),
+            body = '`Joined Server:` {0}\n`Account created:` {1}'.format(human_timedelta(member.joined_at),
                                                     human_timedelta(member.created_at))
             e.add_field(name='{0} (ID: {0.id})'.format(member), value=body, inline=False)
 
