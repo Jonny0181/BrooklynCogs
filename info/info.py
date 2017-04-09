@@ -30,6 +30,34 @@ class Info:
             os.path.join(self.cache_path, s)) / 10**6, songs))
         return size
 
+    def human_timedelta(dt):
+        now = datetime.datetime.utcnow()
+        delta = now - dt
+        hours, remainder = divmod(int(delta.total_seconds()), 3600)
+        minutes, seconds = divmod(remainder, 60)
+        days, hours = divmod(hours, 24)
+        years, days = divmod(days, 365)
+
+        if years:
+            if days:
+                return '%s and %s ago' % (Plural(year=years), Plural(day=days))
+            return '%s ago' % Plural(year=years)
+
+        if days:
+            if hours:
+                return '%s and %s ago' % (Plural(day=days), Plural(hour=hours))
+            return '%s ago' % Plural(day=days)
+
+        if hours:
+            if minutes:
+                return '%s and %s ago' % (Plural(hour=hours), Plural(minute=minutes))
+            return '%s ago' % Plural(hour=hours)
+
+        if minutes:
+            if seconds:
+                return '%s and %s ago' % (Plural(minute=minutes), Plural(second=seconds))
+            return '%s ago' % Plural(minute=minutes)
+        return '%s ago' % Plural(second=seconds)
 
     @commands.command(pass_context=True, no_pm=True, aliases=['newmembers'])
     async def newusers(self, ctx, *, count=5):
