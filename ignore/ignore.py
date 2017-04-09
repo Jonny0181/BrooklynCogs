@@ -40,7 +40,7 @@ class Ignore:
         server = ctx.message.server
         db = fileIO(self.load, "load")
         if server.id in db:
-            if channel.id not in [server.id]["Channels"]:
+            if channel.id not in db[server.id]["Channels"]:
                 db[server.id]["Channels"].append(channel.id)
                 fileIO(self.load, "save", db)
                 await self.bot.say("Channel added to the ignore list.")
@@ -53,7 +53,7 @@ class Ignore:
         server = ctx.message.server
         db = fileIO(self.load, "load")
         if server.id in db:
-            if channel.id not in [server.id]["Roles"]:
+            if channel.id not in db[server.id]["Roles"]:
                 db[server.id]["Roles"].append(role.id)
                 fileIO(self.load, "save", db)
                 await self.bot.say("Role added to the ignore list.")
@@ -66,7 +66,7 @@ class Ignore:
         server = ctx.message.server
         db = fileIO(self.load, "load")
         if server.id in db:
-            if channel.id not in [server.id]["Users"]:
+            if channel.id not in db[server.id]["Users"]:
                 db[server.id]["Users"].append(user.id)
                 fileIO(self.load, "save", db)
                 await self.bot.say("User added to the ignore list.")
