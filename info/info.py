@@ -30,6 +30,28 @@ class Info:
             os.path.join(self.cache_path, s)) / 10**6, songs))
         return size
 
+
+    @commands.command(pass_context=True, no_pm=True, aliases=['newmembers'])
+    async def newusers(self, ctx, *, count=5):
+        """Tells you the newest members of the server.
+        This is useful to check if any suspicious members have
+        joined.
+        The count parameter can only be up to 25.
+        """
+        guild = ctx.message.server
+        count = max(min(count, 25), 5)
+
+        members = sorted(guild.members, key=lambda m: m.joined_at, reverse=True)[:count]
+
+        e = discord.Embed(title='New Members', colour=discord.Colour.green())
+
+        for member in members:
+            body = 'joined {0}, created {1}'.format(human_timedelta(member.joined_at),
+                                                    human_timedelta(member.created_at))
+            e.add_field(name='{0} (ID: {0.id})'.format(member), value=body, inline=False)
+
+        await self.bot.say(embed=e)
+
     @commands.command(pass_context=True)
     async def sleaderboard(self, ctx):
         author = ctx.message.author
