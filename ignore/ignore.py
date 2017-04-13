@@ -9,7 +9,7 @@ from cogs.utils.dataIO import fileIO, dataIO
 class Ignore:
     def __init__(self, bot):
         self.bot = bot
-        self.load = dataIO.load_json("data/mod/ignorelist.json")
+        self.load = dataIO.load_json("data/mod/ignore_list.json")
 		
     @commands.group(pass_context=True, name="ignore")
     async def _ignore(self, ctx):
