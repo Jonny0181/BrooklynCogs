@@ -18,6 +18,7 @@ class Ignore:
             await self.bot.send_cmd_help(ctx)
 
     @_ignore.command(pass_context=True)
+    @checks.mod_or_permissions(manage_server=True)
     async def channel(self, ctx, *, channel : discord.Channel):
         """Ignore a channel."""
         server = ctx.message.server
@@ -29,6 +30,7 @@ class Ignore:
             await self.bot.say("Channel already in ignore list.")
 
     @_ignore.command(pass_context=True)
+    @checks.mod_or_permissions(manage_server=True)
     async def role(self, ctx, *, role : discord.Role):
         """Ignore a role."""
         server = ctx.message.server
@@ -58,6 +60,7 @@ class Ignore:
             await self.bot.send_cmd_help(ctx)
 
     @_unignore.command(pass_context=True)
+    @checks.mod_or_permissions(manage_server=True)
     async def channel(self, ctx, *, channel : discord.Channel):
         """Ungnore a channel."""
         server = ctx.message.server
@@ -69,6 +72,7 @@ class Ignore:
             await self.bot.say("Channel not in ignore list.")
 
     @_unignore.command(pass_context=True)
+    @checks.mod_or_permissions(manage_server=True)
     async def role(self, ctx, *, role : discord.Role):
         """Unignore a role."""
         server = ctx.message.server
