@@ -56,7 +56,7 @@ class Ignore:
         if ctx.invoked_subcommand is None:
             await self.bot.send_cmd_help(ctx)
 
-    @_unignore.command(pass_context=True. name="channel")
+    @_unignore.command(pass_context=True, name="channel")
     async def _channel(self, ctx, channel : discord.Channel):
         """Ungnore a channel."""
         server = ctx.message.server
