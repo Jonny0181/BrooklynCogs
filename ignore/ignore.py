@@ -56,8 +56,8 @@ class Ignore:
         if ctx.invoked_subcommand is None:
             await self.bot.send_cmd_help(ctx)
 
-    @_unignore.command(pass_context=True)
-    async def channel(self, ctx, channel : discord.Channel):
+    @_unignore.command(pass_context=True. name="channel")
+    async def _channel(self, ctx, channel : discord.Channel):
         """Ungnore a channel."""
         server = ctx.message.server
         if channel.id in self.load["Channels"]:
@@ -67,8 +67,8 @@ class Ignore:
         else:
             await self.bot.say("Channel not in ignore list.")
 
-    @_unignore.command(pass_context=True)
-    async def role(self, ctx, role : discord.Role):
+    @_unignore.command(pass_context=True, name="role")
+    async def _role(self, ctx, role : discord.Role):
         """Unignore a role."""
         server = ctx.message.server
         if role.id in self.load["Roles"]:
@@ -78,8 +78,8 @@ class Ignore:
         else:
             await self.bot.say("This role is not in the ignore list.")
 
-    @_unignore.command(pass_context=True)
-    async def user(self, ctx, user : discord.Member):
+    @_unignore.command(pass_context=True, name="user")
+    async def _user(self, ctx, user : discord.Member):
         """Unignore a user."""
         server = ctx.message.server
         if user.id in self.load["Users"]:
