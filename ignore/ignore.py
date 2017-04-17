@@ -17,10 +17,10 @@ class Ignore:
         if ctx.invoked_subcommand is None:
             await self.bot.send_cmd_help(ctx)
 
-    @checks.mod_or_permissions(manage_server=True)
-    @_ignore.command()
-    async def channel(self, channel : discord.Channel):
+    @_ignore.command(pass_context=True)
+    async def channel(self, ctx, *, channel : discord.Channel):
         """Ignore a channel."""
+        server = ctx.message.server
         if channel.id not in self.load["Channels"]:
             self.load["Channels"].append(channel.id)
             dataIO.save_json("data/mod/ignore_list.json", self.load)
@@ -28,10 +28,10 @@ class Ignore:
         else:
             await self.bot.say("Channel already in ignore list.")
 
-    @checks.mod_or_permissions(manage_server=True)
-    @_ignore.command()
-    async def role(self, role : discord.Role):
+    @_ignore.command(pass_context=True)
+    async def role(self, ctx, *, role : discord.Role):
         """Ignore a role."""
+        server = ctx.message.server
         if role.id not in self.load["Roles"]:
             self.load["Roles"].append(role.id)
             dataIO.save_json("data/mod/ignore_list.json", self.load)
@@ -39,10 +39,10 @@ class Ignore:
         else:
             await self.bot.say("This role is already in the ignore list.")
 
-    @checks.is_owner()
-    @_ignore.command()
-    async def user(self, user : discord.Member):
+    @_ignore.command(pass_context=True)
+    async def user(self, ctx, *, user : discord.Member):
         """Ignore a user."""
+        server = ctx.message.server
         if user.id not in self.load["Users"]:
             self.load["Users"].append(user.id)
             dataIO.save_json("data/mod/ignore_list.json", self.load)
@@ -56,10 +56,10 @@ class Ignore:
         if ctx.invoked_subcommand is None:
             await self.bot.send_cmd_help(ctx)
 
-    @checks.mod_or_permissions(manage_server=True)
-    @_unignore.command()
-    async def channel(self, channel : discord.Channel):
+    @_unignore.command(pass_context=True)
+    async def channel(self, ctx, *, channel : discord.Channel):
         """Ungnore a channel."""
+        server = ctx.message.server
         if channel.id in self.load["Channels"]:
             self.load["Channels"].remove(channel.id)
             dataIO.save_json("data/mod/ignore_list.json", self.load)
@@ -67,10 +67,10 @@ class Ignore:
         else:
             await self.bot.say("Channel not in ignore list.")
 
-    @checks.mod_or_permissions(manage_server=True)
-    @_unignore.command()
-    async def role(self, role : discord.Role):
+    @_unignore.command(pass_context=True)
+    async def role(self, ctx, *, role : discord.Role):
         """Unignore a role."""
+        server = ctx.message.server
         if role.id in self.load["Roles"]:
             self.load["Roles"].remove(role.id)
             dataIO.save_json("data/mod/ignore_list.json", self.load)
@@ -78,10 +78,10 @@ class Ignore:
         else:
             await self.bot.say("This role is not in the ignore list.")
 
-    @checks.is_owner()
-    @_unignore.command()
+    @_unignore.command(pass_context=True)
     async def user(self, ctx, *, user : discord.Member):
         """Unignore a user."""
+        server = ctx.message.server
         if user.id in self.load["Users"]:
             self.load["Users"].remove(user.id)
             dataIO.save_json("data/mod/ignore_list.json", self.load)
