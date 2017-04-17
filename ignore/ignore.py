@@ -40,6 +40,7 @@ class Ignore:
             await self.bot.say("This role is already in the ignore list.")
 
     @_ignore.command(pass_context=True)
+    @checks.is_owner()
     async def user(self, ctx, *, user : discord.Member):
         """Ignore a user."""
         server = ctx.message.server
@@ -79,6 +80,7 @@ class Ignore:
             await self.bot.say("This role is not in the ignore list.")
 
     @_unignore.command(pass_context=True)
+    @checks.is_owner()
     async def user(self, ctx, *, user : discord.Member):
         """Unignore a user."""
         server = ctx.message.server
