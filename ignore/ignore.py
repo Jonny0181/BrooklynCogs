@@ -17,8 +17,8 @@ class Ignore:
         if ctx.invoked_subcommand is None:
             await self.bot.send_cmd_help(ctx)
 
-    @_ignore.command(pass_context=True)
     @checks.mod_or_permissions(manage_server=True)
+    @_ignore.command(pass_context=True)
     async def channel(self, ctx, *, channel : discord.Channel):
         """Ignore a channel."""
         server = ctx.message.server
@@ -29,8 +29,8 @@ class Ignore:
         else:
             await self.bot.say("Channel already in ignore list.")
 
-    @_ignore.command(pass_context=True)
     @checks.mod_or_permissions(manage_server=True)
+    @_ignore.command(pass_context=True)
     async def role(self, ctx, *, role : discord.Role):
         """Ignore a role."""
         server = ctx.message.server
@@ -41,8 +41,8 @@ class Ignore:
         else:
             await self.bot.say("This role is already in the ignore list.")
 
-    @_ignore.command(pass_context=True)
     @checks.is_owner()
+    @_ignore.command(pass_context=True)
     async def user(self, ctx, *, user : discord.Member):
         """Ignore a user."""
         server = ctx.message.server
@@ -59,8 +59,8 @@ class Ignore:
         if ctx.invoked_subcommand is None:
             await self.bot.send_cmd_help(ctx)
 
-    @_unignore.command(pass_context=True)
     @checks.mod_or_permissions(manage_server=True)
+    @_unignore.command(pass_context=True)
     async def channel(self, ctx, *, channel : discord.Channel):
         """Ungnore a channel."""
         server = ctx.message.server
@@ -71,8 +71,8 @@ class Ignore:
         else:
             await self.bot.say("Channel not in ignore list.")
 
-    @_unignore.command(pass_context=True)
     @checks.mod_or_permissions(manage_server=True)
+    @_unignore.command(pass_context=True)
     async def role(self, ctx, *, role : discord.Role):
         """Unignore a role."""
         server = ctx.message.server
@@ -83,8 +83,8 @@ class Ignore:
         else:
             await self.bot.say("This role is not in the ignore list.")
 
-    @_unignore.command(pass_context=True)
     @checks.is_owner()
+    @_unignore.command(pass_context=True)
     async def user(self, ctx, *, user : discord.Member):
         """Unignore a user."""
         server = ctx.message.server
