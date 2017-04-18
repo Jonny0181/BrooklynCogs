@@ -207,9 +207,12 @@ class Music:
 				await server.voice_client.disconnect()
 		else:
 			self.repeat = 0
-		
-		await self.bot.join_voice_channel(channel)
-		
+		try:
+			await self.bot.join_voice_channel(channel)
+		    await self.bot.server_voice_state(server.me, deafned=True)
+        except:
+			await self.bot.join_voice_channel(channel)
+            await bot.reply("Missing permissions to server deafen myself. If I have these permissions it will help reduce audio lag.")
 		return server.voice_client
 	
 	async def _disconnect(self, server):
@@ -385,7 +388,7 @@ class Music:
 					msg.add_field(name="Now Playing:", value="{}\n{}".format(queue[0]["title"], queue[0]["url"]))
 					if num > 1:
 						msg.add_field(name="Next Up:", value="\n".join(str(i) + ") " + queue[i]["title"] for i in range(1, min(len(queue), 10))) if len(queue) > 1 else "")
-					if num > 10:	
+					if num > 10:
 						msg.set_footer(text="Total length of queue {} with {} more songs.".format(format(total_length), (len(queue) - 9)))
 					if num == 9:
 						msg.set_footer(text="Total length of queue {}.".format(format(total_length)))
